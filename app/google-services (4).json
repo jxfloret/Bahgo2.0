@@ -1,0 +1,98 @@
+{
+  "project_info": {
+    "project_number": "734832326241",
+    "firebase_url": "https://bahgo-ee71b-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "bahgo-ee71b",
+    "storage_bucket": "bahgo-ee71b.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:734832326241:android:5bb857abc9d4e4600e1c20",
+        "android_client_info": {
+          "package_name": "com.bahgo.mobile"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "734832326241-k3saggspakp3tbnmrll2lhtv6a5gm497.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAdwD61B3W2_7ogIjRwnLR0WmNgm5hpN4c"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "734832326241-k3saggspakp3tbnmrll2lhtv6a5gm497.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:734832326241:android:e1e031c0bff0b13a0e1c20",
+        "android_client_info": {
+          "package_name": "com.example.bahgo20"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "734832326241-k3saggspakp3tbnmrll2lhtv6a5gm497.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAdwD61B3W2_7ogIjRwnLR0WmNgm5hpN4c"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "734832326241-k3saggspakp3tbnmrll2lhtv6a5gm497.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:734832326241:android:9050b3b8c6765dcb0e1c20",
+        "android_client_info": {
+          "package_name": "com.example.bahgomob"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "734832326241-k3saggspakp3tbnmrll2lhtv6a5gm497.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAdwD61B3W2_7ogIjRwnLR0WmNgm5hpN4c"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "734832326241-k3saggspakp3tbnmrll2lhtv6a5gm497.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

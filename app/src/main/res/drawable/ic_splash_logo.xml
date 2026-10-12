@@ -1,0 +1,25 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    <!-- Background Circle/Rounded Square -->
+    <path
+        android:fillColor="#0056D2"
+        android:pathData="M54,0C24.18,0,0,24.18,0,54s24.18,54,54,54s54,-24.18,54,-54S83.82,0,54,0z" />
+
+    <!-- Wave shape -->
+    <path
+        android:fillColor="#4DBBFF"
+        android:pathData="M15,60 Q30,45 54,65 T93,60 L93,90 Q54,100 15,90 Z" />
+
+    <!-- Orange Circle -->
+    <path
+        android:fillColor="#FF914D"
+        android:pathData="M54,30m-10,0a10,10 0,1 1,20,0a10,10 0,1 1,-20,0" />
+
+    <!-- Exclamation Mark (White) -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M53,25h2v6h-2z M53,33h2v2h-2z" />
+</vector>

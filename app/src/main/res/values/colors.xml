@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="splash_bg">#0056D2</color>
+    <color name="logo_orange">#FF914D</color>
+    <color name="logo_wave">#4DBBFF</color>
+
+    <color name="gradient_top">#B3E5FC</color>
+    <color name="gradient_bottom">#0D47A1</color>
+    <color name="text_secondary">#E0E0E0</color>
+</resources>

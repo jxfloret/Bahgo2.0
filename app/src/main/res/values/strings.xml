@@ -1,0 +1,49 @@
+<resources>
+    <string name="app_name">BahGo 2.0</string>
+    <string name="logo_text">BAHG\nO</string>
+    <string name="main_title">BAHGO</string>
+    <string name="main_description">an innovative early flood detection and monitoring system designed to provide real-time alerts and data visualization through a mobile application dashboard.</string>
+    <string name="get_started">Get Started</string>
+    <string name="log_in">Log In</string>
+    <string name="logout">Logout</string>
+
+    <string name="setup_title">Let\'s get you set up</string>
+    <string name="setup_subtitle">We\'ll send flood alerts straight to your phone.</string>
+    <string name="first_name_label">First Name</string>
+    <string name="surname_label">Surname</string>
+    <string name="phone_number_label">Phone Number</string>
+    <string name="password_label">Password</string>
+    <string name="own_vehicle_label">I own a vehicle</string>
+    <string name="continue_btn">Continue</string>
+    <string name="ph_code">+63</string>
+    <string name="phone_hint">9XX XXX XXXX</string>
+    <string name="splash_text">BahGo 2.0</string>
+
+    <!-- Login -->
+    <string name="login_title">Welcome Back</string>
+    <string name="login_subtitle">Log in to continue your journey</string>
+    <string name="no_account_signup">Don\'t have an account? Sign up</string>
+
+    <!-- Location Permission -->
+    <string name="location_title">Enable Location</string>
+    <string name="location_desc">Bahgo needs your location to show flood risks in your area and send timely location-based alerts even when the app is closed.</string>
+    <string name="allow_always">Allow Always</string>
+    <string name="allow_while_using">Allow While Using App</string>
+    <string name="deny">Deny</string>
+    <string name="location_required_title">Location Required</string>
+    <string name="location_required_msg">Bahgo needs your location to show flood risks and send alerts for your area. Please go to Settings and allow location access.</string>
+    <string name="background_location_disclosure_title">Background Location</string>
+    <string name="background_location_disclosure_msg">To keep you safe, Bahgo collects location data to enable flood alerts even when the app is closed or not in use. Please select \"Allow all the time\" in the next screen.</string>
+
+    <!-- Notification Permission -->
+    <string name="notification_title">Enable Notifications</string>
+    <string name="notification_desc">Stay informed. Bahgo sends real-time flood alerts and safety updates directly to your notifications.</string>
+    <string name="allow_notifications">Allow Notifications</string>
+    <string name="notifications_required_title">Notifications Required</string>
+    <string name="notifications_required_msg">Flood alerts depend on notifications. Please enable them in Settings to ensure you receive life-saving updates.</string>
+
+    <!-- Common -->
+    <string name="go_to_settings">Go to Settings</string>
+    <string name="cancel">Cancel</string>
+    <string name="ok">OK</string>
+</resources>
