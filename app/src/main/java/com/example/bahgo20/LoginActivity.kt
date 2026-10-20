@@ -4,9 +4,10 @@ import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Base64
 import android.util.Log
-import android.view.View
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -16,8 +17,8 @@ import androidx.core.view.updatePadding
 import androidx.lifecycle.lifecycleScope
 import com.example.bahgo20.databinding.ActivityLoginBinding
 import com.example.bahgo20.otp.OtpProvider
-import com.google.firebase.firestore.FieldValue
-import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ServerValue
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
@@ -29,7 +30,7 @@ import javax.crypto.spec.PBEKeySpec
 class LoginActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityLoginBinding
-    private val db = FirebaseFirestore.getInstance()
+    private val db = FirebaseDatabase.getInstance("https://bahgo-ee71b-default-rtdb.asia-southeast1.firebasedatabase.app/").reference
     private lateinit var sessionManager: SessionManager
     
     private var failedAttempts = 0
@@ -51,6 +52,9 @@ class LoginActivity : AppCompatActivity() {
             insets
         }
 
+        setupTextWatchers()
+        updateLoginButtonState()
+
         binding.btnLogin.setOnClickListener {
             performLogin()
         }
@@ -59,6 +63,29 @@ class LoginActivity : AppCompatActivity() {
             startActivity(Intent(this, SetupActivity::class.java))
             finish()
         }
+    }
+
+    private fun isLoginFormComplete(): Boolean {
+        val phone = binding.etPhoneNumber.text?.toString()?.trim().orEmpty()
+        val password = binding.etPassword.text?.toString().orEmpty()
+        return phone.isNotEmpty() && password.isNotEmpty()
+    }
+
+    private fun updateLoginButtonState() {
+        binding.btnLogin.isEnabled = isLoginFormComplete()
+    }
+
+    private fun setupTextWatchers() {
+        val textWatcher = object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                updateLoginButtonState()
+            }
+            override fun afterTextChanged(s: Editable?) {}
+        }
+
+        binding.etPhoneNumber.addTextChangedListener(textWatcher)
+        binding.etPassword.addTextChangedListener(textWatcher)
     }
 
     private fun performLogin() {
@@ -71,20 +98,21 @@ class LoginActivity : AppCompatActivity() {
         }
 
         val e164Phone = OtpProvider.otp.toE164(phone)
+        val sanitizedPhone = e164Phone.replace("+", "")
         
         binding.btnLogin.isEnabled = false
         
         lifecycleScope.launch {
             try {
-                val userDoc = db.collection("users").document(e164Phone).get().await()
+                val snapshot = db.child("users").child(sanitizedPhone).get().await()
                 
-                if (!userDoc.exists()) {
+                if (!snapshot.exists()) {
                     handleFailedLogin()
                     return@launch
                 }
 
-                val storedHash = userDoc.getString("passwordHash") ?: ""
-                val storedSalt = userDoc.getString("salt") ?: ""
+                val storedHash = snapshot.child("passwordHash").getValue(String::class.java) ?: ""
+                val storedSalt = snapshot.child("salt").getValue(String::class.java) ?: ""
                 
                 val saltBytes = Base64.decode(storedSalt, Base64.NO_WRAP)
                 val computedHash = hashPassword(password.toCharArray(), saltBytes)
@@ -97,7 +125,7 @@ class LoginActivity : AppCompatActivity() {
             } catch (e: Exception) {
                 Log.e("LoginLog", "Error during login", e)
                 Toast.makeText(this@LoginActivity, "An error occurred. Please try again.", Toast.LENGTH_SHORT).show()
-                binding.btnLogin.isEnabled = true
+                updateLoginButtonState()
             }
         }
     }
@@ -111,10 +139,10 @@ class LoginActivity : AppCompatActivity() {
             Toast.makeText(this, "Too many failed attempts. Try again in 30 seconds.", Toast.LENGTH_LONG).show()
             Handler(Looper.getMainLooper()).postDelayed({
                 failedAttempts = 0
-                binding.btnLogin.isEnabled = true
+                updateLoginButtonState()
             }, lockoutDuration)
         } else {
-            binding.btnLogin.isEnabled = true
+            updateLoginButtonState()
         }
     }
 
@@ -125,10 +153,10 @@ class LoginActivity : AppCompatActivity() {
             // Save login history
             val loginData = hashMapOf(
                 "phoneNumber" to phoneNumber,
-                "loginTime" to FieldValue.serverTimestamp(),
+                "loginTime" to ServerValue.TIMESTAMP,
                 "status" to "SUCCESS"
             )
-            db.collection("logins").add(loginData)
+            db.child("logins").push().setValue(loginData)
 
             val intent = Intent(this@LoginActivity, HomeActivity::class.java)
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK

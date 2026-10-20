@@ -22,8 +22,8 @@ import com.example.bahgo20.HomeActivity
 import com.example.bahgo20.LocationPermissionActivity
 import com.example.bahgo20.R
 import com.example.bahgo20.SessionManager
-import com.google.firebase.firestore.FieldValue
-import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ServerValue
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
 
@@ -38,6 +38,7 @@ class OtpActivity : AppCompatActivity() {
         private const val EXTRA_SALT = "salt"
         private const val TAG = "LoginLog"
         private const val USER_TAG = "UserStore"
+        private const val DB_URL = "https://bahgo-ee71b-default-rtdb.asia-southeast1.firebasedatabase.app/"
 
         fun start(
             context: Context,
@@ -69,6 +70,7 @@ class OtpActivity : AppCompatActivity() {
     private lateinit var progress: ProgressBar
     private var timer: CountDownTimer? = null
     private lateinit var sessionManager: SessionManager
+    private val db = FirebaseDatabase.getInstance(DB_URL).reference
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -107,6 +109,8 @@ class OtpActivity : AppCompatActivity() {
                 override fun beforeTextChanged(s: CharSequence?, st: Int, c: Int, a: Int) {}
                 override fun onTextChanged(s: CharSequence?, st: Int, b: Int, c: Int) {}
                 override fun afterTextChanged(s: Editable?) {
+                    btnVerify.isEnabled = currentCode().length == boxes.size
+                    
                     if (s.isNullOrEmpty()) return
                     hideError()
                     if (i < boxes.lastIndex) {
@@ -141,24 +145,25 @@ class OtpActivity : AppCompatActivity() {
             return
         }
 
+        setLoading(true)
         OtpProvider.otp.verifyOtp(phone, code)
             .onSuccess {
                 lifecycleScope.launch {
                     val e164Phone = OtpProvider.otp.toE164(phone)
                     val isSignUp = intent.hasExtra(EXTRA_FIRST_NAME)
+                    val sanitizedPhone = e164Phone.replace("+", "")
                     
                     if (isSignUp) {
-                        val saved = saveUserToFirestore(e164Phone)
-                        if (!saved) return@launch
+                        val saved = saveUserToRTDB(sanitizedPhone)
+                        if (!saved) {
+                            setLoading(false)
+                            return@launch
+                        }
                     }
 
-                    // Save session securely in background
                     sessionManager.saveSession(e164Phone)
+                    saveLoginToRTDB(e164Phone)
                     
-                    // Save login history
-                    saveLoginToFirestore(e164Phone)
-                    
-                    // Navigate to next screen
                     startActivity(
                         Intent(this@OtpActivity, LocationPermissionActivity::class.java)
                             .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
@@ -167,31 +172,31 @@ class OtpActivity : AppCompatActivity() {
                 }
             }
             .onFailure {
+                setLoading(false)
                 showError(it.message ?: "Verification failed.")
                 clearBoxes()
             }
     }
 
-    private suspend fun saveUserToFirestore(e164Phone: String): Boolean {
+    private suspend fun saveUserToRTDB(sanitizedPhone: String): Boolean {
         val firstName = intent.getStringExtra(EXTRA_FIRST_NAME)
         val surname = intent.getStringExtra(EXTRA_SURNAME)
         val passwordHash = intent.getStringExtra(EXTRA_PASSWORD_HASH)
         val salt = intent.getStringExtra(EXTRA_SALT)
+        val hasVehicle = intent.getBooleanExtra(EXTRA_HAS_VEHICLE, false)
 
         val userData = hashMapOf(
-            "phoneNumber" to e164Phone,
+            "phoneNumber" to sanitizedPhone,
             "firstName" to firstName,
             "surname" to surname,
             "passwordHash" to passwordHash,
             "salt" to salt,
-            "createdAt" to FieldValue.serverTimestamp()
+            "hasVehicle" to hasVehicle,
+            "createdAt" to ServerValue.TIMESTAMP
         )
 
         return try {
-            FirebaseFirestore.getInstance().collection("users")
-                .document(e164Phone)
-                .set(userData)
-                .await()
+            db.child("users").child(sanitizedPhone).setValue(userData).await()
             true
         } catch (e: Exception) {
             Log.e(USER_TAG, "Error saving user", e)
@@ -200,17 +205,16 @@ class OtpActivity : AppCompatActivity() {
         }
     }
 
-    private fun saveLoginToFirestore(phoneNumber: String) {
+    private fun saveLoginToRTDB(phoneNumber: String) {
         val loginData = hashMapOf(
             "phoneNumber" to phoneNumber,
-            "loginTime" to FieldValue.serverTimestamp(),
+            "loginTime" to ServerValue.TIMESTAMP,
             "status" to "SUCCESS"
         )
 
-        FirebaseFirestore.getInstance().collection("logins")
-            .add(loginData)
+        db.child("logins").push().setValue(loginData)
             .addOnFailureListener { e ->
-                Log.e(TAG, "Firestore error", e)
+                Log.e(TAG, "RTDB error", e)
             }
     }
 
@@ -233,11 +237,11 @@ class OtpActivity : AppCompatActivity() {
         tvResend.isEnabled = false
         timer = object : CountDownTimer(60_000, 1_000) {
             override fun onTick(msLeft: Long) {
-                tvResend.text = "Resend code in ${msLeft / 1000}s"
+                tvResend.text = getString(R.string.otp_resend_prompt, "${msLeft / 1000}s")
             }
 
             override fun onFinish() {
-                tvResend.text = "Didn't get it? Resend code"
+                tvResend.text = getString(R.string.otp_resend_prompt, getString(R.string.otp_resend_action))
                 tvResend.isEnabled = true
             }
         }.start()
@@ -246,11 +250,13 @@ class OtpActivity : AppCompatActivity() {
     private fun clearBoxes() {
         boxes.forEach { it.text.clear() }
         boxes[0].requestFocus()
+        btnVerify.isEnabled = false
     }
 
     private fun setLoading(loading: Boolean) {
         progress.visibility = if (loading) View.VISIBLE else View.GONE
-        btnVerify.isEnabled = !loading
+        btnVerify.visibility = if (loading) View.INVISIBLE else View.VISIBLE
+        btnVerify.isEnabled = !loading && currentCode().length == boxes.size
     }
 
     private fun showError(msg: String) {

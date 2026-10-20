@@ -4,9 +4,11 @@ import android.content.Context
 import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
-import android.os.Build
 import android.util.AttributeSet
+import android.view.MotionEvent
 import android.view.View
+import androidx.core.content.ContextCompat
+import com.example.bahgo20.R
 import kotlin.random.Random
 
 class RainfallView @JvmOverloads constructor(
@@ -16,45 +18,49 @@ class RainfallView @JvmOverloads constructor(
 ) : View(context, attrs, defStyleAttr) {
 
     private val paint = Paint().apply {
-        color = Color.WHITE
-        alpha = 30
-        strokeWidth = 2.0f
+        color = ContextCompat.getColor(context, R.color.rain_color)
+        strokeWidth = 5.0f
         strokeCap = Paint.Cap.ROUND
+        isAntiAlias = true
     }
 
-    private val count = 10
+    private val count = 100
     private val xRatios = FloatArray(count)
     private val yOffsetRatios = FloatArray(count)
     private val speeds = FloatArray(count)
     private val lengths = FloatArray(count)
 
     private var animValue = 0f
-    
-    // Disable animation on emulators to prevent "System UI not responding"
-    private val isEmulator = Build.FINGERPRINT.contains("generic") || 
-                             Build.MODEL.contains("Emulator") || 
-                             Build.MODEL.contains("Android SDK built for x86")
 
     private val animatorRunnable = object : Runnable {
         override fun run() {
-            animValue += 0.003f
+            animValue += 0.01f
             if (animValue > 1f) animValue = 0f
             invalidate()
-            postDelayed(this, 60) // Low frame rate (15-20 fps)
+            postDelayed(this, 16)
         }
     }
 
     init {
+        isClickable = false
+        isFocusable = false
+        importantForAccessibility = IMPORTANT_FOR_ACCESSIBILITY_NO
         for (i in 0 until count) {
             xRatios[i] = Random.nextFloat()
             yOffsetRatios[i] = Random.nextFloat()
-            speeds[i] = Random.nextFloat() * 0.2f + 0.1f
-            lengths[i] = Random.nextFloat() * 10f + 10f
+            speeds[i] = Random.nextFloat() * 0.5f + 0.5f
+            lengths[i] = Random.nextFloat() * 30f + 20f
         }
     }
 
+    override fun onTouchEvent(event: MotionEvent): Boolean = false
+
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
+        
+        // Refresh color in case theme changed while view is active
+        paint.color = ContextCompat.getColor(context, R.color.rain_color)
+
         val w = width.toFloat()
         val h = height.toFloat()
         if (w <= 0f || h <= 0f) return
@@ -68,24 +74,25 @@ class RainfallView @JvmOverloads constructor(
 
     override fun onAttachedToWindow() {
         super.onAttachedToWindow()
-        if (!isEmulator) {
-            removeCallbacks(animatorRunnable)
-            post(animatorRunnable)
-        }
+        startAnimation()
     }
 
     override fun onDetachedFromWindow() {
-        removeCallbacks(animatorRunnable)
+        stopAnimation()
         super.onDetachedFromWindow()
     }
 
     override fun onWindowVisibilityChanged(visibility: Int) {
         super.onWindowVisibilityChanged(visibility)
-        if (visibility == VISIBLE && !isEmulator) {
-            removeCallbacks(animatorRunnable)
-            post(animatorRunnable)
-        } else {
-            removeCallbacks(animatorRunnable)
-        }
+        if (visibility == VISIBLE) startAnimation() else stopAnimation()
+    }
+
+    private fun startAnimation() {
+        removeCallbacks(animatorRunnable)
+        post(animatorRunnable)
+    }
+
+    private fun stopAnimation() {
+        removeCallbacks(animatorRunnable)
     }
 }

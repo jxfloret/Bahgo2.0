@@ -2,6 +2,8 @@ package com.example.bahgo20
 
 import android.content.Intent
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Base64
 import android.view.View
 import android.widget.Toast
@@ -15,7 +17,7 @@ import androidx.lifecycle.lifecycleScope
 import com.example.bahgo20.databinding.ActivitySetupBinding
 import com.example.bahgo20.otp.OtpActivity
 import com.example.bahgo20.otp.OtpProvider
-import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.database.FirebaseDatabase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
@@ -27,7 +29,7 @@ import javax.crypto.spec.PBEKeySpec
 class SetupActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivitySetupBinding
-    private val db = FirebaseFirestore.getInstance()
+    private val db = FirebaseDatabase.getInstance("https://bahgo-ee71b-default-rtdb.asia-southeast1.firebasedatabase.app/").reference
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,11 +45,41 @@ class SetupActivity : AppCompatActivity() {
             insets
         }
 
+        setupTextWatchers()
+        updateSignUpButtonState()
+
         binding.btnContinue.setOnClickListener {
             if (validateInputs()) {
                 checkUserAndPerformSignUp()
             }
         }
+    }
+
+    private fun isSignUpFormComplete(): Boolean {
+        val firstName = binding.etFirstName.text?.toString()?.trim().orEmpty()
+        val surname = binding.etSurname.text?.toString()?.trim().orEmpty()
+        val phone = binding.etPhoneNumber.text?.toString()?.trim().orEmpty()
+        val password = binding.etPassword.text?.toString().orEmpty()
+        return firstName.isNotEmpty() && surname.isNotEmpty() && phone.isNotEmpty() && password.isNotEmpty()
+    }
+
+    private fun updateSignUpButtonState() {
+        binding.btnContinue.isEnabled = isSignUpFormComplete()
+    }
+
+    private fun setupTextWatchers() {
+        val textWatcher = object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                updateSignUpButtonState()
+            }
+            override fun afterTextChanged(s: Editable?) {}
+        }
+
+        binding.etFirstName.addTextChangedListener(textWatcher)
+        binding.etSurname.addTextChangedListener(textWatcher)
+        binding.etPhoneNumber.addTextChangedListener(textWatcher)
+        binding.etPassword.addTextChangedListener(textWatcher)
     }
 
     private fun validateInputs(): Boolean {
@@ -89,21 +121,22 @@ class SetupActivity : AppCompatActivity() {
     private fun checkUserAndPerformSignUp() {
         val phone = binding.etPhoneNumber.text.toString().trim()
         val e164Phone = OtpProvider.otp.toE164(phone)
+        val sanitizedPhone = e164Phone.replace("+", "")
         
         binding.btnContinue.isEnabled = false
         
         lifecycleScope.launch {
             try {
-                val userDoc = db.collection("users").document(e164Phone).get().await()
-                if (userDoc.exists()) {
+                val snapshot = db.child("users").child(sanitizedPhone).get().await()
+                if (snapshot.exists()) {
                     showAlreadyRegisteredDialog()
-                    binding.btnContinue.isEnabled = true
+                    updateSignUpButtonState()
                 } else {
                     performSignUp(phone)
                 }
             } catch (e: Exception) {
                 Toast.makeText(this@SetupActivity, "Error checking user: ${e.message}", Toast.LENGTH_SHORT).show()
-                binding.btnContinue.isEnabled = true
+                updateSignUpButtonState()
             }
         }
     }
@@ -145,7 +178,7 @@ class SetupActivity : AppCompatActivity() {
                 .onFailure {
                     Toast.makeText(this@SetupActivity, "Error: ${it.message}", Toast.LENGTH_LONG).show()
                 }
-            binding.btnContinue.isEnabled = true
+            updateSignUpButtonState()
         }
     }
 

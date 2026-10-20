@@ -1,6 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">BahGo 2.0</string>
-    <string name="logo_text">BAHG\nO</string>
+    <string name="logo_text">BAHGO</string>
     <string name="main_title">BAHGO</string>
     <string name="main_description">an innovative early flood detection and monitoring system designed to provide real-time alerts and data visualization through a mobile application dashboard.</string>
     <string name="get_started">Get Started</string>
@@ -14,36 +15,137 @@
     <string name="phone_number_label">Phone Number</string>
     <string name="password_label">Password</string>
     <string name="own_vehicle_label">I own a vehicle</string>
-    <string name="continue_btn">Continue</string>
+    <string name="continue_btn">Sign Up</string>
     <string name="ph_code">+63</string>
     <string name="phone_hint">9XX XXX XXXX</string>
     <string name="splash_text">BahGo 2.0</string>
+
+    <!-- OTP -->
+    <string name="otp_main_title">Check your text messages</string>
+    <string name="otp_card_title">OTP Verification</string>
+    <string name="otp_card_subtitle">Enter the code from the sms we sent to</string>
+    <string name="otp_resend_prompt">Can\'t receive OTP? %1$s</string>
+    <string name="otp_resend_action">RESEND</string>
+    <string name="otp_verify_btn">Verify &amp; Continue</string>
+
+    <!-- Permission Screens -->
+    <string name="perm_location_title">Enable Location</string>
+    <string name="perm_location_desc">Allow app to use your location to monitor weather conditions and flood alerts in your area.</string>
+    <string name="perm_allow_once">Allow Once</string>
+    <string name="perm_allow_while_using">Allow While Using App</string>
+    <string name="perm_allow_always">Allow Always</string>
+    <string name="perm_dont_allow">Don\'t Allow</string>
+    <string name="perm_notification_title">Enable Notification</string>
+    <string name="perm_notification_desc">Notifications may include alerts, sounds, and icon badges. These can be configured in Settings.</string>
+    <string name="perm_allow">Allow</string>
+
+    <!-- Permission Dialogs -->
+    <string name="location_required_title">Location Required</string>
+    <string name="location_required_msg">Location is required for the app to monitor weather and send flood alerts. Please enable it in Settings.</string>
+    <string name="notification_required_title">Notifications Required</string>
+    <string name="notification_required_msg">Notifications are required for the app to send real-time alerts. Please enable them in Settings.</string>
+    <string name="go_to_settings">Go to Settings</string>
+    <string name="background_location_disclosure_title">Background Location</string>
+    <string name="background_location_disclosure_msg">To keep you safe, Bahgo collects location data to enable flood alerts even when the app is closed or not in use. Please select \"Allow all the time\" in the next screen.</string>
+
+    <!-- Settings -->
+    <string name="settings_title">Settings</string>
+    <string name="change_location">Change Location</string>
+    <string name="monitor_info">Monitor Info</string>
+    <string name="apps_label">Apps:</string>
+    <string name="about_app_label">About Bahgo app</string>
+    <string name="person_label">Person</string>
+    <string name="car_label">Car</string>
+
+    <string name="ankle_title">Ankle — 15 to 30 cm</string>
+    <string name="ankle_desc">Walkable with caution.</string>
+    <string name="knee_title">Knee — 30 to 60 cm</string>
+    <string name="knee_desc">Difficult to walk. Risk of falling.</string>
+    <string name="waist_title">Waist — 60 to 100 cm</string>
+    <string name="waist_desc">Very dangerous. Strong current risk.</string>
+    <string name="chest_title">Chest or above — 100+ cm</string>
+    <string name="chest_desc">Life-threatening. Evacuate immediately.</string>
+
+    <string name="safe_title">Safe — below 30 cm</string>
+    <string name="safe_desc">Most cars can pass. Drive slowly.</string>
+    <string name="risky_title">Risky — 30 to 60 cm</string>
+    <string name="risky_desc">Small cars may stall. Avoid if possible.</string>
+    <string name="danger_title">Danger — 60 to 100 cm</string>
+    <string name="danger_desc">Engine will flood. Car may be swept.</string>
+    <string name="critical_title">Critical — above 100 cm</string>
+    <string name="critical_desc">Do not attempt. Car will be submerged.</string>
+    <string name="caution_text">When in doubt, don\'t cross flooded areas.</string>
+
+    <!-- About -->
+    <string name="about_title">About</string>
+    <string name="app_subtitle">Flood Watch</string>
+    <string name="app_version">Version 1.0.0</string>
+    <string name="what_is_bahgo">What is Bahgo?</string>
+    <string name="features_label">Features</string>
+    <string name="feature_alerts">Real-time flood alerts</string>
+    <string name="feature_monitoring">Location-based monitoring</string>
+    <string name="feature_charts">Flood severity charts</string>
+    <string name="feature_sensors">Nearby sensor devices</string>
+    <string name="developed_by">Developed by</string>
+    <string name="team_info">BAHGO Team - Thesis Project\nBachelor of Science in Computer Science</string>
+
+    <!-- Search -->
+    <string name="search_hint">Enter a location</string>
+    <string name="loc_makati">Makati City</string>
+    <string name="loc_pasay">Pasay City</string>
+    <string name="loc_taguig">Taguig City</string>
+    <string name="loc_quezon">Quezon City</string>
+    <string name="loc_taguig_manila">Taguig, Metro Manila</string>
+    <string name="village_pembo">Pembo Village</string>
+    <string name="village_cembo">Cembo Village</string>
+    <string name="village_pinya">Pinya Village</string>
+    <string name="village_north">North Village</string>
+    <string name="village_central">Central Taguig</string>
+    <string name="village_commonwealth">Commonwealth</string>
+
+    <!-- Map -->
+    <string name="map_fallback_text">Flood map unavailable. Check your internet connection.</string>
 
     <!-- Login -->
     <string name="login_title">Welcome Back</string>
     <string name="login_subtitle">Log in to continue your journey</string>
     <string name="no_account_signup">Don\'t have an account? Sign up</string>
 
-    <!-- Location Permission -->
-    <string name="location_title">Enable Location</string>
-    <string name="location_desc">Bahgo needs your location to show flood risks in your area and send timely location-based alerts even when the app is closed.</string>
-    <string name="allow_always">Allow Always</string>
-    <string name="allow_while_using">Allow While Using App</string>
-    <string name="deny">Deny</string>
-    <string name="location_required_title">Location Required</string>
-    <string name="location_required_msg">Bahgo needs your location to show flood risks and send alerts for your area. Please go to Settings and allow location access.</string>
-    <string name="background_location_disclosure_title">Background Location</string>
-    <string name="background_location_disclosure_msg">To keep you safe, Bahgo collects location data to enable flood alerts even when the app is closed or not in use. Please select \"Allow all the time\" in the next screen.</string>
-
-    <!-- Notification Permission -->
+    <!-- Notification Permission (Legacy/Technical) -->
     <string name="notification_title">Enable Notifications</string>
     <string name="notification_desc">Stay informed. Bahgo sends real-time flood alerts and safety updates directly to your notifications.</string>
     <string name="allow_notifications">Allow Notifications</string>
     <string name="notifications_required_title">Notifications Required</string>
     <string name="notifications_required_msg">Flood alerts depend on notifications. Please enable them in Settings to ensure you receive life-saving updates.</string>
 
+    <!-- Dashboard -->
+    <string name="header_city">Taguig City</string>
+    <string name="current_location_label">your current location:</string>
+    <string name="view_full_condition">view full condition</string>
+    <string name="water_level_label">Water Level</string>
+    <string name="current_level_status">Current Level Status</string>
+    <string name="risk_level_label">Risk Level</string>
+    <string name="threshold_text">70% of threshold</string>
+    <string name="risk_warning_desc">Water level is approaching threshold</string>
+    <string name="rate_of_rise_format">Rate of Rise: %1$d cm/hr</string>
+    <string name="precipitation_format">Precipitation: %1$.1f mm/hr</string>
+    <string name="nearby_devices_label">nearby street devices:</string>
+    <string name="person_mode">Person Mode</string>
+    <string name="car_mode">Car Mode</string>
+    <string name="person_mode_desc">Area may become unsafe—stay alert and avoid if possible.</string>
+    <string name="car_mode_desc">While driving may still be possible, proceed with caution or consider an alternative route.</string>
+    <string name="water_level_value_format">%1$dcm %2$s</string>
+    <string name="water_level_cm_format">%1$dcm</string>
+
+    <string name="status_safe">safe</string>
+    <string name="status_moderate">moderate</string>
+    <string name="status_dangerous">dangerous</string>
+    <string name="status_warning">warning</string>
+    <string name="status_normal">normal</string>
+
     <!-- Common -->
-    <string name="go_to_settings">Go to Settings</string>
+    <string name="back">Back</string>
     <string name="cancel">Cancel</string>
     <string name="ok">OK</string>
+    <string name="password">Password</string>
 </resources>

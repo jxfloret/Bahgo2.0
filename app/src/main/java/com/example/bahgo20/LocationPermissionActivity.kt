@@ -12,7 +12,6 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.updatePadding
 import com.example.bahgo20.databinding.ActivityPermissionLocationBinding
-import com.example.bahgo20.utils.PermissionHelper
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
 class LocationPermissionActivity : AppCompatActivity() {
@@ -33,26 +32,18 @@ class LocationPermissionActivity : AppCompatActivity() {
                 proceedToNotifications()
             }
         } else {
-            val showRationale = shouldShowRequestPermissionRationale(Manifest.permission.ACCESS_FINE_LOCATION)
-            if (!showRationale) {
-                // Permanently denied
-                showLocationRequiredDialog()
-            } else {
-                Toast.makeText(this, R.string.location_required_title, Toast.LENGTH_SHORT).show()
-            }
+            // If denied (even permanently), just show a brief message and move on.
+            // This stops the app from forcing the user into a settings loop.
+            Toast.makeText(this, "Location skipped. You can enable it in settings later if needed.", Toast.LENGTH_SHORT).show()
+            proceedToNotifications()
         }
     }
 
     private val requestBackgroundLauncher = registerForActivityResult(
         ActivityResultContracts.RequestPermission()
-    ) { granted ->
-        if (granted || PermissionHelper.hasLocationPermission(this)) {
-            proceedToNotifications()
-        } else {
-            // Background denied but foreground is likely still there. 
-            // Google Play allows foreground-only if user insists, but requirements said "proceed when granted"
-            proceedToNotifications() 
-        }
+    ) { _ ->
+        // Proceed regardless of background result
+        proceedToNotifications()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -82,15 +73,14 @@ class LocationPermissionActivity : AppCompatActivity() {
         }
 
         binding.btnDeny.setOnClickListener {
-            showLocationRequiredDialog()
+            // Allow user to skip immediately without any pop-ups
+            proceedToNotifications()
         }
     }
 
     override fun onResume() {
         super.onResume()
-        if (PermissionHelper.hasLocationPermission(this)) {
-            proceedToNotifications()
-        }
+        // Removed auto-redirect to prevent jumping screens unexpectedly
     }
 
     private fun showBackgroundDisclosure() {
@@ -102,16 +92,9 @@ class LocationPermissionActivity : AppCompatActivity() {
                     requestBackgroundLauncher.launch(Manifest.permission.ACCESS_BACKGROUND_LOCATION)
                 }
             }
-            .setNegativeButton(R.string.cancel) { _, _ -> proceedToNotifications() }
+            .setNegativeButton("Skip") { _, _ -> proceedToNotifications() }
+            .setCancelable(false)
             .show()
-    }
-
-    private fun showLocationRequiredDialog() {
-        PermissionHelper.showSettingsDialog(
-            this,
-            getString(R.string.location_required_title),
-            getString(R.string.location_required_msg)
-        )
     }
 
     private fun proceedToNotifications() {

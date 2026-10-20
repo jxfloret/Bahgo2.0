@@ -1,0 +1,68 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aapt="http://schemas.android.com/aapt"
+    android:width="512dp"
+    android:height="512dp"
+    android:viewportWidth="512"
+    android:viewportHeight="512">
+
+    <!-- Background Blue Sphere -->
+    <path
+        android:pathData="M256,256m-240,0a240,240 0,1 1,480,0a240,240 0,1 1,-480,0">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:centerX="256"
+                android:centerY="256"
+                android:gradientRadius="240"
+                android:type="radial">
+                <item android:offset="0.0" android:color="#FF00A2FF" />
+                <item android:offset="0.7" android:color="#FF004BB1" />
+                <item android:offset="1.0" android:color="#FF002060" />
+            </gradient>
+        </aapt:attr>
+    </path>
+
+    <!-- Orange Sun -->
+    <path
+        android:pathData="M256,220m-130,0a130,130 0,1 1,260,0a130,130 0,1 1,-260,0">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:startX="256"
+                android:startY="90"
+                android:endX="256"
+                android:endY="350"
+                android:type="linear">
+                <item android:offset="0.0" android:color="#FFFFD600" />
+                <item android:offset="0.5" android:color="#FFFF9100" />
+                <item android:offset="1.0" android:color="#FFFF3D00" />
+            </gradient>
+        </aapt:attr>
+    </path>
+
+    <!-- Translucent Wave -->
+    <path
+        android:pathData="M16,300 Q136,220 256,320 T496,300 L496,496 Q256,540 16,496 Z"
+        android:fillAlpha="0.55">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:startX="16"
+                android:startY="300"
+                android:endX="496"
+                android:endY="300"
+                android:type="linear">
+                <item android:offset="0.0" android:color="#AA00E5FF" />
+                <item android:offset="1.0" android:color="#AA007BFF" />
+            </gradient>
+        </aapt:attr>
+    </path>
+
+    <!-- Pill-shaped Exclamation Mark Body -->
+    <path
+        android:pathData="M236,110 C236,100 246,90 256,90 C266,90 276,100 276,110 L270,330 C270,340 266,350 256,350 C246,350 242,340 242,330 Z"
+        android:fillColor="#FFFFEB3B" />
+
+    <!-- Rounded Exclamation Mark Dot -->
+    <path
+        android:pathData="M256,410m-28,0a28,28 0,1 1,56,0a28,28 0,1 1,-56,0"
+        android:fillColor="#FFFFEB3B" />
+
+</vector>

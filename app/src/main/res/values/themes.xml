@@ -11,7 +11,7 @@
     <!-- Splash Screen Theme -->
     <style name="Theme.App.Starting" parent="Theme.SplashScreen">
         <item name="windowSplashScreenBackground">@color/splash_bg</item>
-        <item name="windowSplashScreenAnimatedIcon">@drawable/ic_splash_logo</item>
+        <item name="windowSplashScreenAnimatedIcon">@drawable/logobahgo</item>
         <item name="postSplashScreenTheme">@style/Theme.BahGo20</item>
     </style>
 </resources>

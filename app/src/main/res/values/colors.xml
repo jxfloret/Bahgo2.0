@@ -6,7 +6,48 @@
     <color name="logo_orange">#FF914D</color>
     <color name="logo_wave">#4DBBFF</color>
 
-    <color name="gradient_top">#B3E5FC</color>
-    <color name="gradient_bottom">#0D47A1</color>
-    <color name="text_secondary">#E0E0E0</color>
+    <!-- Light Mode Theme Colors (White Background) -->
+    <color name="gradient_top">#FFFFFF</color>
+    <color name="gradient_bottom">#F8FAFC</color>
+    <color name="page_background">#FFFFFF</color>
+
+    <color name="text_on_gradient">#1A237E</color>
+    <color name="text_on_gradient_secondary">#64748B</color>
+    <color name="text_on_card">#1A237E</color>
+    <color name="text_on_card_secondary">#455A64</color>
+    <color name="text_primary">#1A237E</color>
+    <color name="text_secondary">#64748B</color>
+    <color name="text_on_gradient_legacy">#FFFFFF</color>
+
+    <color name="icon_on_gradient">#1A237E</color>
+    <color name="icon_accent">#1565C0</color>
+    <color name="icon_muted">#78909C</color>
+
+    <color name="mustard_yellow">#D4A017</color>
+    <color name="button_primary">#1E88E5</color>
+    <color name="button_disabled">#9E9E9E</color>
+    <color name="button_solid_bg">#F5F5F5</color>
+    <color name="button_outline">#1E88E5</color>
+
+    <!-- Glass Effect for Light Mode -->
+    <color name="card_glass">#B3FFFFFF</color>
+    <color name="card_glass_dark">#8CFFFFFF</color>
+    <color name="card_stroke">#1A000000</color>
+    <color name="card_solid">#FFFFFFFF</color>
+    <color name="card_muted">#F1F5F9</color>
+    <color name="rain_color">#402196F3</color>
+
+    <color name="settings_card_bg">#B3FFFFFF</color>
+    <color name="toggle_selected_bg">#FFFFFF</color>
+    <color name="toggle_selected_text">#1A237E</color>
+    <color name="toggle_unselected_text">#78909C</color>
+    <color name="input_text">#1A237E</color>
+    <color name="input_hint">#90A4AE</color>
+    <color name="input_divider">#E2E8F0</color>
+    <color name="sheet_background">#FFFFFF</color>
+
+    <color name="status_safe">#4CAF50</color>
+    <color name="status_moderate">#1E88E5</color>
+    <color name="status_warning">#FF9100</color>
+    <color name="status_dangerous">#D32F2F</color>
 </resources>

@@ -8,12 +8,12 @@ plugins {
 
 android {
     namespace = "com.example.bahgo20"
-    compileSdk = 35
+    compileSdk = 34
 
     defaultConfig {
         applicationId = "com.example.bahgo20"
         minSdk = 26
-        targetSdk = 35
+        targetSdk = 34
         versionCode = 1
         versionName = "1.0"
 
@@ -25,13 +25,13 @@ android {
         if (localPropertiesFile.exists()) {
             localProperties.load(localPropertiesFile.inputStream())
         }
-        
+
         // Priority: local.properties > gradle.properties
-        val gatewayUsername = localProperties.getProperty("SMSGATEWAY_USERNAME") 
-            ?: project.findProperty("SMSGATEWAY_USERNAME")?.toString() 
+        val gatewayUsername = localProperties.getProperty("SMSGATEWAY_USERNAME")
+            ?: project.findProperty("SMSGATEWAY_USERNAME")?.toString()
             ?: ""
-        val gatewayPassword = localProperties.getProperty("SMSGATEWAY_PASSWORD") 
-            ?: project.findProperty("SMSGATEWAY_PASSWORD")?.toString() 
+        val gatewayPassword = localProperties.getProperty("SMSGATEWAY_PASSWORD")
+            ?: project.findProperty("SMSGATEWAY_PASSWORD")?.toString()
             ?: ""
 
         buildConfigField("String", "SMSGATEWAY_USERNAME", "\"$gatewayUsername\"")
@@ -44,13 +44,13 @@ android {
     }
 
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
 
     kotlin {
         compilerOptions {
-            jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_11)
+            jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_17)
         }
     }
 }
@@ -62,7 +62,11 @@ dependencies {
     implementation(libs.androidx.activity)
     implementation(libs.androidx.constraintlayout)
     implementation(libs.androidx.core.splashscreen)
-    
+
+    implementation("com.google.android.gms:play-services-location:21.2.0")
+    // MapLibre (PMTiles is built in since 11.8.0, so no separate PMTiles library)
+    implementation(libs.maplibre.android)
+
     // OkHttp and Lifecycle for OTP implementation
     implementation(libs.okhttp)
     implementation(libs.androidx.lifecycle.runtime.ktx)
@@ -74,6 +78,7 @@ dependencies {
     implementation(libs.firebase.analytics)
     implementation(libs.firebase.auth)
     implementation(libs.firebase.firestore)
+    implementation(libs.firebase.database)
 
     // Add Coroutines Play Services for .await()
     implementation(libs.kotlinx.coroutines.play.services)

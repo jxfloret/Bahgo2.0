@@ -1,21 +1,23 @@
 [versions]
 agp = "8.7.2"
 kotlin = "2.0.21"
-coreKtx = "1.15.0"
+coreKtx = "1.13.1"
 junit = "4.13.2"
 junitVersion = "1.2.1"
 espressoCore = "3.6.1"
-appcompat = "1.7.0"
+appcompat = "1.6.1"
 material = "1.12.0"
 activity = "1.9.3"
-constraintlayout = "2.2.0"
+constraintlayout = "2.1.4"
 coreSplashscreen = "1.0.1"
 okhttp = "4.12.0"
 lifecycle = "2.8.7"
 googleServices = "4.5.0"
-firebaseBom = "35.0.0"
+firebaseBom = "33.5.1"
 securityCrypto = "1.1.0"
-kotlinxCoroutinesPlayServices = "1.11.0"
+kotlinxCoroutinesPlayServices = "1.9.0"
+maplibre = "11.8.0"
+pmtiles = "1.1.0"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -31,10 +33,13 @@ okhttp = { group = "com.squareup.okhttp3", name = "okhttp", version.ref = "okhtt
 androidx-lifecycle-runtime-ktx = { group = "androidx.lifecycle", name = "lifecycle-runtime-ktx", version.ref = "lifecycle" }
 firebase-bom = { group = "com.google.firebase", name = "firebase-bom", version.ref = "firebaseBom" }
 firebase-firestore = { group = "com.google.firebase", name = "firebase-firestore" }
+firebase-database = { group = "com.google.firebase", name = "firebase-database-ktx" }
 firebase-auth = { group = "com.google.firebase", name = "firebase-auth" }
 firebase-analytics = { group = "com.google.firebase", name = "firebase-analytics" }
 kotlinx-coroutines-play-services = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-play-services", version.ref = "kotlinxCoroutinesPlayServices" }
 androidx-security-crypto = { group = "androidx.security", name = "security-crypto", version.ref = "securityCrypto" }
+maplibre-android = { group = "org.maplibre.gl", name = "android-sdk", version.ref = "maplibre" }
+pmtiles-android = { group = "io.github.protomaps.pmtiles", name = "pmtiles-android", version.ref = "pmtiles" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
