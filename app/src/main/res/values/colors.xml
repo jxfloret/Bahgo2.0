@@ -1,46 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="black">#FF000000</color>
-    <color name="white">#FFFFFFFF</color>
+    <color name="black">#000000</color>
+    <color name="white">#FFFFFF</color>
     <color name="splash_bg">#0056D2</color>
     <color name="logo_orange">#FF914D</color>
     <color name="logo_wave">#4DBBFF</color>
 
-    <!-- Light Mode Theme Colors (White Background) -->
-    <color name="gradient_top">#FFFFFF</color>
-    <color name="gradient_bottom">#F8FAFC</color>
+    <color name="gradient_top">#1E88E5</color>
+    <color name="gradient_bottom">#FFFFFF</color>
     <color name="page_background">#FFFFFF</color>
 
-    <color name="text_on_gradient">#1A237E</color>
-    <color name="text_on_gradient_secondary">#64748B</color>
-    <color name="text_on_card">#1A237E</color>
-    <color name="text_on_card_secondary">#455A64</color>
+    <color name="text_on_gradient">#FFFFFF</color>
+    <color name="text_on_gradient_secondary">#BBDEFB</color>
+
     <color name="text_primary">#1A237E</color>
     <color name="text_secondary">#64748B</color>
-    <color name="text_on_gradient_legacy">#FFFFFF</color>
+    <color name="text_on_card">#1A237E</color>
+    <color name="text_on_card_secondary">#455A64</color>
 
-    <color name="icon_on_gradient">#1A237E</color>
-    <color name="icon_accent">#1565C0</color>
+    <color name="icon_on_gradient">#FFFFFF</color>
+    <color name="icon_accent">#1E88E5</color>
     <color name="icon_muted">#78909C</color>
 
-    <color name="mustard_yellow">#D4A017</color>
+    <color name="mustard_yellow">#FFB74D</color>
     <color name="button_primary">#1E88E5</color>
-    <color name="button_disabled">#9E9E9E</color>
-    <color name="button_solid_bg">#F5F5F5</color>
-    <color name="button_outline">#1E88E5</color>
+    <color name="button_disabled">#BDBDBD</color>
 
-    <!-- Glass Effect for Light Mode -->
-    <color name="card_glass">#B3FFFFFF</color>
-    <color name="card_glass_dark">#8CFFFFFF</color>
-    <color name="card_stroke">#1A000000</color>
-    <color name="card_solid">#FFFFFFFF</color>
+    <!-- Use solid colors for stability during layout inflation -->
+    <color name="card_glass">#FFFFFF</color>
+    <color name="card_glass_dark">#F8F9FA</color>
+    <color name="card_stroke">#D1D5DB</color>
+    <color name="card_solid">#FFFFFF</color>
     <color name="card_muted">#F1F5F9</color>
-    <color name="rain_color">#402196F3</color>
 
-    <color name="settings_card_bg">#B3FFFFFF</color>
-    <color name="toggle_selected_bg">#FFFFFF</color>
-    <color name="toggle_selected_text">#1A237E</color>
+    <color name="toggle_selected_bg">#1E88E5</color>
+    <color name="toggle_selected_text">#FFFFFF</color>
     <color name="toggle_unselected_text">#78909C</color>
+
     <color name="input_text">#1A237E</color>
     <color name="input_hint">#90A4AE</color>
     <color name="input_divider">#E2E8F0</color>
@@ -50,4 +46,29 @@
     <color name="status_moderate">#1E88E5</color>
     <color name="status_warning">#FF9100</color>
     <color name="status_dangerous">#D32F2F</color>
+    <color name="rain_color">#402196F3</color>
+    <!-- Weather forecast (Conditions screen) -->
+    <color name="weather_sun">#FFB300</color>
+    <color name="weather_cloud">#90A4AE</color>
+    <color name="rain_chance">#1E88E5</color>
+    <color name="temp_bar_cool">#FFB74D</color>
+    <color name="temp_bar_warm">#FF7043</color>
+    <!-- Dim layer behind the Conditions pop-up sheet -->
+    <color name="sheet_scrim">#80000000</color>
+    <!-- Section titles on the Conditions sheet (dark on the light gradient, white at night) -->
+    <color name="sheet_heading">#0D1B4C</color>
+    <!-- Get Started slides: paragraph text (dark on the light gradient, light at night) -->
+    <color name="intro_body">#37474F</color>
+    <!-- Rain effect (only shown while a live sensor reports rain) -->
+    <color name="rain_drop">#1565C0</color>
+    <color name="rain_ripple">#1E88E5</color>
+    <!-- App icon background (the logo's deep blue) -->
+    <color name="launcher_bg">#0B5ECA</color>
+    <!-- Welcome screen: glass card behind the description (readable over the rain) -->
+    <color name="welcome_card">#661565C0</color>
+    <color name="welcome_card_stroke">#4DFFFFFF</color>
+    <!-- Rising flood animation (after the intro): back, middle and front waves -->
+    <color name="flood_wave_back">#9964B5F6</color>
+    <color name="flood_wave_mid">#CC42A5F5</color>
+    <color name="flood_wave_front">#FF1E88E5</color>
 </resources>

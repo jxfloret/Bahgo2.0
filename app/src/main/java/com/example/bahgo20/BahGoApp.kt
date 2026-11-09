@@ -1,22 +1,18 @@
 package com.example.bahgo20
 
 import android.app.Application
-import androidx.appcompat.app.AppCompatDelegate
-import kotlinx.coroutines.MainScope
-import kotlinx.coroutines.launch
 
 class BahGoApp : Application() {
     override fun onCreate() {
         super.onCreate()
         
+        // Recorded flood days shipped inside the app (forecast training and the Conditions chart)
+        RecordedDataset.init(this)
+
         val sessionManager = SessionManager.getInstance(this)
-        MainScope().launch {
-            val mode = sessionManager.getThemeMode()
-            when (mode) {
-                1 -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-                2 -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-                else -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
-            }
-        }
+        sessionManager.applyTheme()
+
+        // Usage statistics stay off unless the user agreed to them (see legal/Legal.kt)
+        com.example.bahgo20.legal.Legal.applyAnalytics(this)
     }
 }

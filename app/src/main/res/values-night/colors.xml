@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="gradient_top">#083369</color>
-    <color name="gradient_bottom">#1E71D0</color>
-    <color name="page_background">#083369</color>
+    <!-- Dark Mode Theme Colors (Dark Blue Background) -->
+    <color name="gradient_top">#051937</color>
+    <color name="gradient_bottom">#0D2B5B</color>
+    <color name="page_background">#051937</color>
 
     <color name="text_on_gradient">#FFFFFF</color>
     <color name="text_on_gradient_secondary">#C5D4E8</color>
@@ -15,13 +16,14 @@
     <color name="icon_accent">#90CAF9</color>
     <color name="icon_muted">#B0BEC5</color>
 
-    <color name="card_glass">#33FFFFFF</color>
-    <color name="card_glass_dark">#26FFFFFF</color>
-    <color name="card_stroke">#26FFFFFF</color>
+    <!-- Glass Effect for Dark Mode - Simplified to prevent inflation crashes -->
+    <color name="card_glass">#1A4B86</color>
+    <color name="card_glass_dark">#0D3A6B</color>
+    <color name="card_stroke">#33FFFFFF</color>
     <color name="card_solid">#1A4B86</color>
     <color name="card_muted">#0D3A6B</color>
     <color name="rain_color">#80FFFFFF</color>
-    <color name="settings_card_bg">#33FFFFFF</color>
+    <color name="settings_card_bg">#1A4B86</color>
 
     <color name="mustard_yellow">#E1B12C</color>
     <color name="button_primary">#1E88E5</color>
@@ -34,4 +36,29 @@
     <color name="input_hint">#90A4AE</color>
     <color name="input_divider">#66FFFFFF</color>
     <color name="sheet_background">#0D3A6B</color>
+
+    <color name="status_safe">#4CAF50</color>
+    <color name="status_moderate">#1E88E5</color>
+    <color name="status_warning">#FF9100</color>
+    <color name="status_dangerous">#D32F2F</color>
+    <!-- Weather forecast (Conditions screen) -->
+    <color name="weather_sun">#FFCA28</color>
+    <color name="weather_cloud">#CFD8DC</color>
+    <color name="rain_chance">#4FC3F7</color>
+    <color name="temp_bar_cool">#FFB74D</color>
+    <color name="temp_bar_warm">#FF7043</color>
+    <!-- Dim layer behind the Conditions pop-up sheet -->
+    <color name="sheet_scrim">#80000000</color>
+    <!-- Section titles on the Conditions sheet (dark on the light gradient, white at night) -->
+    <color name="sheet_heading">#FFFFFF</color>
+    <!-- Get Started slides: paragraph text (dark on the light gradient, light at night) -->
+    <color name="intro_body">#C5D4E8</color>
+    <!-- Rain effect (only shown while a live sensor reports rain) -->
+    <color name="rain_drop">#DCEBFF</color>
+    <color name="rain_ripple">#CFE3FF</color>
+    <color name="welcome_card">#26FFFFFF</color>
+    <color name="welcome_card_stroke">#33FFFFFF</color>
+    <color name="flood_wave_back">#991A4B86</color>
+    <color name="flood_wave_mid">#CC1565C0</color>
+    <color name="flood_wave_front">#FF0D47A1</color>
 </resources>

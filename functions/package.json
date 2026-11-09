@@ -1,0 +1,18 @@
+{
+  "name": "bahgo-alerts",
+  "description": "BahGo server: flood alerts, and sign-in / sign-up / SMS codes so the database can stay private",
+  "private": true,
+  "main": "index.js",
+  "engines": {
+    "node": "20"
+  },
+  "scripts": {
+    "test": "node --test test/alertLogic.test.js test/authLogic.test.js",
+    "deploy": "firebase deploy --only functions:bahgo-alerts",
+    "logs": "firebase functions:log"
+  },
+  "dependencies": {
+    "firebase-admin": "^12.7.0",
+    "firebase-functions": "^6.1.0"
+  }
+}

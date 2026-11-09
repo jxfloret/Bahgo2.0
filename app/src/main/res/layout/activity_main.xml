@@ -13,121 +13,144 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:clickable="false"
-        android:focusable="false"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
+        android:focusable="false" />
 
+    <!-- Logo, title and description: centered in the space above the buttons -->
     <LinearLayout
         android:id="@+id/logoLayout"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="100dp"
-        android:gravity="center"
+        android:gravity="center_horizontal"
         android:orientation="vertical"
+        android:paddingHorizontal="32dp"
+        app:layout_constraintBottom_toTopOf="@id/btnStack"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.45">
 
-        <androidx.cardview.widget.CardView
-            android:layout_width="160dp"
-            android:layout_height="160dp"
-            app:cardBackgroundColor="@android:color/transparent"
-            app:cardCornerRadius="80dp"
-            app:cardElevation="0dp">
+        <ImageView
+            android:id="@+id/ivLogo"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:contentDescription="@null"
+            android:elevation="8dp"
+            android:outlineProvider="background"
+            android:background="@drawable/bg_logo_circle"
+            android:src="@drawable/logo_round" />
 
-            <ImageView
-                android:id="@+id/ivLogo"
-                android:layout_width="170dp"
-                android:layout_height="match_parent"
-                android:contentDescription="@null"
-                android:padding="4dp"
-                android:scaleType="fitCenter"
-                android:src="@drawable/logobahgo" />
-        </androidx.cardview.widget.CardView>
+        <TextView
+            android:id="@+id/tvTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:fontFamily="sans-serif-black"
+            android:letterSpacing="0.04"
+            android:shadowColor="#40000000"
+            android:shadowDy="3"
+            android:shadowRadius="8"
+            android:text="@string/main_title"
+            android:textColor="@color/text_on_gradient"
+            android:textSize="52sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/app_subtitle"
+            android:textAllCaps="true"
+            android:alpha="0.9"
+            android:letterSpacing="0.2"
+            android:shadowColor="#33000000"
+            android:shadowDy="2"
+            android:shadowRadius="6"
+            android:textColor="@color/text_on_gradient"
+            android:textSize="13sp"
+            android:textStyle="bold" />
+
+        <!-- Soft glass card so the description stays readable over the rain -->
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            app:cardBackgroundColor="@color/welcome_card"
+            app:cardCornerRadius="20dp"
+            app:cardElevation="0dp"
+            app:strokeColor="@color/welcome_card_stroke"
+            app:strokeWidth="1dp">
+            <TextView
+                android:id="@+id/tvDescription"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:lineSpacingExtra="4dp"
+                android:paddingHorizontal="20dp"
+                android:paddingVertical="16dp"
+                android:text="@string/main_description"
+                android:textColor="@color/text_on_gradient"
+                android:textSize="15sp" />
+        </com.google.android.material.card.MaterialCardView>
+    </LinearLayout>
+
+    <!-- Bottom button stack -->
+    <LinearLayout
+        android:id="@+id/btnStack"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginBottom="52dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnGetStarted"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:insetTop="0dp"
+            android:insetBottom="0dp"
+            android:text="@string/get_started"
+            android:textAllCaps="false"
+            android:textColor="#333333"
+            android:textSize="17sp"
+            android:textStyle="bold"
+            app:backgroundTint="@color/mustard_yellow"
+            app:cornerRadius="30dp"
+            app:elevation="4dp" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnLogin"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginTop="14dp"
+            android:insetTop="0dp"
+            android:insetBottom="0dp"
+            android:text="@string/log_in"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="17sp"
+            android:textStyle="bold"
+            app:backgroundTint="@color/button_primary"
+            app:cornerRadius="30dp"
+            app:elevation="4dp" />
 
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/tvTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <!-- Settings Button (Top Right) -->
+    <ImageView
+        android:id="@+id/ivSettings"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
         android:layout_marginTop="12dp"
-        android:fontFamily="sans-serif-black"
-        android:text="@string/main_title"
-        android:textColor="@color/text_on_gradient"
-        android:textSize="56sp"
-        android:textStyle="bold"
+        android:layout_marginEnd="12dp"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:contentDescription="@string/settings_title"
+        android:padding="12dp"
+        android:src="@drawable/ic_settings"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/logoLayout" />
-
-    <TextView
-        android:id="@+id/tvDescription"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="48dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="48dp"
-        android:gravity="center"
-        android:lineSpacingExtra="4dp"
-        android:text="@string/main_description"
-        android:textColor="@color/text_on_gradient_secondary"
-        android:textSize="15sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvTitle" />
-
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/btnGetStarted"
-        android:layout_width="0dp"
-        android:layout_height="64dp"
-        android:layout_marginStart="40dp"
-        android:layout_marginEnd="40dp"
-        android:layout_marginBottom="20dp"
-        android:clickable="true"
-        android:elevation="8dp"
-        android:focusable="true"
-        android:insetTop="0dp"
-        android:insetBottom="0dp"
-        android:text="@string/get_started"
-        android:textAllCaps="false"
-        android:textColor="#333333"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        app:backgroundTint="@color/mustard_yellow"
-        app:cornerRadius="30dp"
-        app:layout_constraintBottom_toTopOf="@+id/btnLogin"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/btnLogin"
-        android:layout_width="0dp"
-        android:layout_height="64dp"
-        android:layout_marginStart="40dp"
-        android:layout_marginEnd="40dp"
-        android:layout_marginBottom="48dp"
-        android:clickable="true"
-        android:elevation="8dp"
-        android:focusable="true"
-        android:insetTop="0dp"
-        android:insetBottom="0dp"
-        android:text="@string/log_in"
-        android:textAllCaps="false"
-        android:textColor="@color/white"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        app:backgroundTint="@color/button_primary"
-        app:cornerRadius="30dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:tint="@color/icon_on_gradient" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

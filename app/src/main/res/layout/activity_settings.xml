@@ -1,4 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--
+    Settings, in the usual order: profile, Account (editable), Privacy & Security,
+    Preferences, Notifications, About, Log out.
+-->
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -10,45 +14,16 @@
     <com.example.bahgo20.ui.RainfallView
         android:id="@+id/rainfallView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:clickable="false"
+        android:focusable="false" />
 
-    <!-- Top Bar -->
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/clTopBar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="20dp"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <ImageView
-            android:id="@+id/ivBack"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:contentDescription="@string/back"
-            android:src="@drawable/ic_back"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:tint="@color/icon_on_gradient" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="sans-serif-medium"
-            android:text="Settings"
-            android:textColor="@color/text_on_gradient"
-            android:textSize="18sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
+    <!-- Starts below the header, so content never scrolls underneath it -->
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:clipToPadding="false"
-        android:paddingBottom="24dp"
+        android:paddingBottom="32dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@id/clTopBar">
 
@@ -56,284 +31,354 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="16dp">
+            android:paddingHorizontal="16dp">
 
-            <!-- Location Card -->
+            <!-- Profile -->
             <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
                 android:layout_marginBottom="20dp"
                 app:cardBackgroundColor="@color/card_glass"
-                app:cardCornerRadius="20dp"
-                app:cardElevation="2dp"
-                app:strokeWidth="1dp"
-                app:strokeColor="@color/card_stroke">
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:padding="16dp">
-
-                    <ImageView
-                        android:id="@+id/ivLocPin"
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"
-                        android:src="@drawable/ic_location_pin"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:tint="@color/icon_accent" />
-
-                    <TextView
-                        android:id="@+id/tvLocationTitle"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="12dp"
-                        android:layout_marginEnd="8dp"
-                        android:text="Detecting location..."
-                        android:textColor="@color/text_on_card"
-                        android:textSize="15sp"
-                        android:textStyle="bold"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toStartOf="@id/tvChangeLoc"
-                        app:layout_constraintStart_toEndOf="@id/ivLocPin"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <TextView
-                        android:id="@+id/tvChangeLoc"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:clickable="true"
-                        android:focusable="true"
-                        android:padding="4dp"
-                        android:text="Change Location"
-                        android:textColor="@color/icon_accent"
-                        android:textSize="12sp"
-                        android:textStyle="italic"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-                </androidx.constraintlayout.widget.ConstraintLayout>
-            </com.google.android.material.card.MaterialCardView>
-
-            <!-- Appearance Section -->
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:text="Appearance"
-                android:textColor="@color/text_on_gradient"
-                android:textSize="13sp"
-                android:textStyle="bold" />
-
-            <com.google.android.material.card.MaterialCardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="24dp"
-                app:cardBackgroundColor="@color/card_glass"
                 app:cardCornerRadius="24dp"
                 app:cardElevation="2dp"
-                app:strokeWidth="1dp"
-                app:strokeColor="@color/card_stroke">
-
+                app:strokeColor="@color/card_stroke"
+                app:strokeWidth="1dp">
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
                     android:orientation="horizontal"
-                    android:padding="8dp"
-                    android:weightSum="2">
-
-                    <com.google.android.material.button.MaterialButton
-                        android:id="@+id/btnLightMode"
-                        style="@style/Widget.Material3.Button.TextButton"
-                        android:layout_width="0dp"
-                        android:layout_height="64dp"
-                        android:layout_marginEnd="4dp"
-                        android:layout_weight="1"
-                        android:insetTop="0dp"
-                        android:insetBottom="0dp"
-                        android:text="Light"
-                        android:textAllCaps="false"
-                        android:textColor="@color/toggle_selected_text"
-                        android:textSize="12sp"
-                        app:backgroundTint="@color/toggle_selected_bg"
-                        app:cornerRadius="18dp"
-                        app:elevation="0dp"
-                        app:icon="@drawable/ic_light_mode"
-                        app:iconGravity="textTop"
-                        app:iconPadding="4dp"
-                        app:iconSize="20dp"
-                        app:iconTint="@color/toggle_selected_text"
-                        app:rippleColor="@color/card_glass_dark"
-                        app:strokeWidth="0dp" />
-
-                    <com.google.android.material.button.MaterialButton
-                        android:id="@+id/btnDarkMode"
-                        style="@style/Widget.Material3.Button.TextButton"
-                        android:layout_width="0dp"
-                        android:layout_height="64dp"
-                        android:layout_marginStart="4dp"
-                        android:layout_weight="1"
-                        android:insetTop="0dp"
-                        android:insetBottom="0dp"
-                        android:text="Dark"
-                        android:textAllCaps="false"
-                        android:textColor="@color/toggle_unselected_text"
-                        android:textSize="12sp"
-                        app:backgroundTint="@android:color/transparent"
-                        app:cornerRadius="18dp"
-                        app:elevation="0dp"
-                        app:icon="@drawable/ic_dark_mode"
-                        app:iconGravity="textTop"
-                        app:iconPadding="4dp"
-                        app:iconSize="20dp"
-                        app:iconTint="@color/toggle_unselected_text"
-                        app:rippleColor="@color/card_glass_dark"
-                        app:strokeWidth="0dp" />
-                </LinearLayout>
-            </com.google.android.material.card.MaterialCardView>
-
-            <!-- Object to Monitor Section -->
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:text="Object to Monitor"
-                android:textColor="@color/text_on_gradient"
-                android:textSize="13sp"
-                android:textStyle="bold" />
-
-            <com.google.android.material.card.MaterialCardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="24dp"
-                app:cardBackgroundColor="@color/card_glass"
-                app:cardCornerRadius="24dp"
-                app:cardElevation="2dp"
-                app:strokeWidth="1dp"
-                app:strokeColor="@color/card_stroke">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:padding="8dp"
-                    android:weightSum="2">
-
-                    <com.google.android.material.button.MaterialButton
-                        android:id="@+id/btnPersonMode"
-                        style="@style/Widget.Material3.Button.TextButton"
-                        android:layout_width="0dp"
-                        android:layout_height="64dp"
-                        android:layout_marginEnd="4dp"
-                        android:layout_weight="1"
-                        android:insetTop="0dp"
-                        android:insetBottom="0dp"
-                        android:text="person"
-                        android:textAllCaps="false"
-                        android:textColor="@color/toggle_selected_text"
-                        android:textSize="12sp"
-                        app:backgroundTint="@color/toggle_selected_bg"
-                        app:cornerRadius="18dp"
-                        app:elevation="0dp"
-                        app:icon="@drawable/ic_person"
-                        app:iconGravity="textTop"
-                        app:iconPadding="4dp"
-                        app:iconSize="20dp"
-                        app:iconTint="@color/toggle_selected_text"
-                        app:rippleColor="@color/card_glass_dark"
-                        app:strokeWidth="0dp" />
-
-                    <com.google.android.material.button.MaterialButton
-                        android:id="@+id/btnCarMode"
-                        style="@style/Widget.Material3.Button.TextButton"
-                        android:layout_width="0dp"
-                        android:layout_height="64dp"
-                        android:layout_marginStart="4dp"
-                        android:layout_weight="1"
-                        android:insetTop="0dp"
-                        android:insetBottom="0dp"
-                        android:text="car"
-                        android:textAllCaps="false"
-                        android:textColor="@color/toggle_unselected_text"
-                        android:textSize="12sp"
-                        app:backgroundTint="@android:color/transparent"
-                        app:cornerRadius="18dp"
-                        app:elevation="0dp"
-                        app:icon="@drawable/ic_car"
-                        app:iconGravity="textTop"
-                        app:iconPadding="4dp"
-                        app:iconSize="20dp"
-                        app:iconTint="@color/toggle_unselected_text"
-                        app:rippleColor="@color/card_glass_dark"
-                        app:strokeWidth="0dp" />
-                </LinearLayout>
-            </com.google.android.material.card.MaterialCardView>
-
-            <!-- Apps Section -->
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:text="Apps"
-                android:textColor="@color/text_on_gradient"
-                android:textSize="13sp"
-                android:textStyle="bold" />
-
-            <com.google.android.material.card.MaterialCardView
-                android:id="@+id/cardAbout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:clickable="true"
-                android:focusable="true"
-                app:cardBackgroundColor="@color/card_glass"
-                app:cardCornerRadius="20dp"
-                app:cardElevation="2dp"
-                app:strokeWidth="1dp"
-                app:strokeColor="@color/card_stroke">
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:padding="16dp">
-
-                    <ImageView
-                        android:id="@+id/ivInfo"
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"
-                        android:src="@drawable/ic_info"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:tint="@color/icon_accent" />
-
+                    android:padding="20dp">
                     <TextView
+                        android:id="@+id/tvAvatar"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        android:background="@drawable/bg_intro_icon_circle"
+                        android:backgroundTint="@color/button_primary"
+                        android:gravity="center"
+                        android:text="?"
+                        android:textColor="@color/white"
+                        android:textSize="22sp"
+                        android:textStyle="bold" />
+                    <LinearLayout
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
-                        android:layout_marginEnd="8dp"
-                        android:text="About Bahgo app"
-                        android:textColor="@color/text_on_card"
-                        android:textSize="14sp"
-                        android:textStyle="bold"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toStartOf="@id/ivChevron"
-                        app:layout_constraintStart_toEndOf="@id/ivInfo"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <ImageView
-                        android:id="@+id/ivChevron"
-                        android:layout_width="16dp"
-                        android:layout_height="16dp"
-                        android:src="@drawable/ic_chevron_right"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:tint="@color/icon_muted" />
-                </androidx.constraintlayout.widget.ConstraintLayout>
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+                        <TextView
+                            android:id="@+id/tvProfileName"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:maxLines="1"
+                            android:ellipsize="end"
+                            android:text="@string/settings_loading"
+                            android:textColor="@color/text_on_card"
+                            android:textSize="18sp"
+                            android:textStyle="bold" />
+                        <TextView
+                            android:id="@+id/tvProfilePhone"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="2dp"
+                            android:textColor="@color/text_on_card_secondary"
+                            android:textSize="14sp" />
+                    </LinearLayout>
+                </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
 
+            <!-- Account (editable) -->
+            <TextView style="@style/SettingsSectionLabel" android:text="@string/settings_account_2" />
+            <com.google.android.material.card.MaterialCardView style="@style/SettingsCard">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                    <LinearLayout android:id="@+id/rowName" style="@style/SettingsRow">
+                        <ImageView style="@style/SettingsRowIcon" android:src="@drawable/ic_person" />
+                        <LinearLayout style="@style/SettingsRowText">
+                            <TextView style="@style/SettingsRowTitle" android:text="@string/settings_name" />
+                            <TextView android:id="@+id/tvNameValue" style="@style/SettingsRowValue" android:text="--" />
+                        </LinearLayout>
+                        <ImageView style="@style/SettingsRowChevron" />
+                    </LinearLayout>
+                    <View style="@style/SettingsDivider" />
+                    <LinearLayout android:id="@+id/rowPhone" style="@style/SettingsRow">
+                        <ImageView style="@style/SettingsRowIcon" android:src="@drawable/ic_phone" />
+                        <LinearLayout style="@style/SettingsRowText">
+                            <TextView style="@style/SettingsRowTitle" android:text="@string/settings_mobile_number" />
+                            <TextView android:id="@+id/tvPhoneValue" style="@style/SettingsRowValue" android:text="--" />
+                        </LinearLayout>
+                        <ImageView style="@style/SettingsRowChevron" />
+                    </LinearLayout>
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- Privacy & Security -->
+            <TextView style="@style/SettingsSectionLabel" android:text="@string/settings_privacy_security" />
+            <com.google.android.material.card.MaterialCardView style="@style/SettingsCard">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                    <LinearLayout android:id="@+id/rowChangePassword" style="@style/SettingsRow">
+                        <ImageView style="@style/SettingsRowIcon" android:src="@drawable/ic_lock" />
+                        <LinearLayout style="@style/SettingsRowText">
+                            <TextView style="@style/SettingsRowTitle" android:text="@string/settings_change_password" />
+                            <TextView style="@style/SettingsRowValue" android:text="@string/settings_keep_your_account_secure" />
+                        </LinearLayout>
+                        <ImageView style="@style/SettingsRowChevron" />
+                    </LinearLayout>
+                    <View style="@style/SettingsDivider" />
+                    <LinearLayout android:id="@+id/rowChangePhone" style="@style/SettingsRow">
+                        <ImageView style="@style/SettingsRowIcon" android:src="@drawable/ic_phone" />
+                        <LinearLayout style="@style/SettingsRowText">
+                            <TextView style="@style/SettingsRowTitle" android:text="@string/settings_change_phone_number" />
+                            <TextView style="@style/SettingsRowValue" android:text="@string/settings_we_ll_text_a" />
+                        </LinearLayout>
+                        <ImageView style="@style/SettingsRowChevron" />
+                    </LinearLayout>
+                    <View style="@style/SettingsDivider" />
+                    <LinearLayout android:id="@+id/rowAnalytics" style="@style/SettingsRow" android:clickable="false" android:focusable="false" android:background="@null">
+                        <ImageView style="@style/SettingsRowIcon" android:src="@drawable/ic_trending_up" />
+                        <LinearLayout style="@style/SettingsRowText">
+                            <TextView style="@style/SettingsRowTitle" android:text="@string/settings_usage_statistics" />
+                            <TextView style="@style/SettingsRowValue" android:text="@string/settings_share_anonymous_app_usage" />
+                        </LinearLayout>
+                        <com.google.android.material.switchmaterial.SwitchMaterial
+                            android:id="@+id/switchAnalytics"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+                    </LinearLayout>
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- Preferences -->
+            <TextView style="@style/SettingsSectionLabel" android:text="@string/settings_preferences" />
+            <com.google.android.material.card.MaterialCardView style="@style/SettingsCard">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:paddingTop="12dp"
+                    android:paddingBottom="8dp">
+                    <TextView style="@style/SettingsRowTitle" android:layout_marginStart="16dp" android:text="@string/settings_appearance" />
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingHorizontal="8dp"
+                        android:weightSum="2">
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/btnLightMode"
+                            style="@style/Widget.Material3.Button.TextButton"
+                            android:layout_width="0dp"
+                            android:layout_height="64dp"
+                            android:layout_weight="1"
+                            android:text="@string/settings_light"
+                            app:icon="@drawable/ic_light_mode"
+                            app:iconGravity="textTop" />
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/btnDarkMode"
+                            style="@style/Widget.Material3.Button.TextButton"
+                            android:layout_width="0dp"
+                            android:layout_height="64dp"
+                            android:layout_weight="1"
+                            android:text="@string/settings_dark"
+                            app:icon="@drawable/ic_dark_mode"
+                            app:iconGravity="textTop" />
+                    </LinearLayout>
+                    <View style="@style/SettingsDivider" android:layout_marginVertical="8dp" />
+                    <!-- Language: English or Filipino (the whole app switches right away) -->
+                    <TextView style="@style/SettingsRowTitle" android:layout_marginStart="16dp" android:text="@string/settings_language" />
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingHorizontal="8dp"
+                        android:weightSum="2">
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/btnEnglish"
+                            style="@style/Widget.Material3.Button.TextButton"
+                            android:layout_width="0dp"
+                            android:layout_height="64dp"
+                            android:layout_weight="1"
+                            android:text="@string/settings_language_english"
+                            app:icon="@drawable/ic_language"
+                            app:iconGravity="textTop" />
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/btnFilipino"
+                            style="@style/Widget.Material3.Button.TextButton"
+                            android:layout_width="0dp"
+                            android:layout_height="64dp"
+                            android:layout_weight="1"
+                            android:text="@string/settings_language_filipino"
+                            app:icon="@drawable/ic_language"
+                            app:iconGravity="textTop" />
+                    </LinearLayout>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="16dp"
+                        android:layout_marginTop="4dp"
+                        android:text="@string/settings_language_note"
+                        android:textColor="@color/text_on_card_secondary"
+                        android:textSize="12sp" />
+                    <View style="@style/SettingsDivider" android:layout_marginVertical="8dp" />
+                    <TextView style="@style/SettingsRowTitle" android:layout_marginStart="16dp" android:text="@string/settings_monitor_object" />
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingHorizontal="8dp"
+                        android:weightSum="2">
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/btnPersonMode"
+                            style="@style/Widget.Material3.Button.TextButton"
+                            android:layout_width="0dp"
+                            android:layout_height="64dp"
+                            android:layout_weight="1"
+                            android:text="@string/settings_person"
+                            app:icon="@drawable/ic_person"
+                            app:iconGravity="textTop" />
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/btnCarMode"
+                            style="@style/Widget.Material3.Button.TextButton"
+                            android:layout_width="0dp"
+                            android:layout_height="64dp"
+                            android:layout_weight="1"
+                            android:text="@string/settings_car"
+                            app:icon="@drawable/ic_car"
+                            app:iconGravity="textTop" />
+                    </LinearLayout>
+                    <TextView
+                        android:id="@+id/tvModeDescription"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="16dp"
+                        android:layout_marginTop="4dp"
+                        android:text="@string/settings_mode_desc_person"
+                        android:textColor="@color/text_on_card_secondary"
+                        android:textSize="12sp" />
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- Notifications -->
+            <TextView style="@style/SettingsSectionLabel" android:text="@string/settings_notifications_2" />
+            <com.google.android.material.card.MaterialCardView style="@style/SettingsCard">
+                <LinearLayout android:id="@+id/rowFloodAlerts" style="@style/SettingsRow" android:clickable="false" android:focusable="false" android:background="@null">
+                    <ImageView style="@style/SettingsRowIcon" android:src="@drawable/ic_bell" />
+                    <LinearLayout style="@style/SettingsRowText">
+                        <TextView style="@style/SettingsRowTitle" android:text="@string/settings_flood_alerts" />
+                        <TextView style="@style/SettingsRowValue" android:text="@string/settings_notify_me_when_a" />
+                    </LinearLayout>
+                    <com.google.android.material.switchmaterial.SwitchMaterial
+                        android:id="@+id/switchFloodAlerts"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:checked="true" />
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- About -->
+            <TextView style="@style/SettingsSectionLabel" android:text="@string/settings_about" />
+            <com.google.android.material.card.MaterialCardView style="@style/SettingsCard">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                    <LinearLayout android:id="@+id/btnAppTour" style="@style/SettingsRow">
+                        <ImageView style="@style/SettingsRowIcon" android:src="@drawable/ic_location_pin" />
+                        <LinearLayout style="@style/SettingsRowText">
+                            <TextView style="@style/SettingsRowTitle" android:text="@string/settings_app_tour" />
+                            <TextView style="@style/SettingsRowValue" android:text="@string/settings_show_me_around_the" />
+                        </LinearLayout>
+                        <ImageView style="@style/SettingsRowChevron" />
+                    </LinearLayout>
+                    <View style="@style/SettingsDivider" />
+                    <LinearLayout android:id="@+id/btnAbout" style="@style/SettingsRow">
+                        <ImageView style="@style/SettingsRowIcon" android:src="@drawable/ic_info" />
+                        <LinearLayout style="@style/SettingsRowText">
+                            <TextView style="@style/SettingsRowTitle" android:text="@string/settings_about_app" />
+                        </LinearLayout>
+                        <ImageView style="@style/SettingsRowChevron" />
+                    </LinearLayout>
+                    <View style="@style/SettingsDivider" />
+                    <LinearLayout android:id="@+id/rowPrivacyPolicy" style="@style/SettingsRow">
+                        <ImageView style="@style/SettingsRowIcon" android:src="@drawable/ic_lock" />
+                        <LinearLayout style="@style/SettingsRowText">
+                            <TextView style="@style/SettingsRowTitle" android:text="@string/about_privacy_policy" />
+                        </LinearLayout>
+                        <ImageView style="@style/SettingsRowChevron" />
+                    </LinearLayout>
+                    <View style="@style/SettingsDivider" />
+                    <LinearLayout android:id="@+id/rowTerms" style="@style/SettingsRow">
+                        <ImageView style="@style/SettingsRowIcon" android:src="@drawable/ic_info" />
+                        <LinearLayout style="@style/SettingsRowText">
+                            <TextView style="@style/SettingsRowTitle" android:text="@string/about_terms_and_conditions" />
+                        </LinearLayout>
+                        <ImageView style="@style/SettingsRowChevron" />
+                    </LinearLayout>
+                    <View style="@style/SettingsDivider" />
+                    <LinearLayout android:id="@+id/rowCookiePolicy" style="@style/SettingsRow">
+                        <ImageView style="@style/SettingsRowIcon" android:src="@drawable/ic_info" />
+                        <LinearLayout style="@style/SettingsRowText">
+                            <TextView style="@style/SettingsRowTitle" android:text="@string/about_cookie_policy" />
+                            <TextView style="@style/SettingsRowValue" android:text="@string/about_no_cookies_what_the" />
+                        </LinearLayout>
+                        <ImageView style="@style/SettingsRowChevron" />
+                    </LinearLayout>
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- Log out (only here) -->
+            <com.google.android.material.card.MaterialCardView style="@style/SettingsCard">
+                <LinearLayout android:id="@+id/btnLogout" style="@style/SettingsRow">
+                    <ImageView style="@style/SettingsRowIcon" android:src="@drawable/ic_logout" app:tint="#D32F2F" />
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="14dp"
+                        android:layout_weight="1"
+                        android:text="@string/settings_logout"
+                        android:textColor="#D32F2F"
+                        android:textSize="15sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
         </LinearLayout>
     </ScrollView>
+
+    <!-- Header Layered Last (Fixed on top) -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/clTopBar"
+        android:layout_width="match_parent"
+        android:layout_height="88dp"
+        android:paddingTop="24dp"
+        android:paddingHorizontal="20dp"
+        android:elevation="6dp"
+        app:layout_constraintTop_toTopOf="parent">
+        <ImageView
+            android:id="@+id/ivBack"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:padding="12dp"
+            android:src="@drawable/ic_back"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:tint="@color/icon_on_gradient"
+            android:contentDescription="@string/back" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-medium"
+            android:text="@string/settings_title"
+            android:textColor="@color/text_on_gradient"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

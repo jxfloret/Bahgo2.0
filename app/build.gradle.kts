@@ -19,21 +19,15 @@ android {
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
-        // OTP API Gateway configuration
+        // SMS Gateway login for sign-up codes (sent from the phone, see auth/AuthApi.kt).
+        // Priority: local.properties > gradle.properties
         val localProperties = Properties()
         val localPropertiesFile = rootProject.file("local.properties")
-        if (localPropertiesFile.exists()) {
-            localProperties.load(localPropertiesFile.inputStream())
-        }
-
-        // Priority: local.properties > gradle.properties
+        if (localPropertiesFile.exists()) localProperties.load(localPropertiesFile.inputStream())
         val gatewayUsername = localProperties.getProperty("SMSGATEWAY_USERNAME")
-            ?: project.findProperty("SMSGATEWAY_USERNAME")?.toString()
-            ?: ""
+            ?: project.findProperty("SMSGATEWAY_USERNAME")?.toString() ?: ""
         val gatewayPassword = localProperties.getProperty("SMSGATEWAY_PASSWORD")
-            ?: project.findProperty("SMSGATEWAY_PASSWORD")?.toString()
-            ?: ""
-
+            ?: project.findProperty("SMSGATEWAY_PASSWORD")?.toString() ?: ""
         buildConfigField("String", "SMSGATEWAY_USERNAME", "\"$gatewayUsername\"")
         buildConfigField("String", "SMSGATEWAY_PASSWORD", "\"$gatewayPassword\"")
     }
@@ -61,6 +55,7 @@ dependencies {
     implementation(libs.material)
     implementation(libs.androidx.activity)
     implementation(libs.androidx.constraintlayout)
+    implementation("androidx.viewpager2:viewpager2:1.0.0") // Get Started slides (same version Material already brings in)
     implementation(libs.androidx.core.splashscreen)
 
     implementation("com.google.android.gms:play-services-location:21.2.0")
@@ -79,6 +74,7 @@ dependencies {
     implementation(libs.firebase.auth)
     implementation(libs.firebase.firestore)
     implementation(libs.firebase.database)
+    implementation("com.google.firebase:firebase-messaging") // push notifications (version comes from the BoM)
 
     // Add Coroutines Play Services for .await()
     implementation(libs.kotlinx.coroutines.play.services)
@@ -87,6 +83,7 @@ dependencies {
     implementation(libs.androidx.security.crypto)
 
     testImplementation(libs.junit)
+    testImplementation("org.json:json:20240303") // real JSON parser for unit tests (Android's is a stub there)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
 }

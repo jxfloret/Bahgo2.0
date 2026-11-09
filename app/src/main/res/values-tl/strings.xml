@@ -1,0 +1,354 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="main_description">Isang makabagong sistema para sa maagang pagtukoy at pagmo-monitor ng baha, na nagbibigay ng real-time na alerto at pagpapakita ng datos.</string>
+    <string name="get_started">Magsimula</string>
+    <string name="log_in">Mag-log In</string>
+    <string name="logout">Mag-log Out</string>
+
+    <string name="setup_title">Simulan na natin</string>
+    <string name="setup_subtitle">Ipapadala namin ang mga flood alert diretso sa phone mo.</string>
+    <string name="first_name_label">Pangalan</string>
+    <string name="surname_label">Apelyido</string>
+    <string name="phone_number_label">Numero ng Telepono</string>
+    <string name="password_label">Password</string>
+    <string name="own_vehicle_label">May sasakyan ako</string>
+    <string name="continue_btn">Mag-sign Up</string>
+
+    <!-- Login -->
+    <string name="login_title">Welcome ulit</string>
+    <string name="login_subtitle">Mag-log in para bantayan ang lagay ng baha sa inyong lugar.</string>
+    <string name="no_account_signup">Wala pang account? Mag-sign up</string>
+
+    <!-- OTP -->
+    <string name="otp_main_title">Tingnan ang iyong text messages</string>
+    <string name="otp_card_title">OTP Verification</string>
+    <string name="otp_card_subtitle">Ilagay ang code mula sa SMS na ipinadala namin sa</string>
+    <string name="otp_resend_prompt">Hindi natanggap ang OTP? %1$s</string>
+    <string name="otp_resend_action">IPADALA ULIT</string>
+    <string name="otp_verify_btn">I-verify at Magpatuloy</string>
+
+    <!-- Permission Screens & Dialogs -->
+    <string name="perm_location_title">I-on ang Location</string>
+    <string name="perm_location_desc">Payagan ang app na gamitin ang iyong location para bantayan ang lagay ng panahon at flood alerts sa inyong lugar.</string>
+    <string name="perm_allow_once">Payagan Ngayon Lang</string>
+    <string name="perm_allow_while_using">Payagan Habang Ginagamit ang App</string>
+    <string name="perm_allow_always">Palaging Payagan</string>
+    <string name="perm_dont_allow">Huwag Payagan</string>
+    <string name="perm_notification_title">I-on ang Notification</string>
+    <string name="perm_notification_desc">Maaaring may alerto, tunog, at icon badge ang mga notification. Maaari itong i-configure sa Settings.</string>
+    <string name="perm_allow">Payagan</string>
+    <string name="go_to_settings">Pumunta sa Settings</string>
+    <string name="background_location_disclosure_title">Location sa Background</string>
+    <string name="background_location_disclosure_msg">Para mapanatili kang ligtas, kinokolekta ng Bahgo ang location data kahit nakasara ang app. Pakipili ang \"Allow all the time\" sa susunod na screen.</string>
+
+    <!-- Settings -->
+    <string name="settings_title">Settings</string>
+    <string name="settings_location">Location</string>
+    <string name="settings_detecting">Hinahanap ang location...</string>
+    <string name="settings_change">Palitan</string>
+    <string name="settings_appearance">Itsura</string>
+    <string name="settings_light">Maliwanag</string>
+    <string name="settings_dark">Madilim</string>
+    <string name="settings_monitor_object">Babantayan</string>
+    <string name="settings_person">Tao</string>
+    <string name="settings_car">Sasakyan</string>
+    <string name="settings_notifications">Mga Notification</string>
+    <string name="settings_flood_alerts">Flood Alerts</string>
+    <string name="settings_alert_sound">Tunog ng Alerto</string>
+    <string name="settings_alert_threshold">Threshold ng Alerto</string>
+    <string name="settings_account">Account</string>
+    <string name="settings_change_password">Palitan ang Password</string>
+    <string name="settings_about_app">Tungkol sa Bahgo App</string>
+    <string name="settings_logout">Mag-log Out</string>
+    <string name="settings_mode_desc_person">Para sa kaligtasan sa paglalakad.</string>
+    <string name="settings_mode_desc_car">Para sa kaligtasan sa pagmamaneho.</string>
+    <string name="settings_mode_desc_default">Para sa kaligtasan.</string>
+
+    <!-- Settings: language -->
+    <string name="settings_language">WIKA</string>
+    <string name="settings_language_english">English</string>
+    <string name="settings_language_filipino">Filipino</string>
+    <string name="settings_language_note">Ang mga pangalan ng kalye at brand, at ang mga legal na dokumento ay mananatiling nasa English.</string>
+
+    <!-- Settings: dialogs and messages -->
+    <string name="settings_logout_title">Mag-log out?</string>
+    <string name="settings_logout_message">Kailangan mong mag-log in ulit para makita ang live na lagay ng baha.</string>
+    <string name="settings_logout_confirm">Mag-log Out</string>
+    <string name="settings_not_signed_in">Hindi naka-sign in</string>
+    <string name="settings_guest">Bisita</string>
+    <string name="settings_your_account">Iyong account</string>
+    <string name="settings_add_your_name">Idagdag ang iyong pangalan</string>
+    <string name="settings_first_name">Pangalan</string>
+    <string name="settings_edit_name">Baguhin ang Pangalan</string>
+    <string name="settings_save">I-save</string>
+    <string name="settings_enter_first_name">Ilagay ang iyong pangalan</string>
+    <string name="settings_enter_surname">Ilagay ang iyong apelyido</string>
+    <string name="settings_name_updated">Na-update ang pangalan</string>
+    <string name="settings_save_failed">Hindi na-save. Subukan ulit.</string>
+    <string name="settings_current_password">Kasalukuyang password</string>
+    <string name="settings_new_password">Bagong password</string>
+    <string name="settings_confirm_new_password">Kumpirmahin ang bagong password</string>
+    <string name="settings_password_rules">Hindi bababa sa 8 character, 1 numero at 1 special character</string>
+    <string name="password_too_short">Dapat hindi bababa sa 8 character ang password</string>
+    <string name="password_needs_number">Dapat mayroong kahit isang numero ang password</string>
+    <string name="password_needs_special">Dapat mayroong kahit isang special character ang password</string>
+    <string name="settings_enter_current_password">Ilagay ang iyong kasalukuyang password</string>
+    <string name="settings_password_same">Dapat iba ang bagong password</string>
+    <string name="settings_password_mismatch">Hindi magkapareho ang mga password</string>
+    <string name="settings_password_changed">Napalitan ang password</string>
+    <string name="settings_password_change_failed">Hindi napalitan ang password. Subukan ulit.</string>
+    <string name="settings_new_mobile_number">Bagong numero ng mobile</string>
+    <string name="settings_phone_example">Halimbawa: 0917 123 4567</string>
+    <string name="settings_send_code">Ipadala ang Code</string>
+    <string name="settings_enter_valid_number">Maglagay ng tamang numero ng mobile</string>
+    <string name="settings_same_number">Iyan na ang numero mo</string>
+    <string name="settings_enter_password">Ilagay ang iyong password</string>
+    <string name="settings_send_code_failed">Hindi naipadala ang code.</string>
+    <string name="settings_six_digit_code">6-digit na code</string>
+    <string name="settings_code_sent_to">Ipinadala ang code sa %1$s</string>
+    <string name="settings_confirm">Kumpirmahin</string>
+    <string name="settings_enter_the_code">Ilagay ang Code</string>
+    <string name="settings_enter_six_digits">Ilagay ang 6-digit na code</string>
+    <string name="settings_number_changed">Napalitan ang numero sa %1$s</string>
+    <string name="settings_number_change_failed">Hindi napalitan ang numero. Subukan ulit.</string>
+    <string name="settings_log_in_first">Mag-log in muna</string>
+    <string name="settings_preference_saved">Na-save ang preference</string>
+    <string name="settings_sync_failed">Na-save sa phone na ito, pero hindi na-sync. Tingnan ang iyong internet.</string>
+
+    <!-- Status Labels -->
+    <string name="status_label_safe">Ligtas</string>
+    <string name="status_label_warning">Babala</string>
+    <string name="status_label_dangerous">Delikado</string>
+    <string name="status_offline">Offline</string>
+
+    <!-- Flood alert notification titles (street name is %1$s) -->
+    <string name="alert_title_warning">Babala sa baha · %1$s</string>
+    <string name="alert_title_dangerous">Delikadong baha · %1$s</string>
+
+    <!-- Risk and rise words -->
+    <string name="risk_safe">Ligtas</string>
+    <string name="risk_warning">Babala</string>
+    <string name="risk_dangerous">Delikado</string>
+    <string name="risk_offline">Offline</string>
+    <string name="risk_online">Online</string>
+    <string name="rise_steady">Matatag</string>
+    <string name="rise_going_down">Bumababa ang tubig</string>
+    <string name="rise_measuring">Sinusukat…</string>
+
+    <!-- Dashboard & Conditions -->
+    <string name="current_location_label">iyong kasalukuyang lokasyon:</string>
+    <string name="view_full_condition">tingnan ang buong kalagayan</string>
+    <string name="water_level_label">Taas ng Tubig</string>
+    <string name="current_level_status">Kasalukuyang Lagay</string>
+    <string name="risk_level_label">Antas ng Panganib</string>
+    <string name="threshold_text">70% ng threshold</string>
+    <string name="threshold_percent_format">%1$d%% ng threshold</string>
+    <string name="risk_warning_desc">Papalapit na sa threshold ang taas ng tubig</string>
+    <string name="rate_of_rise_format">Bilis ng Pagtaas: %1$d cm/hr</string>
+    <string name="precipitation_format">Ulan: %1$.1f mm/hr</string>
+    <string name="nearby_devices_label">mga kalapit na sensor</string>
+    <string name="person_mode">Mode ng Tao</string>
+    <string name="car_mode">Mode ng Sasakyan</string>
+    <string name="person_mode_desc">Maaaring maging delikado ang lugar—manatiling alerto at iwasan kung maaari.</string>
+    <string name="car_mode_desc">Maaari pang magmaneho, pero mag-ingat.</string>
+
+    <string name="home_online_dot">● Online</string>
+    <string name="updated_at">Na-update %1$s</string>
+    <string name="last_reading">Huling reading</string>
+    <string name="from_rain_sensor">Mula sa rain sensor</string>
+    <string name="home_selected_place">Napiling lugar</string>
+    <string name="flood_risk_value">Panganib ng baha: %1$s</string>
+    <string name="mode_offline_guidance">Offline ang sensor, kaya hindi namin alam kung gaano kalalim ang tubig. Mag-ingat.</string>
+
+    <string name="risk_detail_safe">Mababa ang tubig sa kalyeng ito.</string>
+    <string name="risk_detail_warning">Tumataas ang tubig. Mag-ingat.</string>
+    <string name="risk_detail_critical">Mataas ang tubig. Iwasan ang kalyeng ito.</string>
+
+    <string name="forecast_percent_danger">%1$d%% ng delikadong level</string>
+    <string name="forecast_may_rise">Maaaring tumaas nang mga %1$s cm</string>
+    <string name="forecast_may_fall">Maaaring bumaba nang mga %1$s cm</string>
+    <string name="forecast_same">Halos pareho lang</string>
+    <string name="forecast_could_reach">Maaaring umabot sa %1$s</string>
+    <string name="forecast_offline">Offline ang sensor</string>
+    <string name="forecast_not_available">Hindi available</string>
+    <string name="forecast_not_available_detail">Hindi ma-load ang forecast. Tingnan ang iyong internet.</string>
+    <string name="forecast_ready_in">Handa na sa loob ng mga %1$d min</string>
+    <string name="flood_risk_detail_critical">Mataas ang tsansa ng pagbaha sa kalyeng ito sa lalong madaling panahon.</string>
+    <string name="flood_risk_detail_warning">May tsansa ng pagbaha. Manatiling alerto.</string>
+    <string name="flood_risk_detail_low">Mababa ang tsansa ng pagbaha.</string>
+    <string name="chart_recorded_ends">Nagtatapos ang sample data sa %1$s</string>
+
+    <!-- Home tour -->
+    <string name="tour_map_title">Flood map</string>
+    <string name="tour_map_text">Ang mga kulay na tuldok ay ang mga sensor sa kalye: berde ay ligtas, orange ay babala, pula ay delikado. I-drag at i-zoom para tingnan ang paligid.</string>
+    <string name="tour_search_title">Maghanap</string>
+    <string name="tour_search_text">Maghanap ng sensor o anumang lugar sa Taguig at tingnan ito sa mapa.</string>
+    <string name="tour_street_title">Iyong kalye</string>
+    <string name="tour_street_text">Ang taas ng tubig sa pangunahing kalye ngayon. I-tap para sa buong detalye.</string>
+    <string name="tour_status_title">Kasalukuyang lagay</string>
+    <string name="tour_status_text">Taas ng tubig, panganib, bilis ng pagtaas at ulan sa isang tingin. I-tap ang kahon para malaman ang ibig sabihin.</string>
+    <string name="tour_daily_title">7-araw na forecast</string>
+    <string name="tour_daily_text">Ang tsansa ng ulan sa buong linggo.</string>
+    <string name="tour_nearby_title">Mga kalapit na sensor</string>
+    <string name="tour_nearby_text">Tingnan din ang ibang kalye. I-tap ang isa para buksan ang kalagayan nito.</string>
+    <string name="tour_chat_title">BahGo Assistant</string>
+    <string name="tour_chat_text">Magtanong tungkol sa baha, ulan o kung paano gamitin ang app.</string>
+    <string name="tour_settings_text">Piliin ang Tao o Sasakyan, i-on o i-off ang flood alerts, palitan ang wika, at ayusin ang iyong account.</string>
+
+    <!-- Level Descriptions -->
+    <string name="ankle_desc">Hanggang bukung-bukong — puwedeng lakarin nang may ingat.</string>
+    <string name="knee_desc">Hanggang tuhod — mahirap maglakad. May panganib na madulas o matumba.</string>
+    <string name="waist_desc">Hanggang baywang — napakadelikado. May panganib ng malakas na agos.</string>
+    <string name="chest_desc">Hanggang dibdib — nakamamatay. Lumikas agad.</string>
+    <string name="safe_desc">Ligtas — kaya pang dumaan ng karamihan ng sasakyan. Magmaneho nang dahan-dahan.</string>
+    <string name="risky_desc">Mapanganib — maaaring tumirik ang maliliit na sasakyan. Iwasan kung maaari.</string>
+    <string name="critical_desc">Delikado — huwag subukang dumaan. Lulubog ang sasakyan.</string>
+
+    <!-- Status info sheet -->
+    <string name="info_level_what">Gaano kalalim ang baha sa kalye, sinusukat ng sensor na nakakabit sa itaas ng daan. Ang 0 cm ay nangangahulugang tuyo ang kalye.</string>
+    <string name="info_level_safe">Ligtas · hanggang %1$s</string>
+    <string name="info_level_safe_text">Hanggang bukung-bukong o mas mababa sa tuhod. Kadalasan, puwede pang maglakad o dumaan nang dahan-dahan.</string>
+    <string name="info_level_warning">Babala · %1$s hanggang %2$s</string>
+    <string name="info_level_warning_text">Hanggang tuhod. Mahirap maglakad at puwedeng tumirik ang maliliit na sasakyan. Iwasan kung kaya.</string>
+    <string name="info_level_critical">Delikado · higit sa %1$s</string>
+    <string name="info_level_critical_text">Hanggang baywang pataas. Delikado: huwag maglakad o dumaan.</string>
+    <string name="info_level_tip">Ang \"%% ng threshold\" ay paghahambing ng tubig ngayon sa Delikadong level (%1$s = 100%%).</string>
+
+    <string name="info_risk_what">Gaano ka-delikado ang kalyeng ito ngayon, base sa taas ng tubig.</string>
+    <string name="info_risk_safe_text">Mababa sa %1$s ang tubig. Normal, pero mag-ingat pa rin kapag umuulan.</string>
+    <string name="info_risk_warning_text">Nasa pagitan ng %1$s at %2$s ang tubig. Mag-ingat at iwasan ang kalye kung kaya.</string>
+    <string name="info_risk_critical_text">Higit sa %1$s ang tubig. Lumayo sa lugar.</string>
+    <string name="info_risk_offline_text">Hindi nagpapadala ng data ang sensor ngayon, kaya hindi alam ang panganib. Mag-ingat.</string>
+    <string name="info_risk_tip">Makakatanggap ka ng notification kapag naging Babala o Delikado ang isang kalye (kung naka-on ang flood alerts sa Settings).</string>
+
+    <string name="info_rise_what">Gaano kabilis tumataas o bumababa ang tubig, batay sa mga reading sa nakaraang 15 minuto.</string>
+    <string name="info_rise_rising">+ cm/hr · tumataas</string>
+    <string name="info_rise_rising_text">Tumataas ang tubig. Ang \"+6 cm/hr\" ay mga 6 cm na mas mataas sa loob ng isang oras. Kung patuloy itong tumaas, ipapakita ng kahon kung kailan ito aabot sa susunod na level, tulad ng \"Babala sa loob ng ~25 min\".</string>
+    <string name="info_rise_steady_text">Halos hindi nagbabago ang tubig (wala pang %1$s kada oras).</string>
+    <string name="info_rise_falling">- cm/hr · bumababa</string>
+    <string name="info_rise_measuring_text">Kailangan muna ng app ng ilang minuto ng reading.</string>
+    <string name="info_rise_tip">Ang mabilis na pagtaas ng tubig habang malakas ang ulan ay maagang senyales ng baha, kahit Ligtas pa ang level.</string>
+
+    <!-- Rain names used by StatusText -->
+    <string-array name="rain_status_names">
+        <item>Walang Ulan</item>
+        <item>Mahinang Ulan</item>
+        <item>Katamtamang Ulan</item>
+        <item>Malakas na Ulan</item>
+    </string-array>
+    <string-array name="rain_short_names">
+        <item>Tuyo</item>
+        <item>Mahina</item>
+        <item>Katamtaman</item>
+        <item>Malakas</item>
+    </string-array>
+
+    <!-- About Section -->
+    <string name="about_title">Tungkol</string>
+    <string name="app_version">Bersyon 2.0.0</string>
+    <string name="what_is_bahgo">Ano ang Bahgo?</string>
+    <string name="features_label">Mga Pangunahing Tampok</string>
+    <string name="feature_alerts">Real-time na alerto</string>
+    <string name="feature_monitoring">Live na pagmo-monitor</string>
+    <string name="feature_charts">Pagpapakita ng datos</string>
+    <string name="feature_sensors">Datos mula sa IoT Sensor</string>
+    <string name="developed_by">Binuo ng BahGo Team</string>
+
+    <!-- Common -->
+    <string name="back">Bumalik</string>
+    <string name="cancel">Kanselahin</string>
+    <string name="map_fallback_text">Hindi available ang flood map. Tingnan ang iyong koneksyon.</string>
+
+    <string name="day_sheet_hilo">H:%1$s L:%2$s</string>
+    <string name="day_sheet_actual">Aktwal</string>
+    <string name="day_sheet_feels">Pakiramdam</string>
+    <string name="day_sheet_actual_note">Ang aktwal na temperatura.</string>
+    <string name="day_sheet_feels_note">Gaano kainit ang pakiramdam sa labas, kasama ang alinsangan at hangin.</string>
+    <string name="day_sheet_rain_title">Tsansa ng Ulan</string>
+    <string name="day_sheet_rain_today">Tsansa ngayong araw: %1$d%%</string>
+    <string name="day_sheet_rain_day">Tsansa: %1$d%%</string>
+    <string name="day_sheet_rain_note">Kadalasang mas mataas ang tsansa ng ulan sa buong araw kaysa sa bawat oras.</string>
+
+    <string name="home_choose_street">Piliin ang iyong kalye</string>
+
+    <string name="home_choose_street_hint">Ang kalyeng ipinapakita sa itaas ng Home. Piliin ang pinakamalapit sa iyo.</string>
+
+    <string name="perm_location_needed_title">Kailangan ang Lokasyon</string>
+    <string name="perm_location_needed_msg">Ginagamit ng BahGo ang iyong lokasyon para ipakita kung nasaan ka sa flood map at kung aling mga kalye ang malapit sa iyo. I-on ang Location para sa BahGo sa Settings ng phone mo para magpatuloy.</string>
+    <string name="perm_notif_needed_title">Kailangan ang flood alerts</string>
+    <string name="perm_notif_needed_msg">Nagpapadala ang BahGo ng notification kapag umabot sa Babala o Delikado ang isang kalye. I-on ang Notifications para sa BahGo sa Settings ng phone mo para magpatuloy.</string>
+    <string name="perm_try_again">Subukan ulit</string>
+
+    <!-- Screen text moved from the layouts -->
+    <string name="about_flood_watch_for_palar">Flood Watch para sa Palar Village, Taguig</string>
+    <string name="about_about_bahgo">TUNGKOL SA BAHGO</string>
+    <string name="about_bahgo_is_a_flood">Ang BahGo ay app para sa pagmo-monitor ng baha sa mga kalye ng Palar Village, Taguig City. May mga sensor ng taas ng tubig at ulan sa Sealion, Samaritan, Swingfire at Striker Streets na nagpapadala ng live na reading sa app, para malaman ng mga residente kung gaano kalalim ang tubig, gaano kabilis itong tumataas, at kung ligtas bang maglakad o dumaan bago pa man umalis.\n\nGumagamit din ang BahGo ng machine learning para i-forecast ang taas ng tubig at panganib ng baha sa susunod na 30 minuto, nagpapadala ng notification kapag Babala o Delikado na ang isang kalye, at ipinapakita ang lagay ng ulan sa buong linggo. Ginawa ito bilang thesis project para tulungan ang komunidad na maghanda at manatiling ligtas tuwing may baha.</string>
+    <string name="about_how_it_works">PAANO GUMAGANA</string>
+    <string name="about_data_sources_apis">MGA SOURCE NG DATA AT API</string>
+    <string name="about_what_we_collect_and">Ano ang kinokolekta namin at ang iyong mga karapatan (Data Privacy Act of 2012)</string>
+    <string name="about_rules_for_using_bahgo">Mga patakaran sa paggamit ng BahGo; hindi ito emergency service</string>
+    <string name="about_no_cookies_what_the">Walang cookies: ano ang iniimbak ng app sa iyong phone</string>
+    <string name="about_what_you_agreed_to">Ano ang pinayagan mo noong nag-sign up ka</string>
+    <string name="about_developers">MGA DEVELOPER</string>
+    <string name="about_4th_year_bs_computer">Mga 4th-year na estudyante ng BS Computer Science, STI College Global City</string>
+    <string name="about_contact">MAKIPAG-UGNAYAN</string>
+    <string name="about_email_us">Mag-email sa amin</string>
+    <string name="about_bahgo_is_a_thesis">Ang BahGo ay thesis project at hindi emergency service.\nPalaging sundin ang opisyal na abiso ng PAGASA, NDRRMC at Taguig City.\n© 2026 BahGo Team · STI College Global City</string>
+    <string name="chat_automated_answers_instantly">Awtomatiko · sumasagot agad</string>
+    <string name="chat_ask_about_floods_rain">Magtanong tungkol sa baha, ulan o sa app…</string>
+    <string name="chat_send">Ipadala</string>
+    <string name="conditions_conditions">Kalagayan</string>
+    <string name="conditions_close">Isara</string>
+    <string name="conditions_no_data">Walang data</string>
+    <string name="conditions_rise_rate">Bilis ng Pagtaas</string>
+    <string name="conditions_rain">Ulan</string>
+    <string name="conditions_flood_forecast">Forecast ng Baha</string>
+    <string name="conditions_getting_ready">Inihahanda…</string>
+    <string name="conditions_expected_water_level_in">Inaasahang taas ng tubig sa loob ng 30 minuto</string>
+    <string name="conditions_flood_risk">Panganib ng Baha</string>
+    <string name="conditions_this_street_from_water">Para sa kalyeng ito, mula sa taas ng tubig at ulan</string>
+    <string name="conditions_rain_forecast">Forecast ng Ulan</string>
+    <string name="conditions_collecting_readings">Kumukuha ng reading…</string>
+    <string name="conditions_from_this_street_s">Mula sa rain sensor ng kalyeng ito</string>
+    <string name="conditions_flood_severity_chart">Tsart ng Tindi ng Baha</string>
+    <string name="conditions_3_days">3 araw</string>
+    <string name="conditions_all_recorded">Lahat ng naitala</string>
+    <string name="consent_optional_share_anonymous_usage">Opsyonal: magbahagi ng anonymous na usage statistics para mapabuti ang BahGo</string>
+    <string name="consent_agree_and_continue">Sumang-ayon at magpatuloy</string>
+    <string name="home_no_live_data_from">Walang live data mula sa device na ito.</string>
+    <string name="home_no_live_data">Walang live data</string>
+    <string name="home_7_day_forecast">7-ARAW NA FORECAST</string>
+    <string name="home_loading_forecast">Kinukuha ang forecast…</string>
+    <string name="home_weather_data_by_open">Weather data mula sa Open-Meteo.com</string>
+    <string name="home_search">Maghanap</string>
+    <string name="home_ask_the_bahgo_assistant">Kausapin ang BahGo Assistant</string>
+    <string name="intro_skip">Laktawan</string>
+    <string name="intro_next">Susunod</string>
+    <string name="otp_a_6_digit_code">Nagpadala kami ng 6-digit na code sa iyong numero. Mawawalan ito ng bisa sa loob ng 5 minuto.</string>
+    <string name="permission_location_step_1_of_2">Hakbang 1 ng 2 — Mga Permiso</string>
+    <string name="permission_notification_step_2_of_2">Hakbang 2 ng 2 — Mga Permiso</string>
+    <string name="search_search_a_sensor_or">Maghanap ng sensor o anumang lugar sa Taguig</string>
+    <string name="search_clear_search">I-clear ang paghahanap</string>
+    <string name="search_flood_sensors">Mga flood sensor</string>
+    <string name="search_place_search_by_openstreetmap">Paghahanap ng lugar ng OpenStreetMap Nominatim · © OpenStreetMap contributors</string>
+    <string name="settings_loading">Naglo-load…</string>
+    <string name="settings_name">Pangalan</string>
+    <string name="settings_mobile_number">Numero ng mobile</string>
+    <string name="settings_privacy_security">PRIVACY AT SEGURIDAD</string>
+    <string name="settings_keep_your_account_secure">Panatilihing ligtas ang iyong account</string>
+    <string name="settings_change_phone_number">Palitan ang Numero ng Telepono</string>
+    <string name="settings_we_ll_text_a">Magpapadala kami ng code sa bagong numero</string>
+    <string name="settings_share_anonymous_app_usage">Magbahagi ng anonymous na paggamit ng app para mapabuti ang BahGo</string>
+    <string name="settings_preferences">MGA PREFERENCE</string>
+    <string name="settings_notifications_2">MGA NOTIFICATION</string>
+    <string name="settings_notify_me_when_a">Abisuhan ako kapag Babala o Delikado na ang isang kalye</string>
+    <string name="settings_about">TUNGKOL</string>
+    <string name="settings_show_me_around_the">Ipakita ulit ang Home screen</string>
+    <string name="setup_optional_share_anonymous_usage">Opsyonal: magbahagi ng anonymous na usage statistics</string>
+    <string name="setup_already_have_an_account">May account na? Mag-log in</string>
+    <string name="intro_how_how_to_use_bahgo">Paano gamitin ang BahGo</string>
+    <string name="intro_how_check_the_map_tap">Tingnan ang mapa, mag-tap sa kalye para sa detalye, at i-on ang mga alerto. Ipapakita namin ang paligid pagpasok mo.</string>
+    <string name="intro_what_live_street_sensors">Mga live na sensor sa kalye</string>
+    <string name="intro_what_know_the_flood_before">Alamin ang baha bago umalis</string>
+    <string name="intro_what_bahgo_reads_live_flood">Binabasa ng BahGo ang mga live flood sensor sa mga kalye ng Palar, Taguig. Tingnan kung gaano kalalim ang tubig, gaano kabilis itong tumataas, at kung ligtas bang maglakad o dumaan.</string>
+</resources>

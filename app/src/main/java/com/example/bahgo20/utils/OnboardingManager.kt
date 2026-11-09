@@ -13,4 +13,18 @@ class OnboardingManager(context: Context) {
     fun setOnboardingCompleted(completed: Boolean) {
         prefs.edit().putBoolean("completed", completed).apply()
     }
+
+    /** The 2-slide Get Started intro (shown once, before log in / sign up). */
+    fun isIntroSeen(): Boolean = prefs.getBoolean("intro_seen", false)
+
+    fun setIntroSeen(seen: Boolean) {
+        prefs.edit().putBoolean("intro_seen", seen).apply()
+    }
+
+    /** The guided tour on Home (shown the first time Home opens). */
+    fun isHomeTourDone(): Boolean = prefs.getBoolean("home_tour_done", false)
+
+    fun setHomeTourDone(done: Boolean) {
+        prefs.edit().putBoolean("home_tour_done", done).apply()
+    }
 }

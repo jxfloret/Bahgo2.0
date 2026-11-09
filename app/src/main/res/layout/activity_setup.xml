@@ -17,38 +17,41 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:fillViewport="true">
+        android:layout_height="0dp"
+        android:fillViewport="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="24dp">
+            android:paddingStart="24dp"
+            android:paddingEnd="24dp"
+            android:paddingTop="80dp"
+            android:paddingBottom="40dp">
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/cvLogo"
                 android:layout_width="80dp"
                 android:layout_height="80dp"
-                android:layout_marginTop="40dp"
                 app:cardCornerRadius="40dp"
                 app:cardElevation="2dp"
                 app:cardBackgroundColor="@color/card_glass"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
-
                 <ImageView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:contentDescription="@null"
                     android:padding="4dp"
-                    android:src="@drawable/logobahgo" />
+                    android:src="@drawable/logo_round" />
             </androidx.cardview.widget.CardView>
 
             <TextView
                 android:id="@+id/tvSetupTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="20dp"
                 android:fontFamily="sans-serif-black"
                 android:text="@string/setup_title"
                 android:textColor="@color/text_on_gradient"
@@ -73,7 +76,7 @@
                 android:id="@+id/setupCard"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="20dp"
                 android:background="@drawable/bg_setup_card"
                 android:elevation="4dp"
                 android:padding="24dp"
@@ -99,16 +102,15 @@
                     android:layout_marginTop="8dp"
                     android:background="@drawable/bg_input_field"
                     android:hint="@string/first_name_label"
-                    android:importantForAutofill="no"
                     android:inputType="textPersonName"
                     android:paddingStart="16dp"
                     android:paddingEnd="16dp"
                     android:textColor="@color/input_text"
-                    android:textColorHint="@color/input_hint"
                     android:textSize="16sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tvFirstNameLabel" />
+                    app:layout_constraintTop_toBottomOf="@+id/tvFirstNameLabel"
+                    android:importantForAutofill="no" />
 
                 <TextView
                     android:id="@+id/tvSurnameLabel"
@@ -129,16 +131,15 @@
                     android:layout_marginTop="8dp"
                     android:background="@drawable/bg_input_field"
                     android:hint="@string/surname_label"
-                    android:importantForAutofill="no"
                     android:inputType="textPersonName"
                     android:paddingStart="16dp"
                     android:paddingEnd="16dp"
                     android:textColor="@color/input_text"
-                    android:textColorHint="@color/input_hint"
                     android:textSize="16sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tvSurnameLabel" />
+                    app:layout_constraintTop_toBottomOf="@+id/tvSurnameLabel"
+                    android:importantForAutofill="no" />
 
                 <TextView
                     android:id="@+id/tvPhoneLabel"
@@ -159,46 +160,27 @@
                     android:layout_marginTop="8dp"
                     android:background="@drawable/bg_input_field"
                     android:gravity="center_vertical"
-                    android:orientation="horizontal"
-                    android:paddingStart="12dp"
-                    android:paddingEnd="16dp"
+                    android:paddingHorizontal="14dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/tvPhoneLabel">
-
-                    <ImageView
-                        android:layout_width="24dp"
-                        android:layout_height="16dp"
-                        android:contentDescription="@null"
-                        android:src="@drawable/ic_philippines_flag" />
-
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="8dp"
                         android:text="@string/ph_code"
                         android:textColor="@color/input_text"
-                        android:textSize="16sp"
                         android:textStyle="bold" />
-
-                    <View
-                        android:layout_width="1dp"
-                        android:layout_height="24dp"
-                        android:layout_marginStart="12dp"
-                        android:layout_marginEnd="12dp"
-                        android:background="@color/input_divider" />
-
+                    <View android:layout_width="1dp" android:layout_height="20dp" android:background="@color/input_divider" android:layout_marginHorizontal="12dp" />
                     <EditText
                         android:id="@+id/etPhoneNumber"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:background="@android:color/transparent"
                         android:hint="@string/phone_hint"
-                        android:importantForAutofill="no"
                         android:inputType="phone"
                         android:textColor="@color/input_text"
-                        android:textColorHint="@color/input_hint"
-                        android:textSize="16sp" />
+                        android:textSize="16sp"
+                        android:importantForAutofill="no" />
                 </LinearLayout>
 
                 <TextView
@@ -206,7 +188,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
-                    android:fontFamily="sans-serif-black"
                     android:text="@string/password"
                     android:textColor="@color/text_on_card"
                     android:textSize="12sp"
@@ -218,26 +199,16 @@
                     android:id="@+id/tilPassword"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
                     app:endIconMode="password_toggle"
-                    app:endIconTint="@color/input_text"
-                    app:errorEnabled="true"
-                    app:helperText="At least 8 characters, 1 number, 1 special character"
-                    app:helperTextTextColor="@color/text_on_card_secondary"
                     app:hintEnabled="false"
                     app:layout_constraintTop_toBottomOf="@id/tvPasswordLabel">
-
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/etPassword"
                         android:layout_width="match_parent"
                         android:layout_height="56dp"
                         android:background="@drawable/bg_input_field"
                         android:inputType="textPassword"
-                        android:paddingStart="16dp"
-                        android:paddingEnd="16dp"
-                        android:textColor="@color/input_text"
-                        android:textColorHint="@color/input_hint"
-                        android:textSize="16sp" />
+                        android:textColor="@color/input_text" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <CheckBox
@@ -245,35 +216,75 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
-                    android:buttonTint="@color/text_on_card"
                     android:text="@string/own_vehicle_label"
                     android:textColor="@color/text_on_card"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/tilPassword" />
 
+                <!-- Data privacy consent (required) and usage statistics (optional) -->
+                <LinearLayout
+                    android:id="@+id/llConsent"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:orientation="vertical"
+                    app:layout_constraintTop_toBottomOf="@+id/cbVehicle">
+                    <CheckBox
+                        android:id="@+id/cbConsent"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/text_on_card"
+                        android:textColorLink="@color/icon_accent"
+                        android:textSize="13sp" />
+                    <CheckBox
+                        android:id="@+id/cbAnalyticsSignup"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/setup_optional_share_anonymous_usage"
+                        android:textColor="@color/text_on_card_secondary"
+                        android:textSize="13sp" />
+                </LinearLayout>
+
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btnContinue"
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:layout_height="60dp"
                     android:layout_marginTop="16dp"
-                    android:clickable="true"
-                    android:enabled="false"
-                    android:focusable="true"
-                    android:insetTop="0dp"
-                    android:insetBottom="0dp"
                     android:text="@string/continue_btn"
-                    android:textAllCaps="false"
-                    android:textColor="@color/white"
-                    android:textSize="16sp"
-                    android:textStyle="bold"
-                    app:backgroundTint="@color/button_primary"
                     app:cornerRadius="30dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/cbVehicle" />
+                    app:layout_constraintTop_toBottomOf="@+id/llConsent" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <TextView
+                android:id="@+id/tvAlreadyHaveAccount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="28dp"
+                android:padding="8dp"
+                android:text="@string/setup_already_have_an_account"
+                android:textColor="@color/text_primary"
+                android:textSize="14sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/setupCard" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
+
+    <!-- Back Button - Fixed in place and on Top Layer -->
+    <ImageView
+        android:id="@+id/ivBack"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginStart="12dp"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:contentDescription="@string/back"
+        android:padding="12dp"
+        android:src="@drawable/ic_back"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:tint="@color/icon_on_gradient" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

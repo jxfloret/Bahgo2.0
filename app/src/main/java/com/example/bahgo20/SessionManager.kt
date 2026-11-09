@@ -6,32 +6,46 @@ import android.util.Log
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.security.crypto.EncryptedSharedPreferences
 import androidx.security.crypto.MasterKey
+import com.google.firebase.auth.FirebaseAuth
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 class SessionManager private constructor(context: Context) {
-    private var prefs: SharedPreferences? = null
     private val appContext = context.applicationContext
+    private val managerScope = CoroutineScope(Dispatchers.IO + SupervisorJob())
+    
+    private val publicPrefs: SharedPreferences = 
+        appContext.getSharedPreferences("bahgo_public_prefs_v5", Context.MODE_PRIVATE)
+        
+    @Volatile
+    private var securePrefs: SharedPreferences? = null
 
-    private suspend fun getPrefs(): SharedPreferences = withContext(Dispatchers.IO) {
-        prefs ?: synchronized(this@SessionManager) {
-            if (prefs != null) return@synchronized prefs!!
-            
+    init {
+        managerScope.launch {
+            getSecurePrefs()
+        }
+    }
+
+    private suspend fun getSecurePrefs(): SharedPreferences = withContext(Dispatchers.IO) {
+        securePrefs ?: synchronized(this@SessionManager) {
+            securePrefs?.let { return@synchronized it }
             try {
                 val masterKey = MasterKey.Builder(appContext)
                     .setKeyScheme(MasterKey.KeyScheme.AES256_GCM)
                     .build()
-
                 EncryptedSharedPreferences.create(
                     appContext,
-                    "bahgo_session",
+                    "bahgo_secure_v5",
                     masterKey,
                     EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
                     EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
-                ).also { prefs = it }
+                ).also { securePrefs = it }
             } catch (e: Exception) {
-                Log.e("SessionManager", "Error initializing EncryptedSharedPreferences", e)
-                appContext.getSharedPreferences("bahgo_session_fallback", Context.MODE_PRIVATE).also { prefs = it }
+                Log.e("SessionManager", "Secure init failed", e)
+                appContext.getSharedPreferences("bahgo_fallback_v5", Context.MODE_PRIVATE).also { securePrefs = it }
             }
         }
     }
@@ -39,7 +53,8 @@ class SessionManager private constructor(context: Context) {
     companion object {
         private const val KEY_IS_LOGGED_IN = "is_logged_in"
         private const val KEY_PHONE_NUMBER = "phone_number"
-        private const val KEY_THEME_MODE = "theme_mode" // 0: Auto, 1: Light, 2: Dark
+        private const val KEY_THEME_MODE = "theme_mode"
+        private const val KEY_HAS_VEHICLE = "has_vehicle"
 
         @Volatile
         private var INSTANCE: SessionManager? = null
@@ -51,43 +66,61 @@ class SessionManager private constructor(context: Context) {
         }
     }
 
-    suspend fun saveSession(phoneNumber: String) {
-        getPrefs().edit()
+    fun isLoggedIn(): Boolean = publicPrefs.getBoolean(KEY_IS_LOGGED_IN, false)
+
+    fun saveSession(phoneNumber: String, hasVehicle: Boolean = false) {
+        publicPrefs.edit()
             .putBoolean(KEY_IS_LOGGED_IN, true)
-            .putString(KEY_PHONE_NUMBER, phoneNumber)
+            .putBoolean(KEY_HAS_VEHICLE, hasVehicle)
             .apply()
-    }
-
-    suspend fun isLoggedIn(): Boolean = withContext(Dispatchers.IO) {
-        try {
-            getPrefs().getBoolean(KEY_IS_LOGGED_IN, false)
-        } catch (e: Exception) {
-            false
-        }
-    }
-
-    suspend fun getPhoneNumber(): String? = withContext(Dispatchers.IO) {
-        getPrefs().getString(KEY_PHONE_NUMBER, null)
-    }
-
-    suspend fun setThemeMode(mode: Int) {
-        getPrefs().edit().putInt(KEY_THEME_MODE, mode).apply()
-        withContext(Dispatchers.Main) {
-            when (mode) {
-                1 -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-                2 -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-                else -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
+        
+        managerScope.launch {
+            try {
+                getSecurePrefs().edit().putString(KEY_PHONE_NUMBER, phoneNumber).apply()
+            } catch (e: Exception) {
+                Log.e("SessionManager", "Failed to save phone", e)
             }
         }
     }
 
-    suspend fun getThemeMode(): Int = withContext(Dispatchers.IO) {
-        getPrefs().getInt(KEY_THEME_MODE, 0)
+    fun setHasVehicle(hasVehicle: Boolean) {
+        publicPrefs.edit().putBoolean(KEY_HAS_VEHICLE, hasVehicle).apply()
     }
 
-    suspend fun logout() {
-        withContext(Dispatchers.IO) {
-            getPrefs().edit().clear().apply()
+    fun hasVehicle(): Boolean = publicPrefs.getBoolean(KEY_HAS_VEHICLE, false)
+
+    suspend fun getPhoneNumber(): String? = withContext(Dispatchers.IO) {
+        getSecurePrefs().getString(KEY_PHONE_NUMBER, null)
+    }
+
+    fun setThemeMode(mode: Int) {
+        publicPrefs.edit().putInt(KEY_THEME_MODE, mode).apply()
+        applyTheme(mode)
+    }
+
+    fun getThemeMode(): Int = publicPrefs.getInt(KEY_THEME_MODE, 0)
+
+    fun applyTheme(mode: Int = getThemeMode()) {
+        val nightMode = when (mode) {
+            1 -> AppCompatDelegate.MODE_NIGHT_NO
+            2 -> AppCompatDelegate.MODE_NIGHT_YES
+            else -> AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM
+        }
+        if (AppCompatDelegate.getDefaultNightMode() != nightMode) {
+            AppCompatDelegate.setDefaultNightMode(nightMode)
+        }
+    }
+
+    fun logout() {
+        FirebaseAuth.getInstance().signOut()
+        com.example.bahgo20.auth.AuthApi.signOut()
+        publicPrefs.edit().clear().apply()
+        managerScope.launch {
+            try {
+                getSecurePrefs().edit().clear().apply()
+            } catch (e: Exception) {
+                Log.e("SessionManager", "Failed to clear", e)
+            }
         }
     }
 }

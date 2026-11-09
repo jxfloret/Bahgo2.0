@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Rain animation strength (1 = full); softer so text behind it stays readable. Dark mode: values-night. -->
+    <fraction name="rain_opacity">50%</fraction>
+</resources>

@@ -4,7 +4,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Base64
 import android.view.View
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
@@ -12,24 +11,17 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.example.bahgo20.utils.bottomAboveKeyboard
 import androidx.core.view.updatePadding
 import androidx.lifecycle.lifecycleScope
+import com.example.bahgo20.auth.AuthApi
 import com.example.bahgo20.databinding.ActivitySetupBinding
 import com.example.bahgo20.otp.OtpActivity
-import com.example.bahgo20.otp.OtpProvider
-import com.google.firebase.database.FirebaseDatabase
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.tasks.await
-import kotlinx.coroutines.withContext
-import java.security.SecureRandom
-import javax.crypto.SecretKeyFactory
-import javax.crypto.spec.PBEKeySpec
 
 class SetupActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivitySetupBinding
-    private val db = FirebaseDatabase.getInstance("https://bahgo-ee71b-default-rtdb.asia-southeast1.firebasedatabase.app/").reference
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,18 +30,32 @@ class SetupActivity : AppCompatActivity() {
         binding = ActivitySetupBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        ViewCompat.setOnApplyWindowInsetsListener(binding.setupMain) { _, insets ->
+        ViewCompat.setOnApplyWindowInsetsListener(binding.setupMain) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             binding.tvSetupTitle.updatePadding(top = systemBars.top)
-            binding.setupCard.updatePadding(bottom = systemBars.bottom)
+            // Keyboard open: shrink the screen so the scroll view can bring the field above it
+            v.updatePadding(bottom = insets.bottomAboveKeyboard())
             insets
         }
 
         setupTextWatchers()
         updateSignUpButtonState()
 
+        // Data privacy consent: required to sign up; usage statistics are optional
+        com.example.bahgo20.legal.Legal.linkify(binding.cbConsent,
+            getString(R.string.setup_consent_text))
+        binding.cbConsent.setOnCheckedChangeListener { _, _ -> updateSignUpButtonState() }
+
+        binding.ivBack.setOnClickListener { finish() }
+
+        binding.tvAlreadyHaveAccount.setOnClickListener {
+            startActivity(Intent(this, LoginActivity::class.java))
+            finish()
+        }
+
         binding.btnContinue.setOnClickListener {
             if (validateInputs()) {
+                com.example.bahgo20.legal.Legal.saveConsent(this, analytics = binding.cbAnalyticsSignup.isChecked)
                 checkUserAndPerformSignUp()
             }
         }
@@ -64,7 +70,7 @@ class SetupActivity : AppCompatActivity() {
     }
 
     private fun updateSignUpButtonState() {
-        binding.btnContinue.isEnabled = isSignUpFormComplete()
+        binding.btnContinue.isEnabled = isSignUpFormComplete() && binding.cbConsent.isChecked
     }
 
     private fun setupTextWatchers() {
@@ -91,109 +97,65 @@ class SetupActivity : AppCompatActivity() {
         binding.tilPassword.error = null
 
         if (firstName.isEmpty() || surname.isEmpty()) {
-            Toast.makeText(this, "Please enter your name", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, R.string.setup_enter_name, Toast.LENGTH_SHORT).show()
             return false
         }
 
         if (phone.length < 10) {
-            Toast.makeText(this, "Please enter a valid phone number", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, R.string.setup_enter_valid_phone, Toast.LENGTH_SHORT).show()
             return false
         }
 
         if (password.length < 8) {
-            binding.tilPassword.error = "Password must be at least 8 characters"
+            binding.tilPassword.error = getString(R.string.setup_password_too_short)
             return false
         }
 
         if (!password.any { it.isDigit() }) {
-            binding.tilPassword.error = "Password must contain at least 1 number"
+            binding.tilPassword.error = getString(R.string.setup_password_needs_number)
             return false
         }
 
         if (!password.any { !it.isLetterOrDigit() }) {
-            binding.tilPassword.error = "Password must contain at least 1 special character"
+            binding.tilPassword.error = getString(R.string.setup_password_needs_special)
             return false
         }
 
         return true
     }
 
+    /** Asks the server to text a code (it also checks the number isn't registered yet). */
     private fun checkUserAndPerformSignUp() {
         val phone = binding.etPhoneNumber.text.toString().trim()
-        val e164Phone = OtpProvider.otp.toE164(phone)
-        val sanitizedPhone = e164Phone.replace("+", "")
-        
-        binding.btnContinue.isEnabled = false
-        
-        lifecycleScope.launch {
-            try {
-                val snapshot = db.child("users").child(sanitizedPhone).get().await()
-                if (snapshot.exists()) {
-                    showAlreadyRegisteredDialog()
-                    updateSignUpButtonState()
-                } else {
-                    performSignUp(phone)
-                }
-            } catch (e: Exception) {
-                Toast.makeText(this@SetupActivity, "Error checking user: ${e.message}", Toast.LENGTH_SHORT).show()
-                updateSignUpButtonState()
-            }
-        }
-    }
-
-    private fun showAlreadyRegisteredDialog() {
-        AlertDialog.Builder(this)
-            .setTitle("Already Registered")
-            .setMessage("This number is already registered. Please log in.")
-            .setPositiveButton("Log In") { _, _ ->
-                startActivity(Intent(this, LoginActivity::class.java))
-                finish()
-            }
-            .setNegativeButton("Cancel", null)
-            .show()
-    }
-
-    private fun performSignUp(phone: String) {
         val firstName = binding.etFirstName.text.toString().trim()
         val surname = binding.etSurname.text.toString().trim()
         val password = binding.etPassword.text.toString()
 
-        lifecycleScope.launch {
-            val salt = generateSalt()
-            val passwordHash = hashPassword(password.toCharArray(), salt)
-            val saltString = Base64.encodeToString(salt, Base64.NO_WRAP)
+        binding.btnContinue.isEnabled = false
 
-            OtpProvider.otp.sendOtp(phone)
+        lifecycleScope.launch {
+            AuthApi.sendOtp(phone, "signup")
                 .onSuccess {
-                    OtpActivity.start(
-                        this@SetupActivity, 
-                        phone, 
-                        firstName, 
-                        surname, 
-                        binding.cbVehicle.isChecked, 
-                        passwordHash, 
-                        saltString
-                    )
+                    // The password only travels in memory to the code screen, which sends it with the code
+                    OtpActivity.start(this@SetupActivity, phone, firstName, surname, binding.cbVehicle.isChecked, password)
                 }
-                .onFailure {
-                    Toast.makeText(this@SetupActivity, "Error: ${it.message}", Toast.LENGTH_LONG).show()
+                .onFailure { e ->
+                    if ((e as? AuthApi.AuthException)?.alreadyRegistered == true) showAlreadyRegisteredDialog()
+                    else Toast.makeText(this@SetupActivity, e.message ?: getString(R.string.otp_send_failed_short), Toast.LENGTH_LONG).show()
                 }
             updateSignUpButtonState()
         }
     }
 
-    private fun generateSalt(): ByteArray {
-        val salt = ByteArray(16)
-        SecureRandom().nextBytes(salt)
-        return salt
-    }
-
-    private suspend fun hashPassword(password: CharArray, salt: ByteArray): String = withContext(Dispatchers.Default) {
-        val iterations = 100000
-        val keyLength = 256
-        val skf = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA256")
-        val spec = PBEKeySpec(password, salt, iterations, keyLength)
-        val key = skf.generateSecret(spec)
-        Base64.encodeToString(key.encoded, Base64.NO_WRAP)
+    private fun showAlreadyRegisteredDialog() {
+        AlertDialog.Builder(this)
+            .setTitle(R.string.setup_already_registered_title)
+            .setMessage(R.string.setup_already_registered_message)
+            .setPositiveButton(R.string.log_in) { _, _ ->
+                startActivity(Intent(this, LoginActivity::class.java))
+                finish()
+            }
+            .setNegativeButton(R.string.cancel, null)
+            .show()
     }
 }

@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Softer rain in dark mode so text behind it stays readable -->
+    <fraction name="rain_opacity">25%</fraction>
+</resources>

@@ -6,17 +6,21 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-    <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+    <!-- Always-on flood monitor (watches the sensors while the app is closed) -->
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_DATA_SYNC" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 
     <application
         android:name=".BahGoApp"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
-        android:icon="@drawable/logobahgo"
+        android:icon="@mipmap/ic_launcher"
         android:label="Bahgo"
-        android:roundIcon="@drawable/logobahgo"
+        android:localeConfig="@xml/locales_config"
+        android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.BahGo20">
 
@@ -54,8 +58,37 @@
             android:exported="false" />
 
         <activity
-            android:name=".ConditionsActivity"
+            android:name=".chat.ChatActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
+
+        <!-- Usage statistics are OFF until the user agrees (legal/Legal.kt turns them on);
+             the advertising ID is never collected -->
+        <meta-data android:name="firebase_analytics_collection_enabled" android:value="false" />
+        <meta-data android:name="google_analytics_adid_collection_enabled" android:value="false" />
+
+        <!-- Privacy Policy, Terms, Cookie Policy, consent form -->
+        <activity
+            android:name=".legal.LegalActivity"
             android:exported="false" />
+        <activity
+            android:name=".legal.ConsentActivity"
+            android:exported="false" />
+
+        <!-- Get Started: 2 slides before log in / sign up (shown once) -->
+        <activity
+            android:name=".IntroActivity"
+            android:exported="false" />
+
+        <!-- Rising flood animation between the intro and the welcome screen -->
+        <activity
+            android:name=".FloodRiseActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".ConditionsActivity"
+            android:exported="false"
+            android:theme="@style/Theme.BahGo20.Sheet" />
 
         <activity
             android:name=".LocationPermissionActivity"
@@ -77,6 +110,40 @@
             android:name=".SearchActivity"
             android:exported="false"
             android:windowSoftInputMode="stateVisible" />
+
+        <!-- Always-on flood monitor: notifies when a street reaches Warning or Critical -->
+        <service
+            android:name=".FloodMonitorService"
+            android:exported="false"
+            android:foregroundServiceType="dataSync" />
+
+        <!-- Starts the flood monitor again after the phone restarts -->
+        <receiver
+            android:name=".BootReceiver"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
+
+        <!-- Receives flood alert pushes from Firebase Cloud Messaging -->
+        <service
+            android:name=".BahGoMessagingService"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+
+        <!-- Remembers the app language (English/Filipino) on Android 12 and older -->
+        <service
+            android:name="androidx.appcompat.app.AppLocalesMetadataHolderService"
+            android:enabled="false"
+            android:exported="false">
+            <meta-data
+                android:name="autoStoreLocales"
+                android:value="true" />
+        </service>
 
     </application>
 

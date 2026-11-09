@@ -3,7 +3,7 @@
     <string name="app_name">BahGo 2.0</string>
     <string name="logo_text">BAHGO</string>
     <string name="main_title">BAHGO</string>
-    <string name="main_description">an innovative early flood detection and monitoring system designed to provide real-time alerts and data visualization through a mobile application dashboard.</string>
+    <string name="main_description">An innovative early flood detection and monitoring system designed to provide real-time alerts and data visualization.</string>
     <string name="get_started">Get Started</string>
     <string name="log_in">Log In</string>
     <string name="logout">Logout</string>
@@ -20,15 +20,20 @@
     <string name="phone_hint">9XX XXX XXXX</string>
     <string name="splash_text">BahGo 2.0</string>
 
+    <!-- Login -->
+    <string name="login_title">Welcome back</string>
+    <string name="login_subtitle">Log in to monitor flood conditions in your area.</string>
+    <string name="no_account_signup">Don\'t have an account? Sign up</string>
+
     <!-- OTP -->
     <string name="otp_main_title">Check your text messages</string>
     <string name="otp_card_title">OTP Verification</string>
-    <string name="otp_card_subtitle">Enter the code from the sms we sent to</string>
+    <string name="otp_card_subtitle">Enter the code from the SMS we sent to</string>
     <string name="otp_resend_prompt">Can\'t receive OTP? %1$s</string>
     <string name="otp_resend_action">RESEND</string>
     <string name="otp_verify_btn">Verify &amp; Continue</string>
 
-    <!-- Permission Screens -->
+    <!-- Permission Screens & Dialogs -->
     <string name="perm_location_title">Enable Location</string>
     <string name="perm_location_desc">Allow app to use your location to monitor weather conditions and flood alerts in your area.</string>
     <string name="perm_allow_once">Allow Once</string>
@@ -38,87 +43,111 @@
     <string name="perm_notification_title">Enable Notification</string>
     <string name="perm_notification_desc">Notifications may include alerts, sounds, and icon badges. These can be configured in Settings.</string>
     <string name="perm_allow">Allow</string>
-
-    <!-- Permission Dialogs -->
-    <string name="location_required_title">Location Required</string>
-    <string name="location_required_msg">Location is required for the app to monitor weather and send flood alerts. Please enable it in Settings.</string>
-    <string name="notification_required_title">Notifications Required</string>
-    <string name="notification_required_msg">Notifications are required for the app to send real-time alerts. Please enable them in Settings.</string>
     <string name="go_to_settings">Go to Settings</string>
     <string name="background_location_disclosure_title">Background Location</string>
-    <string name="background_location_disclosure_msg">To keep you safe, Bahgo collects location data to enable flood alerts even when the app is closed or not in use. Please select \"Allow all the time\" in the next screen.</string>
+    <string name="background_location_disclosure_msg">To keep you safe, Bahgo collects location data even when the app is closed. Please select \"Allow all the time\" in the next screen.</string>
 
     <!-- Settings -->
     <string name="settings_title">Settings</string>
-    <string name="change_location">Change Location</string>
-    <string name="monitor_info">Monitor Info</string>
-    <string name="apps_label">Apps:</string>
-    <string name="about_app_label">About Bahgo app</string>
-    <string name="person_label">Person</string>
-    <string name="car_label">Car</string>
+    <string name="settings_location">Location</string>
+    <string name="settings_detecting">Detecting location...</string>
+    <string name="settings_change">Change</string>
+    <string name="settings_appearance">Appearance</string>
+    <string name="settings_light">Light</string>
+    <string name="settings_dark">Dark</string>
+    <string name="settings_monitor_object">Object to Monitor</string>
+    <string name="settings_person">Person</string>
+    <string name="settings_car">Car</string>
+    <string name="settings_notifications">Notifications</string>
+    <string name="settings_flood_alerts">Flood Alerts</string>
+    <string name="settings_alert_sound">Alert Sound</string>
+    <string name="settings_alert_threshold">Alert Threshold</string>
+    <string name="settings_account">Account</string>
+    <string name="settings_change_password">Change Password</string>
+    <string name="settings_about_app">About Bahgo App</string>
+    <string name="settings_logout">Log Out</string>
+    <string name="settings_mode_desc_person">Tailored for walking safety.</string>
+    <string name="settings_mode_desc_car">Tailored for driving safety.</string>
+    <string name="settings_mode_desc_default">Tailored for safety.</string>
 
-    <string name="ankle_title">Ankle — 15 to 30 cm</string>
-    <string name="ankle_desc">Walkable with caution.</string>
-    <string name="knee_title">Knee — 30 to 60 cm</string>
-    <string name="knee_desc">Difficult to walk. Risk of falling.</string>
-    <string name="waist_title">Waist — 60 to 100 cm</string>
-    <string name="waist_desc">Very dangerous. Strong current risk.</string>
-    <string name="chest_title">Chest or above — 100+ cm</string>
-    <string name="chest_desc">Life-threatening. Evacuate immediately.</string>
+    <!-- Settings: language -->
+    <string name="settings_language">LANGUAGE</string>
+    <string name="settings_language_english">English</string>
+    <string name="settings_language_filipino">Filipino</string>
+    <string name="settings_language_note">Street names, brand names and the legal documents stay in English.</string>
 
-    <string name="safe_title">Safe — below 30 cm</string>
-    <string name="safe_desc">Most cars can pass. Drive slowly.</string>
-    <string name="risky_title">Risky — 30 to 60 cm</string>
-    <string name="risky_desc">Small cars may stall. Avoid if possible.</string>
-    <string name="danger_title">Danger — 60 to 100 cm</string>
-    <string name="danger_desc">Engine will flood. Car may be swept.</string>
-    <string name="critical_title">Critical — above 100 cm</string>
-    <string name="critical_desc">Do not attempt. Car will be submerged.</string>
-    <string name="caution_text">When in doubt, don\'t cross flooded areas.</string>
+    <!-- Settings: dialogs and messages -->
+    <string name="settings_logout_title">Log out?</string>
+    <string name="settings_logout_message">You won\'t get flood alerts until you log in again.</string>
+    <string name="settings_logout_confirm">Log out</string>
+    <string name="settings_not_signed_in">Not signed in</string>
+    <string name="settings_guest">Guest</string>
+    <string name="settings_your_account">Your account</string>
+    <string name="settings_add_your_name">Add your name</string>
+    <string name="settings_first_name">First name</string>
+    <string name="settings_edit_name">Edit name</string>
+    <string name="settings_save">Save</string>
+    <string name="settings_enter_first_name">Enter your first name</string>
+    <string name="settings_enter_surname">Enter your surname</string>
+    <string name="settings_name_updated">Name updated</string>
+    <string name="settings_save_failed">Couldn\'t save. Check your internet connection.</string>
+    <string name="settings_current_password">Current password</string>
+    <string name="settings_new_password">New password</string>
+    <string name="settings_confirm_new_password">Confirm new password</string>
+    <string name="settings_password_rules">At least 8 characters, with a number and a special character</string>
+    <string name="password_too_short">Password must be at least 8 characters.</string>
+    <string name="password_needs_number">Password must contain at least 1 number.</string>
+    <string name="password_needs_special">Password must contain at least 1 special character.</string>
+    <string name="settings_enter_current_password">Enter your current password</string>
+    <string name="settings_password_same">Use a different password from your current one</string>
+    <string name="settings_password_mismatch">Passwords don\'t match</string>
+    <string name="settings_password_changed">Password changed</string>
+    <string name="settings_password_change_failed">Couldn\'t change the password.</string>
+    <string name="settings_new_mobile_number">New mobile number</string>
+    <string name="settings_phone_example">e.g. 09171234567</string>
+    <string name="settings_send_code">Send code</string>
+    <string name="settings_enter_valid_number">Enter a valid mobile number</string>
+    <string name="settings_same_number">That\'s already your number</string>
+    <string name="settings_enter_password">Enter your password</string>
+    <string name="settings_send_code_failed">Couldn\'t send the code</string>
+    <string name="settings_six_digit_code">6-digit code</string>
+    <string name="settings_code_sent_to">Sent by SMS to %1$s</string>
+    <string name="settings_confirm">Confirm</string>
+    <string name="settings_enter_the_code">Enter the code</string>
+    <string name="settings_enter_six_digits">Enter all 6 digits</string>
+    <string name="settings_number_changed">Your number is now %1$s. Use it to log in.</string>
+    <string name="settings_number_change_failed">Couldn\'t change the number.</string>
+    <string name="settings_log_in_first">Log in first to change your account.</string>
+    <string name="settings_preference_saved">Preference saved</string>
+    <string name="settings_sync_failed">Saved on this device, but sync failed</string>
 
-    <!-- About -->
-    <string name="about_title">About</string>
-    <string name="app_subtitle">Flood Watch</string>
-    <string name="app_version">Version 1.0.0</string>
-    <string name="what_is_bahgo">What is Bahgo?</string>
-    <string name="features_label">Features</string>
-    <string name="feature_alerts">Real-time flood alerts</string>
-    <string name="feature_monitoring">Location-based monitoring</string>
-    <string name="feature_charts">Flood severity charts</string>
-    <string name="feature_sensors">Nearby sensor devices</string>
-    <string name="developed_by">Developed by</string>
-    <string name="team_info">BAHGO Team - Thesis Project\nBachelor of Science in Computer Science</string>
+    <!-- Status Labels -->
+    <string name="status_label_safe">safe</string>
+    <string name="status_label_warning">warning</string>
+    <string name="status_label_dangerous">dangerous</string>
+    <string name="status_offline">offline</string>
 
-    <!-- Search -->
-    <string name="search_hint">Enter a location</string>
-    <string name="loc_makati">Makati City</string>
-    <string name="loc_pasay">Pasay City</string>
-    <string name="loc_taguig">Taguig City</string>
-    <string name="loc_quezon">Quezon City</string>
-    <string name="loc_taguig_manila">Taguig, Metro Manila</string>
-    <string name="village_pembo">Pembo Village</string>
-    <string name="village_cembo">Cembo Village</string>
-    <string name="village_pinya">Pinya Village</string>
-    <string name="village_north">North Village</string>
-    <string name="village_central">Central Taguig</string>
-    <string name="village_commonwealth">Commonwealth</string>
+    <!-- Flood alert notification titles (street name is %1$s) -->
+    <string name="alert_title_warning">warning flood level · %1$s</string>
+    <string name="alert_title_dangerous">dangerous flood level · %1$s</string>
 
-    <!-- Map -->
-    <string name="map_fallback_text">Flood map unavailable. Check your internet connection.</string>
+    <!-- Risk and rise words (used by StatusText and the info sheet) -->
+    <string name="risk_safe">Safe</string>
+    <string name="risk_warning">Warning</string>
+    <string name="risk_critical">Critical</string>
+    <string name="risk_dangerous">Dangerous</string>
+    <string name="risk_offline">Offline</string>
+    <string name="risk_online">Online</string>
+    <string name="flood_risk_low">Low</string>
+    <string name="rise_steady">Steady</string>
+    <string name="rise_going_down">Water is going down</string>
+    <string name="rise_measuring">Measuring…</string>
+    <string name="rise_needs_readings">Needs a few minutes of readings</string>
+    <string name="rise_not_changing">Water level isn\'t changing</string>
+    <string name="rise_reach_in">%1$s in ~%2$s</string>
+    <string name="rise_rising">Water is rising</string>
 
-    <!-- Login -->
-    <string name="login_title">Welcome Back</string>
-    <string name="login_subtitle">Log in to continue your journey</string>
-    <string name="no_account_signup">Don\'t have an account? Sign up</string>
-
-    <!-- Notification Permission (Legacy/Technical) -->
-    <string name="notification_title">Enable Notifications</string>
-    <string name="notification_desc">Stay informed. Bahgo sends real-time flood alerts and safety updates directly to your notifications.</string>
-    <string name="allow_notifications">Allow Notifications</string>
-    <string name="notifications_required_title">Notifications Required</string>
-    <string name="notifications_required_msg">Flood alerts depend on notifications. Please enable them in Settings to ensure you receive life-saving updates.</string>
-
-    <!-- Dashboard -->
+    <!-- Dashboard & Conditions -->
     <string name="header_city">Taguig City</string>
     <string name="current_location_label">your current location:</string>
     <string name="view_full_condition">view full condition</string>
@@ -126,26 +155,419 @@
     <string name="current_level_status">Current Level Status</string>
     <string name="risk_level_label">Risk Level</string>
     <string name="threshold_text">70% of threshold</string>
+    <string name="threshold_percent_format">%1$d%% of threshold</string>
     <string name="risk_warning_desc">Water level is approaching threshold</string>
     <string name="rate_of_rise_format">Rate of Rise: %1$d cm/hr</string>
     <string name="precipitation_format">Precipitation: %1$.1f mm/hr</string>
-    <string name="nearby_devices_label">nearby street devices:</string>
+    <string name="nearby_devices_label">nearby sensor devices</string>
     <string name="person_mode">Person Mode</string>
     <string name="car_mode">Car Mode</string>
     <string name="person_mode_desc">Area may become unsafe—stay alert and avoid if possible.</string>
-    <string name="car_mode_desc">While driving may still be possible, proceed with caution or consider an alternative route.</string>
-    <string name="water_level_value_format">%1$dcm %2$s</string>
+    <string name="car_mode_desc">While driving may still be possible, proceed with caution.</string>
     <string name="water_level_cm_format">%1$dcm</string>
+    <string name="default_street">Sealion Street</string>
 
-    <string name="status_safe">safe</string>
-    <string name="status_moderate">moderate</string>
-    <string name="status_dangerous">dangerous</string>
-    <string name="status_warning">warning</string>
-    <string name="status_normal">normal</string>
+    <string name="home_online_dot">● Online</string>
+    <string name="updated_at">Updated %1$s</string>
+    <string name="last_reading">Last reading</string>
+    <string name="from_rain_sensor">From the rain sensor</string>
+    <string name="home_selected_place">Selected place</string>
+    <string name="flood_risk_value">Flood risk: %1$s</string>
+    <string name="mode_offline_guidance">This device is offline, so there is no live guidance.</string>
+
+    <string name="risk_detail_safe">Water level is normal.</string>
+    <string name="risk_detail_warning">Water is rising. Stay alert.</string>
+    <string name="risk_detail_critical">Dangerous level. Avoid the area.</string>
+
+    <string name="forecast_percent_danger">%1$d%% of the danger level</string>
+    <string name="forecast_may_rise">Water may rise about %1$s cm</string>
+    <string name="forecast_may_fall">Water may go down about %1$s cm</string>
+    <string name="forecast_same">Water should stay about the same</string>
+    <string name="forecast_could_reach">Could reach %1$s level soon. Stay alert.</string>
+    <string name="forecast_offline">No forecast while this sensor is offline.</string>
+    <string name="forecast_not_available">Not available</string>
+    <string name="forecast_not_available_detail">The forecast isn\'t available right now.</string>
+    <string name="forecast_ready_in">Ready in about %1$d min.</string>
+    <string name="flood_risk_detail_critical">Flooding near the danger level is likely in the next 30 minutes. Avoid the area.</string>
+    <string name="flood_risk_detail_warning">Water may reach knee level in the next 30 minutes. Stay alert.</string>
+    <string name="flood_risk_detail_low">Low chance of flooding in the next 30 minutes.</string>
+    <string name="chart_recorded_ends">Recorded sample data ends %1$s. Tap \"All recorded\" to see it.</string>
+
+    <!-- Home tour -->
+    <string name="tour_map_title">Flood map</string>
+    <string name="tour_map_text">The colored dots are the street sensors: green is safe, orange is warning, red is critical. Tap a dot to open that street.</string>
+    <string name="tour_search_title">Search</string>
+    <string name="tour_search_text">Find a sensor or any place in Taguig. Tap a result to see it on the map.</string>
+    <string name="tour_street_title">Your street</string>
+    <string name="tour_street_text">A quick look at your nearest sensor. Tap it for the full Conditions: forecast, flood risk, rain and the flood chart.</string>
+    <string name="tour_status_title">Current level status</string>
+    <string name="tour_status_text">Water level, risk, rise rate and rain right now. Tap any box to learn what it means.</string>
+    <string name="tour_daily_title">7-day forecast</string>
+    <string name="tour_daily_text">The chance of rain and temperatures for the week ahead.</string>
+    <string name="tour_nearby_title">Nearby streets</string>
+    <string name="tour_nearby_text">The other flood sensors. Tap one to see its Conditions.</string>
+    <string name="tour_chat_title">Ask BahGo</string>
+    <string name="tour_chat_text">Have a question? Tap the chat button to ask about the water, rain, safety or the app.</string>
+    <string name="tour_settings_text">Turn flood alerts on or off, choose Person or Car mode, and switch light or dark mode. You can replay this tour there too.</string>
+    <string name="tour_count">%1$d of %2$d</string>
+    <string name="tour_done">Done</string>
+
+    <!-- Level Descriptions -->
+    <string name="ankle_desc">Ankle depth — walkable with caution.</string>
+    <string name="knee_desc">Knee depth — difficult to walk. Risk of falling.</string>
+    <string name="waist_desc">Waist depth — very dangerous. Strong current risk.</string>
+    <string name="chest_desc">Chest depth — life-threatening. Evacuate immediately.</string>
+    <string name="safe_desc">Safe — most cars can pass. Drive slowly.</string>
+    <string name="risky_desc">Risky — small cars may stall. Avoid if possible.</string>
+    <string name="critical_desc">Critical — do not attempt. Car will be submerged.</string>
+
+    <!-- Status info sheet -->
+    <string name="info_level_what">How deep the flood water is on the street, measured by the sensor mounted above the road. 0 cm means the street is dry.</string>
+    <string name="info_level_safe">Safe · up to %1$s</string>
+    <string name="info_level_safe_text">Ankle to below-knee deep. You can usually walk or drive through slowly.</string>
+    <string name="info_level_warning">Warning · %1$s to %2$s</string>
+    <string name="info_level_warning_text">Knee deep. Hard to walk, small cars may stall. Avoid if you can.</string>
+    <string name="info_level_critical">Critical · above %1$s</string>
+    <string name="info_level_critical_text">Waist deep and up. Dangerous: don\'t walk or drive through.</string>
+    <string name="info_level_tip">\"%% of threshold\" compares the water now to the Critical level (%1$s = 100%%).</string>
+
+    <string name="info_risk_what">How dangerous this street is right now, based on the water level.</string>
+    <string name="info_risk_safe_text">Water is below %1$s. Normal, but stay careful in the rain.</string>
+    <string name="info_risk_warning_text">Water is between %1$s and %2$s. Be careful and avoid the street if you can.</string>
+    <string name="info_risk_critical_text">Water is above %1$s. Stay away from the area.</string>
+    <string name="info_risk_offline_text">The sensor isn\'t sending data right now, so the risk is unknown. Be careful.</string>
+    <string name="info_risk_tip">You get a notification when a street turns Warning or Dangerous (if flood alerts are on in Settings).</string>
+
+    <string name="info_rise_what">How fast the water is going up or down, worked out from the last 15 minutes of readings.</string>
+    <string name="info_rise_rising">+ cm/hr · rising</string>
+    <string name="info_rise_rising_text">Water is going up. \"+6 cm/hr\" means about 6 cm higher in an hour. If it keeps rising, the box shows when it could reach the next level, like \"Warning in ~25 min\".</string>
+    <string name="info_rise_steady_text">Water is barely changing (less than %1$s per hour).</string>
+    <string name="info_rise_falling">- cm/hr · falling</string>
+    <string name="info_rise_measuring_text">The app needs a few minutes of readings first.</string>
+    <string name="info_rise_tip">A fast rise during heavy rain is an early sign of flooding, even if the level is still Safe.</string>
+
+    <string name="info_rain_what">What the rain sensor on this street is feeling right now. Wetter sensor = heavier rain.</string>
+    <string name="info_rain_none_text">The sensor is dry.</string>
+    <string name="info_rain_light_text">Drizzle or light showers. Little effect on flooding.</string>
+    <string name="info_rain_moderate_text">Steady rain. Water may start to collect on low streets.</string>
+    <string name="info_rain_heavy_text">Downpour. Water can rise quickly: watch the Rise Rate and Risk Level.</string>
+    <string name="info_rain_tip">Rain alone doesn\'t mean flooding. Check the Water Level to see how deep it really is.</string>
+
+    <string name="info_now_no_data">Now: no live data</string>
+    <string name="info_now">Now: %1$s</string>
+
+    <!-- Rain names used by StatusText -->
+    <string-array name="rain_status_names">
+        <item>No Rain</item>
+        <item>Light Rain</item>
+        <item>Moderate Rain</item>
+        <item>Heavy Rain</item>
+    </string-array>
+    <string-array name="rain_short_names">
+        <item>Dry</item>
+        <item>Light</item>
+        <item>Moderate</item>
+        <item>Heavy</item>
+    </string-array>
+    <string name="rain_offline">No rain data while this sensor is offline.</string>
+    <string name="rain_no_readings">This sensor isn\'t sending rain readings.</string>
+    <string name="rain_forecast_getting_ready">%1$s now. Rain forecast ready in about %2$d min.</string>
+    <string name="rain_sum_none">No rain now, and none expected in the next 30 minutes.</string>
+    <string name="rain_sum_starting">No rain now. %1$s possible within 30 minutes.</string>
+    <string name="rain_sum_stopping">%1$s now. Expected to stop within 30 minutes.</string>
+    <string name="rain_sum_heavier">%1$s now, getting heavier: %2$s expected in 30 minutes.</string>
+    <string name="rain_sum_lighter">%1$s now, easing to %2$s in 30 minutes.</string>
+    <string name="rain_sum_same">%1$s now. Expected to continue for the next 30 minutes.</string>
+    <string name="now">Now</string>
+    <string name="in_30_min">in 30 min</string>
+
+    <!-- ETA and time durations -->
+    <string name="eta_under_minute">&lt;1 min</string>
+    <string name="eta_min">%1$d min</string>
+    <string name="eta_hr">%1$d hr</string>
+    <string name="eta_hr_min">%1$d hr %2$d min</string>
+
+    <!-- Chart -->
+    <string name="chart_no_data_yet">No data yet</string>
+    <string name="chart_medium">Medium</string>
+    <string name="chart_live">Live</string>
+    <string name="chart_recorded">Recorded (simulated)</string>
+    <string name="chart_forecast">Forecast</string>
+    <string name="chart_kind_forecast">forecast</string>
+    <string name="chart_kind_live">live</string>
+    <string name="chart_kind_recorded">recorded, simulated</string>
+
+    <!-- About Section -->
+    <string name="about_title">About</string>
+    <string name="app_subtitle">Flood Watch</string>
+    <string name="app_version">Version 2.0.0</string>
+    <string name="what_is_bahgo">What is Bahgo?</string>
+    <string name="features_label">Key Features</string>
+    <string name="feature_alerts">Real-time alerts</string>
+    <string name="feature_monitoring">Live monitoring</string>
+    <string name="feature_charts">Data visualization</string>
+    <string name="feature_sensors">IoT Sensor data</string>
+    <string name="developed_by">Developed by BahGo Team</string>
+    <string name="team_info">BAHGO Team — Thesis Project\nBachelor of Science in Computer Science\nSTI College Global</string>
 
     <!-- Common -->
     <string name="back">Back</string>
     <string name="cancel">Cancel</string>
     <string name="ok">OK</string>
     <string name="password">Password</string>
+    <string name="map_fallback_text">Flood map unavailable. Check your connection.</string>
+    <string name="loc_taguig_manila">Taguig, Metro Manila</string>
+    <string name="loc_taguig">Taguig</string>
+    <string name="today">Today</string>
+    <string name="rain_chance_format">%1$d%%</string>
+
+    <string name="settings_change_password_title">Change password</string>
+    <string name="settings_change_phone_title">Change phone number</string>
+
+    <string name="about_how_sensors_title">Sensors measure the street</string>
+    <string name="about_how_sensors_text">Each street has an ultrasonic sensor mounted 94 cm above the road and a rain sensor. Water level = 94 cm minus the distance to the water. Readings go to the cloud every few seconds.</string>
+    <string name="about_how_levels_title">Three risk levels</string>
+    <string name="about_how_levels_text">Safe: up to %1$d cm (ankle to below the knee). Warning: %1$d–%2$d cm (knee deep). Critical: above %2$d cm (waist deep and up).</string>
+    <string name="about_how_rise_title">Rise rate</string>
+    <string name="about_how_forecast_title">Flood Forecast (Linear Regression)</string>
+    <string name="about_how_forecast_text">Predicts the water level 30 minutes ahead from the level now and how much it changed over the last 5, 15 and 30 minutes.</string>
+    <string name="about_how_risk_title">Flood Risk (Lasso Regression)</string>
+    <string name="about_how_risk_text">Combines the water level with rain (recent readings, rate of change and cumulative rainfall) to rate each street Low, Warning or Critical for the next 30 minutes.</string>
+    <string name="about_how_rain_title">Rain Forecast</string>
+    <string name="about_how_rain_text">Uses the street\'s own rain sensor to show the last 30 minutes of rain and what to expect 30 minutes from now.</string>
+    <string name="about_how_alerts_title">Flood alerts</string>
+    <string name="about_how_alerts_text">A background monitor watches all four streets and notifies you when one rises to Warning or Critical, even when the app is closed.</string>
+    <string name="about_how_chart_title">Flood chart and 7-day forecast</string>
+    <string name="about_how_chart_text">The chart shows each street\'s water level over time (recorded sample data and live readings); Home shows the week\'s chance of rain.</string>
+    <string name="about_src_sensors">ESP32 with ultrasonic water-level and rain sensors on Sealion, Samaritan, Swingfire and Striker Streets</string>
+    <string name="about_src_rtdb">Live sensor readings, recorded sample data and user accounts</string>
+    <string name="about_src_fcm">Delivers flood alert notifications</string>
+    <string name="about_src_analytics">Anonymous usage statistics, only if you agree</string>
+    <string name="about_src_models">Forecast models trained on the recorded flood data (simulated sample data, Oct 13–28, 2026)</string>
+    <string name="about_src_maplibre">Displays the flood map</string>
+    <string name="about_src_openfreemap">Map style and map tiles</string>
+    <string name="about_src_osm">Map data © OpenStreetMap contributors</string>
+    <string name="about_src_noah">5-year flood hazard layer (UP NOAH, via the BetterGov PH dataset on Hugging Face)</string>
+    <string name="about_src_openmeteo">7-day weather and chance-of-rain forecast (CC BY 4.0)</string>
+    <string name="about_src_nominatim">Search for places in Taguig</string>
+    <string name="about_src_sms">Sends sign-up and phone-change verification codes</string>
+    <string name="about_src_location">Shows your position on the map (stays on your phone)</string>
+    <string name="about_photo_of">Photo of %1$s</string>
+    <string name="no_app_to_open">No app on this phone can open that.</string>
+    <string name="channel_alerts">Flood alerts</string>
+    <string name="channel_alerts_desc">Alerts when a street sensor reaches a warning or critical water level</string>
+    <string name="channel_monitor">Flood monitoring</string>
+    <string name="channel_monitor_desc">Shows that BahGo is watching the street sensors in the background</string>
+    <string name="monitor_starting">Starting…</string>
+    <string name="monitor_none_online">No sensors online right now</string>
+    <string name="monitor_all_safe">All streets safe · %1$d of 4 sensors online</string>
+    <string name="monitor_title">BahGo is monitoring floods</string>
+    <string name="intro_step_map_title">See the flood map</string>
+    <string name="intro_step_map_text">Colored dots are the street sensors: green safe, orange warning, red critical.</string>
+    <string name="intro_step_street_title">Tap a street for details</string>
+    <string name="intro_step_street_text">Water level, rise rate, rain, a 30-minute forecast and the flood chart.</string>
+    <string name="intro_step_search_title">Search any place in Taguig</string>
+    <string name="intro_step_search_text">Find a street or landmark and see it right on the map.</string>
+    <string name="intro_step_alerts_title">Get flood alerts</string>
+    <string name="intro_step_alerts_text">Allow notifications to be warned when a street reaches Warning or Critical.</string>
+    <string name="consent_agree_text">I agree to the Privacy Policy and Terms and Conditions, and to the processing of my data as described in this form.</string>
+    <string name="consent_cookie_note">How the app stores data on your phone: Cookie Policy.</string>
+    <string name="legal_open_failed">This document couldn\'t be opened.</string>
+    <string name="location_skipped">Location skipped.</string>
+    <string name="notifications_disabled">Notifications disabled. You can enable them later in settings.</string>
+    <string name="login_enter_credentials">Enter credentials.</string>
+    <string name="login_failed">Login failed. Try again.</string>
+    <string name="otp_enter_all_digits">Enter all 6 digits.</string>
+    <string name="otp_fill_form_again">Please fill in the sign-up form again.</string>
+    <string name="otp_verification_failed">Verification failed.</string>
+    <string name="otp_send_failed">Could not send the code.</string>
+    <string name="otp_send_failed_short">Couldn\'t send the code.</string>
+    <string name="search_sensor_area">Flood sensor %1$d · Palar Village, Pinagsama</string>
+    <string name="search_results_in_taguig">Results in Taguig</string>
+    <string name="search_failed">Couldn\'t search right now. Check your internet connection.</string>
+    <string name="search_no_match">No places in Taguig match \"%1$s\".</string>
+    <string name="setup_consent_text">I have read and agree to the Privacy Policy and Terms and Conditions, and I consent to BahGo processing my data as described in the consent form.</string>
+    <string name="setup_enter_name">Please enter your name</string>
+    <string name="setup_enter_valid_phone">Please enter a valid phone number</string>
+    <string name="setup_password_too_short">Password must be at least 8 characters</string>
+    <string name="setup_password_needs_number">Password must contain at least 1 number</string>
+    <string name="setup_password_needs_special">Password must contain at least 1 special character</string>
+    <string name="setup_already_registered_title">Already Registered</string>
+    <string name="setup_already_registered_message">This number is already registered. Please log in.</string>
+
+    <string name="day_sheet_hilo">H:%1$s L:%2$s</string>
+    <string name="day_sheet_actual">Actual</string>
+    <string name="day_sheet_feels">Feels Like</string>
+    <string name="day_sheet_actual_note">The actual temperature.</string>
+    <string name="day_sheet_feels_note">How warm it feels outside, counting humidity and wind.</string>
+    <string name="day_sheet_rain_title">Chance of Precipitation</string>
+    <string name="day_sheet_rain_today">Today\'s chance: %1$d%%</string>
+    <string name="day_sheet_rain_day">Chance: %1$d%%</string>
+    <string name="day_sheet_rain_note">The daily chance of precipitation tends to be higher than the chance for each hour.</string>
+
+    <string name="home_choose_street">Choose your street</string>
+
+    <string name="home_choose_street_hint">The street shown at the top of Home. Pick the one nearest you.</string>
+
+    <string name="perm_location_needed_title">Location is needed</string>
+    <string name="perm_location_needed_msg">BahGo uses your location to show where you are on the flood map and which streets are near you. Turn on Location for BahGo in your phone\'s Settings to continue.</string>
+    <string name="perm_notif_needed_title">Flood alerts are needed</string>
+    <string name="perm_notif_needed_msg">BahGo warns you with a notification when a street reaches Warning or Critical. Turn on Notifications for BahGo in your phone\'s Settings to continue.</string>
+    <string name="perm_try_again">Try again</string>
+
+    <!-- Screen text moved from the layouts -->
+    <string name="about_flood_watch_for_palar">Flood Watch for Palar Village, Taguig</string>
+    <string name="about_about_bahgo">ABOUT BAHGO</string>
+    <string name="about_bahgo_is_a_flood">BahGo is a flood-monitoring app for the streets of Palar Village, Taguig City. Water-level and rain sensors installed on Sealion, Samaritan, Swingfire and Striker Streets send live readings to the app, so residents can see how deep the water is, how fast it is rising, and whether it is safe to walk or drive through, before they go.\n\nBahGo also forecasts the water level and flood risk for the next 30 minutes using machine learning, warns you with a notification when a street reaches Warning or Critical, and shows the week\'s rain outlook. It was built as a thesis project to help the community prepare for and stay safe during floods.</string>
+    <string name="about_how_it_works">HOW IT WORKS</string>
+    <string name="about_data_sources_apis">DATA SOURCES &amp; APIS</string>
+    <string name="about_legal">LEGAL</string>
+    <string name="about_privacy_policy">Privacy Policy</string>
+    <string name="about_what_we_collect_and">What we collect and your rights (Data Privacy Act of 2012)</string>
+    <string name="about_terms_and_conditions">Terms and Conditions</string>
+    <string name="about_rules_for_using_bahgo">Rules for using BahGo; not an emergency service</string>
+    <string name="about_cookie_policy">Cookie Policy</string>
+    <string name="about_no_cookies_what_the">No cookies: what the app stores on your phone</string>
+    <string name="about_data_privacy_consent_form">Data Privacy Consent Form</string>
+    <string name="about_what_you_agreed_to">What you agreed to when you signed up</string>
+    <string name="about_developers">DEVELOPERS</string>
+    <string name="about_4th_year_bs_computer">4th-year BS Computer Science students, STI College Global City</string>
+    <string name="about_contact">CONTACT</string>
+    <string name="about_email_us">Email us</string>
+    <string name="about_bahgo_is_a_thesis">BahGo is a thesis project and is not an emergency service.\nAlways follow official advisories from PAGASA, NDRRMC and Taguig City.\n© 2026 BahGo Team · STI College Global City</string>
+    <string name="chat_bahgo_assistant">BahGo Assistant</string>
+    <string name="chat_automated_answers_instantly">Automated · answers instantly</string>
+    <string name="chat_ask_about_floods_rain">Ask about floods, rain or the app…</string>
+    <string name="chat_send">Send</string>
+    <string name="conditions_conditions">Conditions</string>
+    <string name="conditions_close">Close</string>
+    <string name="conditions_offline">Offline</string>
+    <string name="conditions_no_data">No data</string>
+    <string name="conditions_rise_rate">Rise Rate</string>
+    <string name="conditions_rain">Rain</string>
+    <string name="conditions_flood_forecast">Flood Forecast</string>
+    <string name="conditions_getting_ready">Getting ready…</string>
+    <string name="conditions_expected_water_level_in">Expected water level in 30 minutes</string>
+    <string name="conditions_flood_risk">Flood Risk</string>
+    <string name="conditions_this_street_from_water">This street, from water level and rain</string>
+    <string name="conditions_rain_forecast">Rain Forecast</string>
+    <string name="conditions_collecting_readings">Collecting readings…</string>
+    <string name="conditions_from_this_street_s">From this street\'s rain sensor</string>
+    <string name="conditions_flood_severity_chart">Flood Severity Chart</string>
+    <string name="conditions_3_days">3 days</string>
+    <string name="conditions_all_recorded">All recorded</string>
+    <string name="consent_optional_share_anonymous_usage">Optional: share anonymous usage statistics to help improve BahGo</string>
+    <string name="consent_agree_and_continue">Agree and continue</string>
+    <string name="home_offline">● Offline</string>
+    <string name="home_no_live_data_from">No live data from this device.</string>
+    <string name="home_no_live_data">No live data</string>
+    <string name="home_7_day_forecast">7-DAY FORECAST</string>
+    <string name="home_loading_forecast">Loading forecast…</string>
+    <string name="daily_unavailable">Forecast not available right now. Check your internet connection.</string>
+    <string name="home_weather_data_by_open">Weather data by Open-Meteo.com</string>
+    <string name="home_search">Search</string>
+    <string name="home_ask_the_bahgo_assistant">Ask the BahGo Assistant</string>
+    <string name="intro_skip">Skip</string>
+    <string name="intro_next">Next</string>
+    <string name="otp_a_6_digit_code">A 6-digit code has been sent to your number. It expires in 5 minutes.</string>
+    <string name="permission_location_step_1_of_2">Step 1 of 2 — Permissions</string>
+    <string name="permission_notification_step_2_of_2">Step 2 of 2 — Permissions</string>
+    <string name="search_search_a_sensor_or">Search a sensor or any place in Taguig</string>
+    <string name="search_clear_search">Clear search</string>
+    <string name="search_flood_sensors">Flood sensors</string>
+    <string name="search_place_search_by_openstreetmap">Place search by OpenStreetMap Nominatim · © OpenStreetMap contributors</string>
+    <string name="settings_loading">Loading…</string>
+    <string name="settings_account_2">ACCOUNT</string>
+    <string name="settings_name">Name</string>
+    <string name="settings_mobile_number">Mobile number</string>
+    <string name="settings_privacy_security">PRIVACY &amp; SECURITY</string>
+    <string name="settings_keep_your_account_secure">Keep your account secure</string>
+    <string name="settings_change_phone_number">Change Phone Number</string>
+    <string name="settings_we_ll_text_a">We\'ll text a code to the new number</string>
+    <string name="settings_usage_statistics">Usage statistics</string>
+    <string name="settings_share_anonymous_app_usage">Share anonymous app usage to help improve BahGo</string>
+    <string name="settings_preferences">PREFERENCES</string>
+    <string name="settings_notifications_2">NOTIFICATIONS</string>
+    <string name="settings_notify_me_when_a">Notify me when a street reaches Warning or Critical</string>
+    <string name="settings_about">ABOUT</string>
+    <string name="settings_app_tour">App tour</string>
+    <string name="settings_show_me_around_the">Show me around the Home screen again</string>
+    <string name="setup_optional_share_anonymous_usage">Optional: share anonymous usage statistics</string>
+    <string name="setup_already_have_an_account">Already have an account? Log in</string>
+    <string name="intro_how_how_to_use_bahgo">How to use BahGo</string>
+    <string name="intro_how_check_the_map_tap">Check the map, tap a street for details, and turn on alerts. We\'ll show you around once you\'re in.</string>
+    <string name="intro_what_live_street_sensors">Live street sensors</string>
+    <string name="intro_what_live">LIVE</string>
+    <string name="intro_what_know_the_flood_before">Know the flood before you go</string>
+    <string name="intro_what_bahgo_reads_live_flood">BahGo reads live flood sensors on the streets of Palar, Taguig. See how deep the water is, how fast it\'s rising, and whether it\'s safe to walk or drive through.</string>
+
+    <!-- Iwas-Baha Route: flood-safe route planner on Home (route/FloodRoutePlanner.kt) -->
+    <string name="route_title">Iwas-Baha Route</string>
+    <string name="route_subtitle">Find the safest way around the flood</string>
+    <string name="route_show_routes">Show routes</string>
+    <string name="route_show_routes_count">Show routes (%1$d)</string>
+    <string name="route_from_hint">From</string>
+    <string name="route_to_hint">To: a street or place in Taguig</string>
+    <string name="route_current_location">Current location</string>
+    <string name="route_mode_person">Walk</string>
+    <string name="route_mode_car">Car</string>
+    <string name="route_find">Find safe route</string>
+    <string name="route_clear">Clear</string>
+    <string name="route_swap">Swap start and destination</string>
+    <string name="route_status_locating">Finding your location…</string>
+    <string name="route_status_routing">Finding routes…</string>
+    <string name="route_status_checking">Checking each route against the NOAH flood map and live sensors…</string>
+    <string name="route_err_need_to">Choose where you\'re going.</string>
+    <string name="route_err_need_from">Choose where you\'re starting from.</string>
+    <string name="route_err_no_location">Can\'t find your current location. Turn on location, or type a starting point.</string>
+    <string name="route_err_location_denied">Location permission is off. Type a starting point instead.</string>
+    <string name="route_err_outside">Iwas-Baha Route only plans routes inside Taguig.</string>
+    <string name="route_err_same">Start and destination are the same place.</string>
+    <string name="route_err_network">Couldn\'t get routes. Check your internet connection and try again.</string>
+    <string name="route_err_no_routes">No road route found between these places.</string>
+    <string name="route_err_no_match">No place in Taguig matches \"%1$s\".</string>
+    <string name="route_results_person">Walking routes · Person Mode</string>
+    <string name="route_results_car">Driving routes · Car Mode</string>
+    <string name="route_checked_at">Live sensors checked at %1$s. Tap a route to show it on the map.</string>
+    <string name="route_best_title">Easiest &amp; safest route</string>
+    <string name="route_others_title">Passable with caution</string>
+    <string name="route_others_clear_title">Other clear routes (longer)</string>
+    <string name="route_avoid_title">Avoid</string>
+    <string name="route_option_number">Option %1$d</string>
+    <string name="route_badge_clear">Clear</string>
+    <string name="route_badge_caution">Use caution</string>
+    <string name="route_badge_avoid">Avoid</string>
+    <string name="route_distance_time">%1$s · %2$s</string>
+    <string name="route_meters">%1$d m</string>
+    <string name="route_km">%1$s km</string>
+    <string name="route_minutes">%1$d min</string>
+    <string name="route_hours_minutes">%1$d h %2$d min</string>
+    <string name="route_reason_sensor_critical">Passes %1$s: Critical, %2$s</string>
+    <string name="route_reason_sensor_too_deep_car">Passes %1$s: Warning, %2$s, too deep for a small car</string>
+    <string name="route_reason_sensor_warning">Passes %1$s: Warning, %2$s</string>
+    <string name="route_reason_sensor_offline">%1$s sensor is offline, so check the water there yourself</string>
+    <string name="route_reason_sensors_offline">No live reading from %1$s, so check the water there yourself</string>
+    <string name="route_reason_noah_high">Crosses %1$s of NOAH high-hazard area</string>
+    <string name="route_reason_noah_medium">Crosses %1$s of NOAH medium-hazard area</string>
+    <string name="route_reason_flood_missing">NOAH flood map couldn\'t be loaded, so this is based on the live sensors only</string>
+    <string name="route_reason_clear">No flooded sensors on the way and little NOAH flood area</string>
+    <string name="route_reason_longer">Clear too, but longer</string>
+    <string name="route_noah_none">NOAH 5-year flood map: no hazard areas on this route</string>
+    <string name="route_noah_summary">NOAH 5-year flood map: %1$s</string>
+    <string name="route_noah_high">%1$s high</string>
+    <string name="route_noah_medium">%1$s medium</string>
+    <string name="route_noah_low">%1$s low</string>
+    <string name="route_advice_person_safe">Walk this way. Stay on main roads and keep an eye on the water.</string>
+    <string name="route_advice_person_caution">Passable on foot with care: water may reach your knees. Watch for open drains and manholes, and turn back if the water is rising.</string>
+    <string name="route_advice_person_avoid">Don\'t walk here: the water is waist-deep or higher. Take another route or stay where you are.</string>
+    <string name="route_advice_car_safe">OK to drive. Go slowly through any puddles.</string>
+    <string name="route_advice_car_caution">Drive slowly and steadily and don\'t stop in the water. Small cars can stall in knee-deep water, so turn back if it looks deeper.</string>
+    <string name="route_advice_car_avoid">Don\'t drive here: too deep for most cars. Take another route.</string>
+    <string name="route_none_safe_title">No safe route right now</string>
+    <string name="route_none_safe_text">Every route we found passes a flooded street. Stay where you are if you can, and move to higher ground if the water reaches you. In an emergency, call 911.</string>
+    <string name="route_call_911">Call 911</string>
+    <string name="route_sensor_area">Sensor %1$d · Palar, Taguig</string>
+    <string name="tour_route_title">Iwas-Baha Route</string>
+    <string name="tour_route_text">Type where you\'re going and tap Find safe route. BahGo checks every road against the NOAH flood map and the live sensors, then draws the safest way in green and other passable options in orange.</string>
+    <string name="about_src_osrm">Walking and driving routes for Iwas-Baha Route (OSRM, on OpenStreetMap data)</string>
 </resources>

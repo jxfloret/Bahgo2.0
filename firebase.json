@@ -1,0 +1,15 @@
+{
+  "functions": [
+    {
+      "source": "functions",
+      "codebase": "bahgo-alerts",
+      "ignore": ["node_modules", "test", ".git", "*.log"]
+    }
+  ],
+  "database": [
+    {
+      "instance": "bahgo-ee71b-default-rtdb",
+      "rules": "database.rules.json"
+    }
+  ]
+}

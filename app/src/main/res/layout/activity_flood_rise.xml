@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Rising flood animation between the intro and the welcome screen (FloodRiseActivity) -->
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/floodRoot"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_gradient">
+
+    <com.example.bahgo20.ui.FloodRiseView
+        android:id="@+id/floodRise"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <LinearLayout
+        android:id="@+id/llFloodLogo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+        <ImageView
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:background="@drawable/bg_logo_circle"
+            android:contentDescription="@null"
+            android:elevation="8dp"
+            android:outlineProvider="background"
+            android:src="@drawable/logo_round" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:fontFamily="sans-serif-black"
+            android:letterSpacing="0.04"
+            android:shadowColor="#40000000"
+            android:shadowDy="3"
+            android:shadowRadius="8"
+            android:text="@string/main_title"
+            android:textColor="@color/text_on_gradient"
+            android:textSize="52sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+</FrameLayout>

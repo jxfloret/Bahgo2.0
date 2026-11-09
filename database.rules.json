@@ -1,0 +1,19 @@
+{
+  "rules": {
+    ".read": false,
+    ".write": false,
+
+    "$node": {
+      ".read": "$node.matches(/^Sensordata[1-4]$/) && (auth.token.role === 'admin' || auth.token.role === 'super' || auth.provider === 'anonymous')",
+      ".write": "$node.matches(/^Sensordata[1-4]$/) && auth.token.role === 'device'"
+    },
+
+    "users": {
+      ".read": "auth != null",
+      ".write": "auth != null"
+    },
+    "logins": {
+      ".write": "auth != null"
+    }
+  }
+}

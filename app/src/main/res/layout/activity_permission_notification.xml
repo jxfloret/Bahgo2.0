@@ -1,109 +1,127 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg_gradient"
-    tools:context=".NotificationPermissionActivity">
+    android:background="@drawable/bg_gradient">
 
-    <com.example.bahgo20.ui.RainfallView
-        android:id="@+id/rainfallView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+    <!-- App name at top -->
+    <TextView
+        android:id="@+id/tvAppContext"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="56dp"
+        android:fontFamily="sans-serif-black"
+        android:text="BAHGO"
+        android:textColor="@color/text_on_gradient"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
+    <TextView
+        android:id="@+id/tvStep"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="6dp"
+        android:text="@string/permission_notification_step_2_of_2"
+        android:textColor="@color/text_on_gradient_secondary"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvAppContext" />
+
+    <!-- Permission card -->
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_margin="24dp"
-        android:background="@drawable/bg_otp_card"
-        android:elevation="4dp"
-        android:padding="24dp"
+        app:cardBackgroundColor="@color/card_glass"
+        app:cardCornerRadius="28dp"
+        app:cardElevation="4dp"
+        app:strokeColor="@color/card_stroke"
+        app:strokeWidth="1dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvStep"
+        app:layout_constraintVertical_bias="0.45">
 
-        <View
-            android:id="@+id/iconContainer"
-            android:layout_width="64dp"
-            android:layout_height="64dp"
-            android:background="@drawable/bg_icon_circle"
-            android:backgroundTint="@color/card_muted"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <ImageView
-            android:layout_width="28dp"
-            android:layout_height="28dp"
-            android:contentDescription="@null"
-            android:src="@drawable/ic_bell"
-            app:layout_constraintBottom_toBottomOf="@id/iconContainer"
-            app:layout_constraintEnd_toEndOf="@id/iconContainer"
-            app:layout_constraintStart_toStartOf="@id/iconContainer"
-            app:layout_constraintTop_toTopOf="@id/iconContainer"
-            app:tint="@color/icon_accent" />
-
-        <TextView
-            android:id="@+id/tvTitle"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="@string/perm_notification_title"
-            android:textColor="@color/text_on_card"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/iconContainer" />
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            android:padding="28dp">
 
-        <TextView
-            android:id="@+id/tvDescription"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:gravity="center"
-            android:text="@string/perm_notification_desc"
-            android:textColor="@color/text_on_card_secondary"
-            android:textSize="13sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tvTitle" />
+            <!-- Icon circle -->
+            <FrameLayout
+                android:layout_width="72dp"
+                android:layout_height="72dp">
 
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btnDeny"
-            android:layout_width="0dp"
-            android:layout_height="52dp"
-            android:layout_marginTop="24dp"
-            android:layout_marginEnd="8dp"
-            android:background="@drawable/btn_outline"
-            android:text="@string/perm_dont_allow"
-            android:textAllCaps="false"
-            android:textColor="@color/button_primary"
-            android:textSize="14sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toStartOf="@+id/btnAllowNotifications"
-            app:layout_constraintHorizontal_weight="1"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tvDescription" />
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/bg_icon_circle"
+                    android:backgroundTint="@color/card_muted" />
 
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btnAllowNotifications"
-            android:layout_width="0dp"
-            android:layout_height="52dp"
-            android:layout_marginStart="8dp"
-            android:background="@drawable/bg_button_solid"
-            android:backgroundTint="@color/button_primary"
-            android:text="@string/perm_allow"
-            android:textAllCaps="false"
-            android:textColor="@color/white"
-            android:textSize="14sp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="@id/btnDeny"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_weight="1"
-            app:layout_constraintStart_toEndOf="@+id/btnDeny"
-            app:layout_constraintTop_toTopOf="@id/btnDeny" />
+                <ImageView
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:layout_gravity="center"
+                    android:contentDescription="@null"
+                    android:src="@drawable/ic_bell"
+                    app:tint="@color/icon_accent" />
+            </FrameLayout>
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="@string/perm_notification_title"
+                android:textColor="@color/text_on_card"
+                android:textSize="22sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:gravity="center"
+                android:lineSpacingExtra="4dp"
+                android:text="@string/perm_notification_desc"
+                android:textColor="@color/text_on_card_secondary"
+                android:textSize="14sp" />
+
+            <!-- Allow button -->
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnAllowNotifications"
+                android:layout_width="match_parent"
+                android:layout_height="54dp"
+                android:layout_marginTop="28dp"
+                android:insetTop="0dp"
+                android:insetBottom="0dp"
+                android:text="@string/perm_allow"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                app:backgroundTint="@color/button_primary"
+                app:cornerRadius="27dp" />
+
+            <!-- Don't allow link -->
+            <TextView
+                android:id="@+id/btnDeny"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="18dp"
+                android:padding="8dp"
+                android:text="@string/perm_dont_allow"
+                android:textColor="@color/text_on_card_secondary"
+                android:textSize="14sp" />
+
+        </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

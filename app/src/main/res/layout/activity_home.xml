@@ -8,66 +8,14 @@
     android:background="@drawable/bg_gradient"
     tools:context=".HomeActivity">
 
-    <com.example.bahgo20.ui.RainfallView
-        android:id="@+id/rainfallView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <!-- Top Bar -->
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/clTopBar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="20dp"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <ImageView
-            android:id="@+id/ivSettings"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:contentDescription="Settings"
-            android:src="@drawable/ic_settings"
-            app:tint="@color/icon_on_gradient"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/tvHeaderCity"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="sans-serif-medium"
-            android:text="@string/header_city"
-            android:textColor="@color/text_on_gradient"
-            android:textSize="18sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <ImageView
-            android:id="@+id/ivSearch"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:contentDescription="Search"
-            android:src="@drawable/ic_search"
-            app:tint="@color/icon_on_gradient"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
+    <!-- Main Content Area: starts below the header, so cards never scroll underneath it -->
     <ScrollView
         android:id="@+id/scrollView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:clipToPadding="false"
         android:fillViewport="true"
-        android:paddingBottom="24dp"
+        android:paddingBottom="88dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@id/clTopBar">
 
@@ -76,6 +24,271 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:padding="16dp">
+
+            <!-- Iwas-Baha Route: From / To route planner (route/FloodRoutePlanner.kt). Routes are drawn on the map below; results open in a pop-up. -->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cvRoutePlanner"
+                style="@style/SettingsCard"
+                android:layout_marginBottom="16dp"
+                app:cardCornerRadius="24dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <!-- Title + Walk / Car switch for this search -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/route_title"
+                                android:textColor="@color/text_on_card"
+                                android:textSize="16sp"
+                                android:textStyle="bold" />
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/route_subtitle"
+                                android:textColor="@color/text_on_card_secondary"
+                                android:textSize="12sp" />
+                        </LinearLayout>
+                        <com.google.android.material.button.MaterialButtonToggleGroup
+                            android:id="@+id/toggleRouteMode"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            app:selectionRequired="true"
+                            app:singleSelection="true">
+                            <com.google.android.material.button.MaterialButton
+                                android:id="@+id/btnRouteModePerson"
+                                style="@style/Widget.Material3.Button.OutlinedButton"
+                                android:layout_width="wrap_content"
+                                android:layout_height="40dp"
+                                android:insetTop="0dp"
+                                android:insetBottom="0dp"
+                                android:minWidth="0dp"
+                                android:paddingHorizontal="10dp"
+                                android:text="@string/route_mode_person"
+                                android:textSize="12sp"
+                                app:icon="@drawable/ic_person"
+                                app:iconSize="16dp" />
+                            <com.google.android.material.button.MaterialButton
+                                android:id="@+id/btnRouteModeCar"
+                                style="@style/Widget.Material3.Button.OutlinedButton"
+                                android:layout_width="wrap_content"
+                                android:layout_height="40dp"
+                                android:insetTop="0dp"
+                                android:insetBottom="0dp"
+                                android:minWidth="0dp"
+                                android:paddingHorizontal="10dp"
+                                android:text="@string/route_mode_car"
+                                android:textSize="12sp"
+                                app:icon="@drawable/ic_car"
+                                app:iconSize="16dp" />
+                        </com.google.android.material.button.MaterialButtonToggleGroup>
+                    </LinearLayout>
+
+                    <!-- From / To fields with a swap button on the right -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="44dp"
+                                android:background="@drawable/bg_input_field"
+                                android:gravity="center_vertical"
+                                android:orientation="horizontal"
+                                android:paddingStart="12dp"
+                                android:paddingEnd="4dp">
+                                <View
+                                    android:layout_width="10dp"
+                                    android:layout_height="10dp"
+                                    android:background="@drawable/bg_button_solid"
+                                    android:backgroundTint="@color/icon_accent" />
+                                <EditText
+                                    android:id="@+id/etRouteFrom"
+                                    android:layout_width="0dp"
+                                    android:layout_height="match_parent"
+                                    android:layout_marginStart="10dp"
+                                    android:layout_weight="1"
+                                    android:background="@null"
+                                    android:hint="@string/route_from_hint"
+                                    android:imeOptions="actionNext"
+                                    android:importantForAutofill="no"
+                                    android:inputType="textPostalAddress"
+                                    android:maxLines="1"
+                                    android:textColor="@color/input_text"
+                                    android:textColorHint="@color/input_hint"
+                                    android:textSize="14sp" />
+                                <ImageView
+                                    android:id="@+id/ivRouteFromClear"
+                                    android:layout_width="36dp"
+                                    android:layout_height="36dp"
+                                    android:background="?attr/selectableItemBackgroundBorderless"
+                                    android:contentDescription="@string/route_clear"
+                                    android:padding="10dp"
+                                    android:src="@drawable/ic_close"
+                                    android:visibility="gone"
+                                    app:tint="@color/input_hint" />
+                            </LinearLayout>
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="44dp"
+                                android:layout_marginTop="8dp"
+                                android:background="@drawable/bg_input_field"
+                                android:gravity="center_vertical"
+                                android:orientation="horizontal"
+                                android:paddingStart="12dp"
+                                android:paddingEnd="4dp">
+                                <View
+                                    android:layout_width="10dp"
+                                    android:layout_height="10dp"
+                                    android:background="@drawable/bg_button_solid"
+                                    android:backgroundTint="@color/status_dangerous" />
+                                <EditText
+                                    android:id="@+id/etRouteTo"
+                                    android:layout_width="0dp"
+                                    android:layout_height="match_parent"
+                                    android:layout_marginStart="10dp"
+                                    android:layout_weight="1"
+                                    android:background="@null"
+                                    android:hint="@string/route_to_hint"
+                                    android:imeOptions="actionSearch"
+                                    android:importantForAutofill="no"
+                                    android:inputType="textPostalAddress"
+                                    android:maxLines="1"
+                                    android:textColor="@color/input_text"
+                                    android:textColorHint="@color/input_hint"
+                                    android:textSize="14sp" />
+                                <ImageView
+                                    android:id="@+id/ivRouteToClear"
+                                    android:layout_width="36dp"
+                                    android:layout_height="36dp"
+                                    android:background="?attr/selectableItemBackgroundBorderless"
+                                    android:contentDescription="@string/route_clear"
+                                    android:padding="10dp"
+                                    android:src="@drawable/ic_close"
+                                    android:visibility="gone"
+                                    app:tint="@color/input_hint" />
+                            </LinearLayout>
+                        </LinearLayout>
+                        <ImageView
+                            android:id="@+id/ivRouteSwap"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:layout_marginStart="4dp"
+                            android:background="?attr/selectableItemBackgroundBorderless"
+                            android:contentDescription="@string/route_swap"
+                            android:padding="8dp"
+                            android:src="@drawable/ic_swap_vert"
+                            app:tint="@color/icon_accent" />
+                    </LinearLayout>
+
+                    <!-- Quick picks: current location + the 4 sensor streets (fill the field being edited) -->
+                    <HorizontalScrollView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:scrollbars="none">
+                        <com.google.android.material.chip.ChipGroup
+                            android:id="@+id/cgRouteQuick"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            app:chipSpacingHorizontal="6dp"
+                            app:singleLine="true" />
+                    </HorizontalScrollView>
+
+                    <!-- Place suggestions while typing -->
+                    <LinearLayout
+                        android:id="@+id/llRouteSuggestions"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:visibility="gone" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/btnFindRoute"
+                            android:layout_width="0dp"
+                            android:layout_height="48dp"
+                            android:layout_weight="1"
+                            android:text="@string/route_find"
+                            app:backgroundTint="@color/button_primary"
+                            app:cornerRadius="14dp" />
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/btnClearRoute"
+                            style="@style/Widget.Material3.Button.TextButton"
+                            android:layout_width="wrap_content"
+                            android:layout_height="48dp"
+                            android:layout_marginStart="8dp"
+                            android:text="@string/route_clear"
+                            android:textColor="@color/icon_accent"
+                            android:visibility="gone" />
+                    </LinearLayout>
+
+                    <!-- Reopens the routes pop-up after it was closed (shown once there are results) -->
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnShowRoutes"
+                        style="@style/Widget.Material3.Button.OutlinedButton"
+                        android:layout_width="match_parent"
+                        android:layout_height="48dp"
+                        android:layout_marginTop="4dp"
+                        android:text="@string/route_show_routes"
+                        android:textColor="@color/icon_accent"
+                        android:visibility="gone"
+                        app:cornerRadius="14dp"
+                        app:icon="@drawable/ic_location_pin"
+                        app:iconTint="@color/icon_accent"
+                        app:strokeColor="@color/icon_accent" />
+
+                    <LinearLayout
+                        android:id="@+id/llRouteStatus"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:visibility="gone">
+                        <ProgressBar
+                            android:id="@+id/pbRoute"
+                            style="?android:attr/progressBarStyleSmall"
+                            android:layout_width="18dp"
+                            android:layout_height="18dp"
+                            android:layout_marginEnd="8dp"
+                            android:indeterminateTint="@color/icon_accent" />
+                        <TextView
+                            android:id="@+id/tvRouteStatus"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:textColor="@color/text_on_card_secondary"
+                            android:textSize="13sp" />
+                    </LinearLayout>
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
 
             <!-- Flood Hazard Map Card -->
             <com.google.android.material.card.MaterialCardView
@@ -86,8 +299,8 @@
                 app:cardBackgroundColor="@color/card_glass"
                 app:cardCornerRadius="24dp"
                 app:cardElevation="2dp"
-                app:strokeWidth="1dp"
-                app:strokeColor="@color/card_stroke">
+                app:strokeColor="@color/card_stroke"
+                app:strokeWidth="1dp">
 
                 <FrameLayout
                     android:layout_width="match_parent"
@@ -98,149 +311,55 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent" />
 
-                    <!-- 4 Dynamic Sensor Status Dots -->
-                    <View
-                        android:id="@+id/dotSensor1"
-                        android:layout_width="16dp"
-                        android:layout_height="16dp"
-                        android:layout_gravity="top|start"
-                        android:background="@drawable/bg_button_solid"
-                        android:backgroundTint="#9E9E9E"
-                        android:clickable="true"
-                        android:focusable="true"
-                        android:elevation="10dp" />
+                    <!-- Sensor status dots (hidden until the map positions them) -->
+                    <View android:id="@+id/dotSensor1" android:layout_width="16dp" android:layout_height="16dp" android:background="@drawable/bg_button_solid" android:backgroundTint="#9E9E9E" android:elevation="10dp" android:visibility="invisible" />
+                    <View android:id="@+id/dotSensor2" android:layout_width="16dp" android:layout_height="16dp" android:background="@drawable/bg_button_solid" android:backgroundTint="#9E9E9E" android:elevation="10dp" android:visibility="invisible" />
+                    <View android:id="@+id/dotSensor3" android:layout_width="16dp" android:layout_height="16dp" android:background="@drawable/bg_button_solid" android:backgroundTint="#9E9E9E" android:elevation="10dp" android:visibility="invisible" />
+                    <View android:id="@+id/dotSensor4" android:layout_width="16dp" android:layout_height="16dp" android:background="@drawable/bg_button_solid" android:backgroundTint="#9E9E9E" android:elevation="10dp" android:visibility="invisible" />
 
-                    <View
-                        android:id="@+id/dotSensor2"
-                        android:layout_width="16dp"
-                        android:layout_height="16dp"
-                        android:layout_gravity="top|start"
-                        android:background="@drawable/bg_button_solid"
-                        android:backgroundTint="#9E9E9E"
-                        android:clickable="true"
-                        android:focusable="true"
-                        android:elevation="10dp" />
+                    <!-- Pin for a place picked in Search (moved into place like the sensor dots); tap to hide -->
+                    <LinearLayout
+                        android:id="@+id/llSearchPin"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:elevation="12dp"
+                        android:gravity="center_horizontal"
+                        android:orientation="vertical"
+                        android:visibility="invisible">
+                        <TextView
+                            android:id="@+id/tvSearchPinLabel"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/bg_button_solid"
+                            android:backgroundTint="#E6263238"
+                            android:maxWidth="200dp"
+                            android:maxLines="1"
+                            android:ellipsize="end"
+                            android:paddingHorizontal="10dp"
+                            android:paddingVertical="4dp"
+                            android:textColor="@color/white"
+                            android:textSize="12sp"
+                            android:textStyle="bold" />
+                        <ImageView
+                            android:layout_width="36dp"
+                            android:layout_height="36dp"
+                            android:contentDescription="@null"
+                            android:src="@drawable/ic_location_pin"
+                            app:tint="#D32F2F" />
+                    </LinearLayout>
 
-                    <View
-                        android:id="@+id/dotSensor3"
-                        android:layout_width="16dp"
-                        android:layout_height="16dp"
-                        android:layout_gravity="top|start"
-                        android:background="@drawable/bg_button_solid"
-                        android:backgroundTint="#9E9E9E"
-                        android:clickable="true"
-                        android:focusable="true"
-                        android:elevation="10dp" />
-
-                    <View
-                        android:id="@+id/dotSensor4"
-                        android:layout_width="16dp"
-                        android:layout_height="16dp"
-                        android:layout_gravity="top|start"
-                        android:background="@drawable/bg_button_solid"
-                        android:backgroundTint="#9E9E9E"
-                        android:clickable="true"
-                        android:focusable="true"
-                        android:elevation="10dp" />
-
-                    <!-- Recenter on My Location Button -->
                     <com.google.android.material.card.MaterialCardView
                         android:id="@+id/btnMyLocation"
                         android:layout_width="36dp"
                         android:layout_height="36dp"
                         android:layout_gravity="top|end"
                         android:layout_margin="10dp"
-                        android:clickable="true"
-                        android:focusable="true"
                         app:cardBackgroundColor="@color/card_solid"
                         app:cardCornerRadius="18dp"
                         app:cardElevation="2dp"
                         app:strokeWidth="0dp">
-
-                        <ImageView
-                            android:layout_width="20dp"
-                            android:layout_height="20dp"
-                            android:layout_gravity="center"
-                            android:contentDescription="My Location"
-                            android:src="@drawable/ic_location_pin"
-                            app:tint="@color/icon_accent" />
+                        <ImageView android:layout_width="20dp" android:layout_height="20dp" android:layout_gravity="center" android:src="@drawable/ic_location_pin" app:tint="@color/icon_accent" android:contentDescription="@null" />
                     </com.google.android.material.card.MaterialCardView>
-
-                    <!-- Legend -->
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="bottom|end"
-                        android:layout_margin="8dp"
-                        android:background="@color/card_solid"
-                        android:orientation="vertical"
-                        android:padding="8dp">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Flood Hazard (5-yr)"
-                            android:textColor="@color/text_on_card"
-                            android:textSize="10sp"
-                            android:textStyle="bold" />
-
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="4dp"
-                            android:gravity="center_vertical"
-                            android:orientation="horizontal">
-                            <View
-                                android:layout_width="10dp"
-                                android:layout_height="10dp"
-                                android:background="#93C5FD" />
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginStart="4dp"
-                                android:text="Low"
-                                android:textColor="@color/text_on_card"
-                                android:textSize="9sp" />
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="2dp"
-                            android:gravity="center_vertical"
-                            android:orientation="horizontal">
-                            <View
-                                android:layout_width="10dp"
-                                android:layout_height="10dp"
-                                android:background="#3B82F6" />
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginStart="4dp"
-                                android:text="Medium"
-                                android:textColor="@color/text_on_card"
-                                android:textSize="9sp" />
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="2dp"
-                            android:gravity="center_vertical"
-                            android:orientation="horizontal">
-                            <View
-                                android:layout_width="10dp"
-                                android:layout_height="10dp"
-                                android:background="#1D4ED8" />
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginStart="4dp"
-                                android:text="High"
-                                android:textColor="@color/text_on_card"
-                                android:textSize="9sp" />
-                        </LinearLayout>
-                    </LinearLayout>
 
                     <TextView
                         android:id="@+id/tvMapFallback"
@@ -248,50 +367,76 @@
                         android:layout_height="match_parent"
                         android:background="@color/page_background"
                         android:gravity="center"
-                        android:padding="20dp"
                         android:text="@string/map_fallback_text"
-                        android:textColor="@color/text_on_card_secondary"
-                        android:textSize="12sp"
                         android:visibility="gone" />
                 </FrameLayout>
             </com.google.android.material.card.MaterialCardView>
 
-            <!-- Location Section Header -->
-            <androidx.constraintlayout.widget.ConstraintLayout
+            <!-- "your current location:" with Change on the far right (pick which street is yours) -->
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="12dp">
-
+                android:layout_marginBottom="12dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_weight="1"
                     android:text="@string/current_location_label"
-                    android:textColor="@color/text_on_gradient"
+                    android:textColor="@color/text_primary"
                     android:textSize="13sp"
-                    android:textStyle="bold"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <TextView
+                    android:textStyle="bold" />
+                <!-- Pill button: pin + Change, centered on the label's line -->
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/cvChangeLocation"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/view_full_condition"
-                    android:textColor="@color/text_on_gradient_secondary"
-                    android:textSize="11sp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
+                    android:layout_height="32dp"
+                    android:clickable="true"
+                    android:focusable="true"
+                    app:cardBackgroundColor="@color/card_glass"
+                    app:cardCornerRadius="16dp"
+                    app:cardElevation="1dp"
+                    app:strokeColor="@color/card_stroke"
+                    app:strokeWidth="1dp">
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:paddingStart="10dp"
+                        android:paddingEnd="14dp">
+                        <ImageView
+                            android:layout_width="16dp"
+                            android:layout_height="16dp"
+                            android:contentDescription="@null"
+                            android:src="@drawable/ic_location_pin"
+                            app:tint="@color/icon_accent" />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="6dp"
+                            android:includeFontPadding="false"
+                            android:text="@string/settings_change"
+                            android:textColor="@color/text_on_card"
+                            android:textSize="13sp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+            </LinearLayout>
 
-            <!-- Main Location Card: Sealion (Sensor 1) -->
+            <!-- Main Location Card (sensor 1) -->
             <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cvMainLocation"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:clickable="true"
+                android:focusable="true"
                 app:cardBackgroundColor="@color/card_glass"
                 app:cardCornerRadius="24dp"
                 app:cardElevation="2dp"
-                app:strokeWidth="1dp"
-                app:strokeColor="@color/card_stroke">
-
+                app:strokeColor="@color/card_stroke"
+                app:strokeWidth="1dp">
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -309,22 +454,27 @@
 
                     <TextView
                         android:id="@+id/tvMainStreet"
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
+                        android:layout_marginEnd="8dp"
                         android:text="Sealion Street"
                         android:textColor="@color/text_on_card"
-                        android:textSize="18sp"
+                        android:textSize="16sp"
                         android:textStyle="bold"
+                        app:layout_constraintEnd_toStartOf="@id/vMainIndicator"
                         app:layout_constraintStart_toEndOf="@id/ivLocPin"
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
+                        android:id="@+id/tvMainOnline"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Palar Village, Taguig"
-                        android:textColor="@color/text_on_card_secondary"
-                        android:textSize="13sp"
+                        android:layout_marginTop="4dp"
+                        android:text="@string/home_offline"
+                        android:textColor="#9E9E9E"
+                        android:textSize="12sp"
+                        android:textStyle="bold"
                         app:layout_constraintStart_toStartOf="@id/tvMainStreet"
                         app:layout_constraintTop_toBottomOf="@id/tvMainStreet" />
 
@@ -332,7 +482,7 @@
                         android:id="@+id/vMainIndicator"
                         android:layout_width="6dp"
                         android:layout_height="40dp"
-                        android:layout_marginEnd="16dp"
+                        android:layout_marginEnd="12dp"
                         android:background="@drawable/bg_button_solid"
                         android:backgroundTint="#9E9E9E"
                         app:layout_constraintBottom_toBottomOf="parent"
@@ -348,7 +498,6 @@
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="parent">
-
                         <ImageView
                             android:id="@+id/ivMainModeIcon"
                             android:layout_width="32dp"
@@ -356,13 +505,11 @@
                             android:contentDescription="@null"
                             android:src="@drawable/ic_person"
                             app:tint="@color/icon_accent" />
-
                         <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="8dp"
                             android:orientation="vertical">
-
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -370,14 +517,13 @@
                                 android:textColor="@color/text_on_card"
                                 android:textSize="13sp"
                                 android:textStyle="bold" />
-
                             <TextView
                                 android:id="@+id/tvMainLevelValue"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Offline"
+                                android:text="@string/conditions_offline"
                                 android:textColor="#9E9E9E"
-                                android:textSize="12sp"
+                                android:textSize="13sp"
                                 android:textStyle="bold" />
                         </LinearLayout>
                     </LinearLayout>
@@ -390,122 +536,111 @@
                 android:layout_marginTop="24dp"
                 android:layout_marginBottom="12dp"
                 android:text="@string/current_level_status"
-                android:textColor="@color/text_on_gradient"
+                android:textColor="@color/text_primary"
                 android:textSize="16sp"
                 android:textStyle="bold" />
 
-            <!-- Status Grid -->
+            <!-- Water level + risk cards -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:weightSum="2">
 
-                <!-- Water Level Card -->
                 <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/cvGridLevel"
                     android:layout_width="0dp"
                     android:layout_height="140dp"
                     android:layout_marginEnd="8dp"
                     android:layout_weight="1"
-                    app:cardBackgroundColor="#CC1E88E5"
+                    app:cardBackgroundColor="#9E9E9E"
                     app:cardCornerRadius="24dp"
-                    app:cardElevation="4dp"
-                    app:strokeWidth="0dp">
-
+                    app:cardElevation="4dp">
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:orientation="vertical"
-                        android:padding="20dp">
-
-                        <ImageView
-                            android:layout_width="20dp"
-                            android:layout_height="20dp"
-                            android:contentDescription="@null"
-                            android:src="@drawable/ic_trending_up" />
-
-                        <TextView
+                        android:padding="16dp">
+                        <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="8dp"
-                            android:text="@string/water_level_label"
-                            android:textColor="@color/text_on_gradient"
-                            android:textSize="11sp" />
-
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal">
+                            <ImageView android:layout_width="18dp" android:layout_height="18dp" android:src="@drawable/ic_trending_up" app:tint="@color/white" android:contentDescription="@null" />
+                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginStart="6dp" android:text="@string/water_level_label" android:textColor="@color/white" android:textSize="11sp" />
+                        </LinearLayout>
                         <TextView
                             android:id="@+id/tvGridLevelValue"
-                            android:layout_width="wrap_content"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="4dp"
+                            android:layout_marginTop="10dp"
+                            android:maxLines="1"
                             android:text="--"
-                            android:textColor="@color/text_on_gradient"
-                            android:textSize="28sp"
-                            android:textStyle="bold" />
-
+                            android:textColor="@color/white"
+                            android:textStyle="bold"
+                            app:autoSizeMaxTextSize="26sp"
+                            app:autoSizeMinTextSize="14sp"
+                            app:autoSizeStepGranularity="1sp"
+                            app:autoSizeTextType="uniform" />
                         <TextView
+                            android:id="@+id/tvGridLevelSub"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="2dp"
-                            android:text="@string/threshold_text"
-                            android:textColor="@color/text_on_gradient_secondary"
+                            android:text="@string/conditions_no_data"
+                            android:textColor="#E3F2FD"
                             android:textSize="11sp" />
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
 
-                <!-- Risk Level Card -->
                 <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/cvGridRisk"
                     android:layout_width="0dp"
                     android:layout_height="140dp"
                     android:layout_marginStart="8dp"
                     android:layout_weight="1"
-                    app:cardBackgroundColor="#CCFF9100"
+                    app:cardBackgroundColor="#9E9E9E"
                     app:cardCornerRadius="24dp"
-                    app:cardElevation="4dp"
-                    app:strokeWidth="0dp">
-
+                    app:cardElevation="4dp">
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:orientation="vertical"
-                        android:padding="20dp">
-
-                        <ImageView
-                            android:layout_width="20dp"
-                            android:layout_height="20dp"
-                            android:contentDescription="@null"
-                            android:src="@drawable/ic_warning" />
-
-                        <TextView
+                        android:padding="16dp">
+                        <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="8dp"
-                            android:text="@string/risk_level_label"
-                            android:textColor="@color/text_on_gradient"
-                            android:textSize="11sp" />
-
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal">
+                            <ImageView android:layout_width="18dp" android:layout_height="18dp" android:src="@drawable/ic_warning" app:tint="@color/white" android:contentDescription="@null" />
+                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginStart="6dp" android:text="@string/risk_level_label" android:textColor="@color/white" android:textSize="11sp" />
+                        </LinearLayout>
                         <TextView
                             android:id="@+id/tvGridRiskValue"
-                            android:layout_width="wrap_content"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="4dp"
+                            android:layout_marginTop="10dp"
+                            android:maxLines="1"
                             android:text="--"
-                            android:textColor="@color/text_on_gradient"
-                            android:textSize="28sp"
-                            android:textStyle="bold" />
-
+                            android:textColor="@color/white"
+                            android:textStyle="bold"
+                            app:autoSizeMaxTextSize="22sp"
+                            app:autoSizeMinTextSize="14sp"
+                            app:autoSizeStepGranularity="1sp"
+                            app:autoSizeTextType="uniform" />
                         <TextView
-                            android:id="@+id/tvRiskDesc"
+                            android:id="@+id/tvGridRiskSub"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="2dp"
-                            android:text="@string/risk_warning_desc"
-                            android:textColor="@color/text_on_gradient_secondary"
-                            android:textSize="9sp" />
+                            android:text="@string/home_no_live_data_from"
+                            android:textColor="#F5F5F5"
+                            android:textSize="11sp" />
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
             </LinearLayout>
 
-            <!-- Metrics Pills -->
+            <!-- Rise rate + rain cards (same style as water level + risk) -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -514,50 +649,99 @@
                 android:weightSum="2">
 
                 <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/cvGridRise"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="140dp"
                     android:layout_marginEnd="8dp"
                     android:layout_weight="1"
-                    app:cardBackgroundColor="@color/card_glass"
-                    app:cardCornerRadius="20dp"
-                    app:cardElevation="2dp"
-                    app:strokeWidth="1dp"
-                    app:strokeColor="@color/card_stroke">
-
-                    <TextView
-                        android:id="@+id/tvMetricRise"
+                    app:cardBackgroundColor="#9E9E9E"
+                    app:cardCornerRadius="24dp"
+                    app:cardElevation="4dp">
+                    <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:padding="12dp"
-                        android:text="Rate of Rise: --"
-                        android:textColor="@color/text_on_card"
-                        android:textSize="13sp" />
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:padding="16dp">
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal">
+                            <ImageView android:layout_width="18dp" android:layout_height="18dp" android:src="@drawable/ic_trending_up" app:tint="@color/white" android:contentDescription="@null" />
+                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginStart="6dp" android:text="@string/conditions_rise_rate" android:textColor="@color/white" android:textSize="11sp" />
+                        </LinearLayout>
+                        <TextView
+                            android:id="@+id/tvGridRiseValue"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:maxLines="1"
+                            android:text="--"
+                            android:textColor="@color/white"
+                            android:textStyle="bold"
+                            app:autoSizeMaxTextSize="22sp"
+                            app:autoSizeMinTextSize="14sp"
+                            app:autoSizeStepGranularity="1sp"
+                            app:autoSizeTextType="uniform" />
+                        <TextView
+                            android:id="@+id/tvGridRiseSub"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="2dp"
+                            android:text="@string/home_no_live_data"
+                            android:textColor="#E3F2FD"
+                            android:textSize="11sp" />
+                    </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
 
                 <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/cvGridRain"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="140dp"
+                    android:layout_marginStart="8dp"
                     android:layout_weight="1"
-                    app:cardBackgroundColor="@color/card_glass"
-                    app:cardCornerRadius="20dp"
-                    app:cardElevation="2dp"
-                    app:strokeWidth="1dp"
-                    app:strokeColor="@color/card_stroke">
-
-                    <TextView
-                        android:id="@+id/tvMetricPrecip"
+                    app:cardBackgroundColor="#9E9E9E"
+                    app:cardCornerRadius="24dp"
+                    app:cardElevation="4dp">
+                    <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:padding="12dp"
-                        android:text="Precipitation: --"
-                        android:textColor="@color/text_on_card"
-                        android:textSize="13sp" />
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:padding="16dp">
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal">
+                            <ImageView android:layout_width="18dp" android:layout_height="18dp" android:src="@drawable/ic_logo_raindrop" app:tint="@color/white" android:contentDescription="@null" />
+                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginStart="6dp" android:text="@string/conditions_rain" android:textColor="@color/white" android:textSize="11sp" />
+                        </LinearLayout>
+                        <TextView
+                            android:id="@+id/tvGridRainValue"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:maxLines="1"
+                            android:text="--"
+                            android:textColor="@color/white"
+                            android:textStyle="bold"
+                            app:autoSizeMaxTextSize="22sp"
+                            app:autoSizeMinTextSize="14sp"
+                            app:autoSizeStepGranularity="1sp"
+                            app:autoSizeTextType="uniform" />
+                        <TextView
+                            android:id="@+id/tvGridRainSub"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="2dp"
+                            android:text="@string/home_no_live_data"
+                            android:textColor="#E3F2FD"
+                            android:textSize="11sp" />
+                    </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
             </LinearLayout>
 
-            <!-- Mode Description Card -->
+            <!-- Mode Insight Card -->
             <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -565,36 +749,66 @@
                 app:cardBackgroundColor="@color/card_glass_dark"
                 app:cardCornerRadius="24dp"
                 app:cardElevation="2dp"
-                app:strokeWidth="1dp"
-                app:strokeColor="@color/card_stroke">
-
+                app:strokeColor="@color/card_stroke"
+                app:strokeWidth="1dp">
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
                     android:padding="20dp">
-
-                    <TextView
-                        android:id="@+id/tvModeTitle"
+                    <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:drawablePadding="12dp"
                         android:gravity="center_vertical"
-                        android:text="@string/person_mode"
-                        android:textColor="@color/text_on_card"
-                        android:textSize="16sp"
-                        android:textStyle="bold"
-                        app:drawableStartCompat="@drawable/ic_person"
-                        app:drawableTint="@color/text_on_card" />
-
+                        android:orientation="horizontal">
+                        <ImageView
+                            android:id="@+id/ivModeIcon"
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:contentDescription="@null"
+                            android:src="@drawable/ic_person"
+                            app:tint="@color/icon_accent" />
+                        <TextView
+                            android:id="@+id/tvModeTitle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:text="@string/person_mode"
+                            android:textColor="@color/text_on_card"
+                            android:textSize="16sp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
                     <TextView
                         android:id="@+id/tvModeDesc"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="12dp"
+                        android:lineSpacingExtra="4dp"
                         android:text="@string/person_mode_desc"
                         android:textColor="@color/text_on_card"
                         android:textSize="14sp" />
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- 7-Day Forecast (weather forecast for the area, from Open-Meteo) -->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cvDailyForecast"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                app:cardBackgroundColor="@color/card_glass"
+                app:cardCornerRadius="24dp"
+                app:cardElevation="2dp"
+                app:strokeColor="@color/card_stroke"
+                app:strokeWidth="1dp">
+                <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:paddingHorizontal="16dp" android:paddingTop="14dp" android:paddingBottom="10dp">
+                    <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginBottom="8dp" android:gravity="center_vertical" android:orientation="horizontal">
+                        <ImageView android:layout_width="16dp" android:layout_height="16dp" android:src="@drawable/ic_calendar" android:contentDescription="@null" />
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginStart="6dp" android:text="@string/home_7_day_forecast" android:textColor="@color/text_on_card_secondary" android:textSize="12sp" android:textStyle="bold" />
+                    </LinearLayout>
+                    <TextView android:id="@+id/tvDailyStatus" android:layout_width="match_parent" android:layout_height="wrap_content" android:paddingVertical="8dp" android:text="@string/home_loading_forecast" android:textColor="@color/text_on_card_secondary" android:textSize="13sp" />
+                    <LinearLayout android:id="@+id/llDaily" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" />
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="6dp" android:text="@string/home_weather_data_by_open" android:textColor="@color/text_on_card_secondary" android:textSize="10sp" />
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
 
@@ -604,121 +818,166 @@
                 android:layout_marginTop="32dp"
                 android:layout_marginBottom="12dp"
                 android:text="@string/nearby_devices_label"
-                android:textColor="@color/text_on_gradient"
+                android:textColor="@color/text_primary"
                 android:textSize="14sp" />
 
-            <!-- Nearby Samaritan Street (Sensor 2) -->
+            <!-- Nearby: sensor 2 -->
             <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cvNearby2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="12dp"
+                android:clickable="true"
+                android:focusable="true"
                 app:cardBackgroundColor="@color/card_glass"
                 app:cardCornerRadius="24dp"
                 app:cardElevation="2dp"
-                app:strokeWidth="1dp"
-                app:strokeColor="@color/card_stroke">
-
+                app:strokeColor="@color/card_stroke"
+                app:strokeWidth="1dp">
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="16dp">
-
+                    <View
+                        android:id="@+id/vNearby2"
+                        android:layout_width="12dp"
+                        android:layout_height="12dp"
+                        android:background="@drawable/bg_button_solid"
+                        android:backgroundTint="#9E9E9E"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
                     <TextView
-                        android:id="@+id/tvPeachStreet"
-                        android:layout_width="wrap_content"
+                        android:id="@+id/tvNearby2Street"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:layout_marginStart="12dp"
+                        android:layout_marginEnd="8dp"
                         android:text="Samaritan Street"
                         android:textColor="@color/text_on_card"
-                        android:textSize="16sp"
+                        android:textSize="15sp"
                         android:textStyle="bold"
-                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@id/tvNearby2Level"
+                        app:layout_constraintStart_toEndOf="@id/vNearby2"
                         app:layout_constraintTop_toTopOf="parent" />
-
                     <TextView
-                        android:id="@+id/tvPeachLevel"
+                        android:id="@+id/tvNearby2Level"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Offline"
+                        android:text="@string/conditions_offline"
                         android:textColor="#9E9E9E"
+                        android:textSize="13sp"
                         android:textStyle="bold"
+                        app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </com.google.android.material.card.MaterialCardView>
 
-            <!-- Nearby Swingfire Street (Sensor 3) -->
+            <!-- Nearby: sensor 3 -->
             <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cvNearby3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="12dp"
+                android:clickable="true"
+                android:focusable="true"
                 app:cardBackgroundColor="@color/card_glass"
                 app:cardCornerRadius="24dp"
                 app:cardElevation="2dp"
-                app:strokeWidth="1dp"
-                app:strokeColor="@color/card_stroke">
-
+                app:strokeColor="@color/card_stroke"
+                app:strokeWidth="1dp">
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="16dp">
-
-                    <TextView
-                        android:id="@+id/tvLimeStreet"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Swingfire Street"
-                        android:textColor="@color/text_on_card"
-                        android:textSize="16sp"
-                        android:textStyle="bold"
+                    <View
+                        android:id="@+id/vNearby3"
+                        android:layout_width="12dp"
+                        android:layout_height="12dp"
+                        android:background="@drawable/bg_button_solid"
+                        android:backgroundTint="#9E9E9E"
+                        app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
-
                     <TextView
-                        android:id="@+id/tvLimeLevel"
+                        android:id="@+id/tvNearby3Street"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="12dp"
+                        android:layout_marginEnd="8dp"
+                        android:text="Swingfire Street"
+                        android:textColor="@color/text_on_card"
+                        android:textSize="15sp"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@id/tvNearby3Level"
+                        app:layout_constraintStart_toEndOf="@id/vNearby3"
+                        app:layout_constraintTop_toTopOf="parent" />
+                    <TextView
+                        android:id="@+id/tvNearby3Level"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Offline"
+                        android:text="@string/conditions_offline"
                         android:textColor="#9E9E9E"
+                        android:textSize="13sp"
                         android:textStyle="bold"
+                        app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </com.google.android.material.card.MaterialCardView>
 
-            <!-- Nearby Striker Street (Sensor 4) -->
+            <!-- Nearby: sensor 4 -->
             <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cvNearby4"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="100dp"
+                android:clickable="true"
+                android:focusable="true"
                 app:cardBackgroundColor="@color/card_glass"
                 app:cardCornerRadius="24dp"
                 app:cardElevation="2dp"
-                app:strokeWidth="1dp"
-                app:strokeColor="@color/card_stroke">
-
+                app:strokeColor="@color/card_stroke"
+                app:strokeWidth="1dp">
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="16dp">
-
-                    <TextView
-                        android:id="@+id/tvStrikerStreet"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Striker Street"
-                        android:textColor="@color/text_on_card"
-                        android:textSize="16sp"
-                        android:textStyle="bold"
+                    <View
+                        android:id="@+id/vNearby4"
+                        android:layout_width="12dp"
+                        android:layout_height="12dp"
+                        android:background="@drawable/bg_button_solid"
+                        android:backgroundTint="#9E9E9E"
+                        app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
-
                     <TextView
-                        android:id="@+id/tvStrikerLevel"
+                        android:id="@+id/tvNearby4Street"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="12dp"
+                        android:layout_marginEnd="8dp"
+                        android:text="Striker Street"
+                        android:textColor="@color/text_on_card"
+                        android:textSize="15sp"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@id/tvNearby4Level"
+                        app:layout_constraintStart_toEndOf="@id/vNearby4"
+                        app:layout_constraintTop_toTopOf="parent" />
+                    <TextView
+                        android:id="@+id/tvNearby4Level"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Offline"
+                        android:text="@string/conditions_offline"
                         android:textColor="#9E9E9E"
+                        android:textSize="13sp"
                         android:textStyle="bold"
+                        app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
@@ -727,17 +986,69 @@
         </LinearLayout>
     </ScrollView>
 
-    <!-- Floating Logout Button -->
+    <!-- Header Overlay - same spacing as the other screens -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/clTopBar"
+        android:layout_width="match_parent"
+        android:layout_height="88dp"
+        android:elevation="6dp"
+        android:paddingHorizontal="12dp"
+        android:paddingTop="24dp"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/ivSettings"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="@string/settings_title"
+            android:padding="12dp"
+            android:src="@drawable/ic_settings"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:tint="@color/icon_on_gradient" />
+
+        <TextView
+            android:id="@+id/tvHeaderCity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-medium"
+            android:text="@string/header_city"
+            android:textColor="@color/text_on_gradient"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/ivSearch"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="@string/home_search"
+            android:padding="12dp"
+            android:src="@drawable/ic_search"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:tint="@color/icon_on_gradient" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!-- BahGo Assistant chat button (bottom right; opens chat/ChatActivity) -->
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/btnLogout"
+        android:id="@+id/fabChat"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="24dp"
-        android:contentDescription="Logout"
-        android:src="@drawable/ic_launcher_foreground"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="20dp"
+        android:contentDescription="@string/home_ask_the_bahgo_assistant"
+        android:src="@drawable/ic_chat"
         app:backgroundTint="@color/button_primary"
+        app:elevation="8dp"
+        app:tint="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:tint="@color/white" />
+        app:layout_constraintEnd_toEndOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -18,14 +18,13 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
-import com.example.bahgo20.HomeActivity
-import com.example.bahgo20.LocationPermissionActivity
 import com.example.bahgo20.R
 import com.example.bahgo20.SessionManager
-import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.database.ServerValue
+import com.example.bahgo20.utils.PermissionHelper
+import com.example.bahgo20.auth.AuthApi
+import com.example.bahgo20.legal.Legal
+import com.example.bahgo20.utils.Phone
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.tasks.await
 
 class OtpActivity : AppCompatActivity() {
 
@@ -34,28 +33,28 @@ class OtpActivity : AppCompatActivity() {
         private const val EXTRA_FIRST_NAME = "first_name"
         private const val EXTRA_SURNAME = "surname"
         private const val EXTRA_HAS_VEHICLE = "has_vehicle"
-        private const val EXTRA_PASSWORD_HASH = "password_hash"
-        private const val EXTRA_SALT = "salt"
-        private const val TAG = "LoginLog"
-        private const val USER_TAG = "UserStore"
-        private const val DB_URL = "https://bahgo-ee71b-default-rtdb.asia-southeast1.firebasedatabase.app/"
+        private const val TAG = "BahGoSignUp"
+
+        /**
+         * The new password, kept only in memory (never in the Intent or on disk) until the
+         * code is confirmed and it's sent to the server with it.
+         */
+        private var pendingPassword: String? = null
 
         fun start(
             context: Context,
             phone: String,
-            firstName: String? = null,
-            surname: String? = null,
-            hasVehicle: Boolean = false,
-            passwordHash: String? = null,
-            salt: String? = null
+            firstName: String,
+            surname: String,
+            hasVehicle: Boolean,
+            password: String
         ) {
+            pendingPassword = password
             val intent = Intent(context, OtpActivity::class.java).apply {
                 putExtra(EXTRA_PHONE, phone)
                 putExtra(EXTRA_FIRST_NAME, firstName)
                 putExtra(EXTRA_SURNAME, surname)
                 putExtra(EXTRA_HAS_VEHICLE, hasVehicle)
-                putExtra(EXTRA_PASSWORD_HASH, passwordHash)
-                putExtra(EXTRA_SALT, salt)
             }
             context.startActivity(intent)
         }
@@ -70,7 +69,6 @@ class OtpActivity : AppCompatActivity() {
     private lateinit var progress: ProgressBar
     private var timer: CountDownTimer? = null
     private lateinit var sessionManager: SessionManager
-    private val db = FirebaseDatabase.getInstance(DB_URL).reference
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -89,7 +87,10 @@ class OtpActivity : AppCompatActivity() {
         btnVerify = findViewById(R.id.btnVerify)
         progress = findViewById(R.id.progress)
 
-        tvPhone.text = OtpProvider.otp.toE164(phone)
+        // Back button
+        findViewById<android.view.View>(R.id.ivBack).setOnClickListener { finish() }
+
+        tvPhone.text = Phone.toE164(phone)
 
         setupBoxes()
         btnVerify.setOnClickListener { verify() }
@@ -141,93 +142,56 @@ class OtpActivity : AppCompatActivity() {
     private fun verify() {
         val code = currentCode()
         if (code.length < boxes.size) {
-            showError("Enter all 6 digits.")
+            showError(getString(R.string.otp_enter_all_digits))
+            return
+        }
+
+        val password = pendingPassword
+        if (password == null) {
+            // The app was closed in between, so the password is gone: start the sign-up again
+            Toast.makeText(this, R.string.otp_fill_form_again, Toast.LENGTH_LONG).show()
+            finish()
             return
         }
 
         setLoading(true)
-        OtpProvider.otp.verifyOtp(phone, code)
-            .onSuccess {
-                lifecycleScope.launch {
-                    val e164Phone = OtpProvider.otp.toE164(phone)
-                    val isSignUp = intent.hasExtra(EXTRA_FIRST_NAME)
-                    val sanitizedPhone = e164Phone.replace("+", "")
-                    
-                    if (isSignUp) {
-                        val saved = saveUserToRTDB(sanitizedPhone)
-                        if (!saved) {
-                            setLoading(false)
-                            return@launch
-                        }
-                    }
-
-                    sessionManager.saveSession(e164Phone)
-                    saveLoginToRTDB(e164Phone)
-                    
-                    startActivity(
-                        Intent(this@OtpActivity, LocationPermissionActivity::class.java)
-                            .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
-                    )
-                    finish()
-                }
-            }
-            .onFailure {
+        lifecycleScope.launch {
+            // The server checks the code, creates the account (with the consent given on the
+            // sign-up form) and signs us in
+            AuthApi.signUp(
+                phone = phone,
+                code = code,
+                firstName = intent.getStringExtra(EXTRA_FIRST_NAME).orEmpty(),
+                surname = intent.getStringExtra(EXTRA_SURNAME).orEmpty(),
+                password = password,
+                hasVehicle = intent.getBooleanExtra(EXTRA_HAS_VEHICLE, false),
+                consentVersion = if (Legal.hasConsent(this@OtpActivity)) Legal.VERSION else null,
+                analytics = Legal.analyticsAllowed(this@OtpActivity)
+            ).onSuccess { e164 ->
+                pendingPassword = null
+                sessionManager.saveSession(e164.ifEmpty { Phone.toE164(phone) }, intent.getBooleanExtra(EXTRA_HAS_VEHICLE, false))
+                // Location, then notifications (screens for permissions already allowed are skipped)
+                startActivity(PermissionHelper.afterSignInIntent(this@OtpActivity))
+                finish()
+            }.onFailure {
+                Log.w(TAG, "Sign-up failed: ${it.message}")
                 setLoading(false)
-                showError(it.message ?: "Verification failed.")
+                showError(it.message ?: getString(R.string.otp_verification_failed))
                 clearBoxes()
             }
-    }
-
-    private suspend fun saveUserToRTDB(sanitizedPhone: String): Boolean {
-        val firstName = intent.getStringExtra(EXTRA_FIRST_NAME)
-        val surname = intent.getStringExtra(EXTRA_SURNAME)
-        val passwordHash = intent.getStringExtra(EXTRA_PASSWORD_HASH)
-        val salt = intent.getStringExtra(EXTRA_SALT)
-        val hasVehicle = intent.getBooleanExtra(EXTRA_HAS_VEHICLE, false)
-
-        val userData = hashMapOf(
-            "phoneNumber" to sanitizedPhone,
-            "firstName" to firstName,
-            "surname" to surname,
-            "passwordHash" to passwordHash,
-            "salt" to salt,
-            "hasVehicle" to hasVehicle,
-            "createdAt" to ServerValue.TIMESTAMP
-        )
-
-        return try {
-            db.child("users").child(sanitizedPhone).setValue(userData).await()
-            true
-        } catch (e: Exception) {
-            Log.e(USER_TAG, "Error saving user", e)
-            Toast.makeText(this, "Failed to save account. Please try again.", Toast.LENGTH_LONG).show()
-            false
         }
-    }
-
-    private fun saveLoginToRTDB(phoneNumber: String) {
-        val loginData = hashMapOf(
-            "phoneNumber" to phoneNumber,
-            "loginTime" to ServerValue.TIMESTAMP,
-            "status" to "SUCCESS"
-        )
-
-        db.child("logins").push().setValue(loginData)
-            .addOnFailureListener { e ->
-                Log.e(TAG, "RTDB error", e)
-            }
     }
 
     private fun resend() {
         setLoading(true)
         lifecycleScope.launch {
-            OtpProvider.otp.sendOtp(phone)
+            AuthApi.sendOtp(phone, "signup")
                 .onSuccess {
                     clearBoxes()
                     hideError()
                     startResendTimer()
                 }
-                .onFailure { showError(it.message ?: "Could not send the code.") }
+                .onFailure { showError(it.message ?: getString(R.string.otp_send_failed)) }
             setLoading(false)
         }
     }
