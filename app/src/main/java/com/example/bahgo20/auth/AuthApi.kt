@@ -2,24 +2,16 @@ package com.example.bahgo20.auth
 
 import android.util.Base64
 import android.util.Log
-import com.example.bahgo20.BuildConfig
 import com.example.bahgo20.utils.Phone
+import com.example.bahgo20.utils.SmsGateway
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ServerValue
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.tasks.await
 import kotlinx.coroutines.withContext
-import okhttp3.Credentials
-import okhttp3.MediaType.Companion.toMediaType
-import okhttp3.OkHttpClient
-import okhttp3.Request
-import okhttp3.RequestBody.Companion.toRequestBody
-import org.json.JSONArray
-import org.json.JSONObject
 import java.security.MessageDigest
 import java.security.SecureRandom
-import java.util.concurrent.TimeUnit
 import javax.crypto.SecretKeyFactory
 import javax.crypto.spec.PBEKeySpec
 
@@ -39,16 +31,11 @@ import javax.crypto.spec.PBEKeySpec
 object AuthApi {
     private const val TAG = "AuthApi"
     private const val DB_URL = "https://bahgo-ee71b-default-rtdb.asia-southeast1.firebasedatabase.app/"
-    private const val SMS_URL = "https://api.sms-gate.app/3rdparty/v1/message"
 
     private const val CODE_EXPIRY_MS = 5 * 60 * 1000L
     private const val RESEND_COOLDOWN_MS = 60 * 1000L
     private const val MAX_CODE_ATTEMPTS = 3
 
-    private val client = OkHttpClient.Builder()
-        .connectTimeout(15, TimeUnit.SECONDS)
-        .readTimeout(30, TimeUnit.SECONDS)
-        .build()
     private val random = SecureRandom()
     private val users get() = FirebaseDatabase.getInstance(DB_URL).reference.child("users")
     private val logins get() = FirebaseDatabase.getInstance(DB_URL).reference.child("logins")
@@ -127,20 +114,11 @@ object AuthApi {
     }
 
     private fun sendSms(e164: String, text: String) {
-        if (BuildConfig.SMSGATEWAY_USERNAME.isEmpty()) throw AuthException("SMS isn't set up in this build.")
-        val body = JSONObject()
-            .put("textMessage", JSONObject().put("text", text))
-            .put("phoneNumbers", JSONArray().put(e164))
-        val request = Request.Builder()
-            .url(SMS_URL)
-            .header("Authorization", Credentials.basic(BuildConfig.SMSGATEWAY_USERNAME, BuildConfig.SMSGATEWAY_PASSWORD))
-            .post(body.toString().toRequestBody("application/json".toMediaType()))
-            .build()
-        client.newCall(request).execute().use { resp ->
-            if (!resp.isSuccessful) {
-                Log.e(TAG, "SMS failed (HTTP ${resp.code}): ${resp.body?.string()}")
-                throw AuthException("Couldn't send the SMS (HTTP ${resp.code}). Please try again.", resp.code)
-            }
+        if (!SmsGateway.isConfigured) throw AuthException("SMS isn't set up in this build.")
+        try {
+            SmsGateway.send(e164, text)
+        } catch (e: SmsGateway.GatewayException) {
+            throw AuthException("Couldn't send the SMS (HTTP ${e.code}). Please try again.", e.code)
         }
     }
 

@@ -29,6 +29,7 @@ import java.util.Locale
  * says "BahGo is monitoring floods" with the current status of the streets.
  * It's started by Home (when flood alerts are on), stopped by the Settings switch and on logout,
  * and started again after the phone restarts (BootReceiver). It only reads from Firebase.
+ * When a street goes Critical it also texts the logged-in user (alerts/SmsAlert).
  */
 class FloodMonitorService : Service() {
 
@@ -124,6 +125,8 @@ class FloodMonitorService : Service() {
             if (d.notify) {
                 Log.i(TAG, "Alert: sensor $id ${d.risk} at ${r.level} cm")
                 FloodAlerts.showAlert(this, id, d.risk, r.level)
+                // Critical also goes out by SMS to the logged-in user's registered number
+                if (d.risk == Risk.CRITICAL) com.example.bahgo20.alerts.SmsAlert.sendCritical(this, id, r.level)
             }
             if (r.risk == Risk.MEDIUM || r.risk == Risk.CRITICAL) {
                 val word = res().getString(if (r.risk == Risk.CRITICAL) R.string.risk_critical else R.string.risk_warning)

@@ -39,7 +39,7 @@ Water level and rain readings come from street sensors, not from your phone. The
 <p>We use these service providers to run the app. They process data on our behalf or receive only what is needed:</p>
 <ul>
 <li><b>Google Firebase</b> (Realtime Database, Cloud Messaging, and Analytics if you opt in): stores your account, login records and preferences, and delivers notifications. Database location: Singapore (asia-southeast1).</li>
-<li><b>SMS Gateway for Android (sms-gate.app):</b> receives your mobile number and the one-time code to send it to you by SMS.</li>
+<li><b>SMS Gateway for Android (sms-gate.app):</b> receives your mobile number and the one-time code to send it to you by SMS. If you are logged in and a monitored street reaches Critical, it also receives your number and a short flood alert to text you (at most one per street every 30 minutes).</li>
 <li><b>OpenStreetMap Nominatim:</b> receives the text you search and your internet (IP) address.</li>
 <li><b>OSRM routing (routing.openstreetmap.de and router.project-osrm.org):</b> when you use Iwas-Baha Route, receives the start and end points of your route (which can be your current location) and your IP address, to work out walking or driving routes. We don't store your routes.</li>
 <li><b>OpenFreeMap and Hugging Face:</b> deliver map images and the flood-hazard map; they see your IP address and which map area is loaded.</li>

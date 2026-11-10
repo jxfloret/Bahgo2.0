@@ -150,10 +150,11 @@ object KnowledgeBase {
             listOf(
                 "not getting notifications", "how do alerts work", "turn on notifications", "how does bahgo notify me",
                 "why didnt i get an alert", "flood alerts", "monitoring notification", "what is bahgo is monitoring floods",
-                "walang notif", "paano mag notify", "alerts when app is closed", "notification settings", "i am not receiving notifications", "how do i get flood alerts", "no alerts on my phone", "how can bahgo warn me", "why no notification"
+                "walang notif", "paano mag notify", "alerts when app is closed", "notification settings", "i am not receiving notifications", "how do i get flood alerts", "no alerts on my phone", "how can bahgo warn me", "why no notification", "sms alert", "text message alert", "do you send sms"
             ),
             "BahGo sends a notification when a street rises to Warning or Critical, even when the app is closed.\n\n" +
                     "How: a small background monitor keeps listening to the 4 sensors. Android requires a permanent notification for this, so you'll see \"BahGo is monitoring floods\" with the current street status.\n\n" +
+                    "SMS: when a street reaches Critical, BahGo also texts your registered mobile number (while you're logged in), at most once per street every 30 minutes.\n\n" +
                     "Not getting alerts?\n" +
                     "• Turn on Flood Alerts in Settings > Notifications.\n" +
                     "• Allow notifications for BahGo in your phone's settings.\n" +
