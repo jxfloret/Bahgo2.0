@@ -32,10 +32,12 @@ data class BotReply(
 )
 
 /**
- * BahGo Assistant: answers common questions automatically, on the phone, with no AI service.
+ * BahGo Assistant: answers questions on the phone, with no online AI service.
  *
- * It looks for keywords (English and common Filipino words) to pick a topic, then answers.
- * Questions about the water, safety, rain or the forecast use the live sensor readings.
+ *  - Questions about the water, safety, rain or the forecast are recognised by keywords
+ *    (English and common Filipino words) and answered from the live sensor readings.
+ *  - Questions about the app and how it works go to [IntentModel], a TF-IDF model trained on the
+ *    example questions in [KnowledgeBase], which gives the in-depth answers there.
  */
 class ChatBot(
     private val live: () -> List<StreetStatus>,
@@ -46,12 +48,20 @@ class ChatBot(
     companion object {
         const val CONTACT_EMAIL = "hannaduliesco@gmail.com"
 
+        /** How close a question must be to a learned example (cosine similarity, 0..1). */
+        const val MIN_SCORE = 0.30
+        /** Closer match needed to override a live answer when the user asks how something works. */
+        const val EXPLAIN_SCORE = 0.35
+        /** Very close match: wins over a greeting or a bare street name. */
+        const val STRONG_SCORE = 0.55
+
         val STARTERS = listOf(
             "Is it safe to go out?",
             "Water level now",
             "Will it flood soon?",
             "Is it raining?",
             "What do the colors mean?",
+            "How does BahGo work?",
             "Emergency hotlines"
         )
 
@@ -65,8 +75,16 @@ class ChatBot(
     private enum class Topic {
         EMERGENCY, GREETING, THANKS, SAFE, LEVEL, FORECAST, RISE, RAIN, LEVELS_MEANING, FLOOD_RISK,
         OFFLINE, ALERTS, PASSWORD, PHONE, PROFILE, DELETE, PRIVACY, MAP, SEARCH, CHART, MODE,
-        DARK_MODE, TOUR, SENSORS, PREPARE, ABOUT, CONTACT, HELP
+        DARK_MODE, TOUR, SENSORS, PREPARE, ABOUT, CONTACT, HELP, ROUTE
     }
+
+    private val LIVE_TOPICS = setOf(Topic.SAFE, Topic.LEVEL, Topic.FORECAST, Topic.RISE, Topic.RAIN)
+
+    /** Words that mean "explain how it works" rather than "what is it right now". */
+    private val EXPLAIN_CUES = listOf(
+        "how does", "how do the", "how do you", "how is", "how are", "how was", "how accurate", "how reliable",
+        "explain", "why", "work", "works", "paano", "bakit", "what model", "trained", "measured", "computed", "calculated"
+    )
 
     /** Keywords per topic. Weight 3 = strong sign, 1 = weak hint. Checked on whole words/phrases. */
     private val keywords: Map<Topic, List<Pair<String, Int>>> = mapOf(
@@ -141,7 +159,11 @@ class ChatBot(
         ),
         Topic.ABOUT to listOf("who made" to 5, "developers" to 5, "developer" to 4, "about" to 2, "bahgo" to 1, "thesis" to 3, "sti" to 3),
         Topic.CONTACT to listOf("contact" to 5, "email" to 4, "report" to 3, "feedback" to 4, "bug" to 4, "complain" to 4),
-        Topic.HELP to listOf("help" to 2, "what can you do" to 5, "options" to 2, "menu" to 2)
+        Topic.HELP to listOf("help" to 2, "what can you do" to 5, "options" to 2, "menu" to 2),
+        Topic.ROUTE to listOf(
+            "route" to 5, "routes" to 5, "iwas baha" to 6, "way out" to 5, "directions" to 4, "safest way" to 4,
+            "best way" to 3, "daan papunta" to 4, "ruta" to 5
+        )
     )
 
     // Street names people may type, for each sensor
@@ -152,15 +174,48 @@ class ChatBot(
         4 to listOf("striker", "sensor 4", "device 4", "street 4")
     )
 
+    /** Trained once, on the example questions in [KnowledgeBase]. */
+    private val model by lazy { IntentModel(KnowledgeBase.trainingData()) }
+
     fun reply(input: String): BotReply {
         val text = normalize(input)
         if (text.isBlank()) return help()
 
         val street = streetIn(text)
         val topic = topicOf(text)
-            ?: if (street != null) Topic.LEVEL else return fallback()
+        if (topic == Topic.EMERGENCY) return emergency()
 
-        return when (topic) {
+        val learned = model.match(input)?.takeIf { it.score >= MIN_SCORE }
+        val explaining = EXPLAIN_CUES.any { has(text, it) }
+
+        return when {
+            // Live questions (water, safety, rain, forecast) use the sensors, unless the user
+            // asks how something works ("how does the forecast work?")
+            topic in LIVE_TOPICS ->
+                if (explaining && learned != null && learned.score >= EXPLAIN_SCORE) knowledge(learned.label)
+                else answer(topic!!, street, text)
+            topic == Topic.GREETING || topic == Topic.THANKS ->
+                if (learned != null && learned.score >= STRONG_SCORE) knowledge(learned.label) else answer(topic, street, text)
+            // Just a street name: that street's water level
+            topic == null && street != null && (learned == null || learned.score < STRONG_SCORE) -> level(street)
+            learned != null -> knowledge(learned.label)
+            topic != null -> answer(topic, street, text)
+            street != null -> level(street)
+            else -> fallback()
+        }
+    }
+
+    /** An in-depth answer from the knowledge base. */
+    private fun knowledge(e: KnowledgeBase.Entry) = BotReply(
+        e.answer
+            .replace("{MODE}", if (hasVehicle()) "Car Mode" else "Person Mode")
+            .replace("{EMAIL}", CONTACT_EMAIL),
+        e.actions,
+        e.suggestions
+    )
+
+    private fun answer(topic: Topic, street: Int?, text: String): BotReply =
+        when (topic) {
             Topic.EMERGENCY -> emergency()
             Topic.GREETING -> BotReply("Hello! How can I help? You can ask about the water level, safety, rain or the app.", suggestions = STARTERS)
             Topic.THANKS -> BotReply("You're welcome! Stay safe. 💙", suggestions = listOf("Water level now", "Is it safe to go out?"))
@@ -189,8 +244,8 @@ class ChatBot(
             Topic.ABOUT -> about()
             Topic.CONTACT -> contact()
             Topic.HELP -> help()
+            Topic.ROUTE -> knowledge(KnowledgeBase.entries.first { it.id == "route_planner" })
         }
-    }
 
     // ───────────────────────── Understanding the question ─────────────────────────
 
@@ -527,6 +582,7 @@ class ChatBot(
 
     private fun help() = BotReply(
         "I can help with:\n• Water levels, safety and the 30-minute forecast for each street\n• Rain now and the 7-day outlook\n" +
+                "• How BahGo works: the sensors, the forecast and flood risk models, the NOAH map and Iwas-Baha Route\n" +
                 "• What the colors and levels mean\n• Alerts, account, password and privacy\n• Emergency hotlines and flood safety tips",
         suggestions = STARTERS
     )
