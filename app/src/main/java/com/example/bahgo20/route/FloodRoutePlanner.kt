@@ -649,10 +649,10 @@ class FloodRoutePlanner(
         body.addView(title)
         body.addView(text(ctx.getString(R.string.route_none_safe_text), 13f, R.color.text_on_card).apply { setPadding(0, dp(8), 0, dp(8)) })
         body.addView(MaterialButton(ctx).apply {
-            text = ctx.getString(R.string.route_call_911)
+            text = ctx.getString(R.string.route_call_rescue)
             setIconResource(R.drawable.ic_phone)
             backgroundTintList = ColorStateList.valueOf(color(R.color.status_dangerous))
-            setOnClickListener { ctx.startActivity(Intent(Intent.ACTION_DIAL, Uri.parse("tel:911"))) }
+            setOnClickListener { ctx.startActivity(com.example.bahgo20.utils.EmergencyContact.dialIntent()) }
         })
         card.addView(body)
         return card

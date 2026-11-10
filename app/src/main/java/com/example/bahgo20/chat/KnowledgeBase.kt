@@ -174,7 +174,7 @@ object KnowledgeBase {
                     "2. BahGo gets several walking or driving routes from OpenStreetMap routing (OSRM), matching Person or Car Mode.\n" +
                     "3. Each route is checked against the Project NOAH 5-year flood-hazard map (how many metres run through Low, Medium and High hazard areas) and the live sensors near it (within about 60 m).\n" +
                     "4. Results: green = easiest & safest; orange = passable with caution (with the reason); red = avoid (passes a Critical street). Car Mode is stricter: Warning water of 45 cm or more means Avoid.\n\n" +
-                    "If no safe route exists, BahGo says so and points you to 911.",
+                    "If no safe route exists, BahGo says so and gives you a button to call the Southside BERT Rescue Team (0998 975 0368).",
             suggestions = listOf("What is the NOAH flood map?", "What is Person Mode?")
         ),
 

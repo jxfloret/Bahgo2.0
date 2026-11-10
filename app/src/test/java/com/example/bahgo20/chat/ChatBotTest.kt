@@ -72,8 +72,11 @@ class ChatBotTest {
     @Test
     fun emergencyWinsOverOtherWords() {
         val r = ask("help me im trapped in the flood water")
-        assertTrue(r.text.contains("911"))
+        assertTrue(r.text.contains("Southside BERT Rescue Team"))
+        assertTrue(r.text.contains("0998 975 0368"))
         assertTrue(r.actions.contains(BotAction.CallEmergency))
+        assertTrue(BotAction.CallEmergency.label.contains("Southside BERT"))
+        assertTrue(ask("number of the BERT rescue team").actions.contains(BotAction.CallEmergency))
     }
 
     @Test

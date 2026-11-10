@@ -1,6 +1,7 @@
 package com.example.bahgo20.chat
 
 import com.example.bahgo20.Risk
+import com.example.bahgo20.utils.EmergencyContact
 import java.util.Locale
 import kotlin.math.roundToInt
 
@@ -20,7 +21,7 @@ sealed class BotAction(val label: String) {
     class OpenStreet(val id: Int, street: String) : BotAction("Open $street")
     object OpenSettings : BotAction("Open Settings")
     object OpenAbout : BotAction("Open About")
-    object CallEmergency : BotAction("Call 911")
+    object CallEmergency : BotAction("Call ${EmergencyContact.SHORT_NAME}")
     object Email : BotAction("Email the BahGo Team")
     object ReplayTour : BotAction("Replay the Home tour")
 }
@@ -91,7 +92,7 @@ class ChatBot(
         Topic.EMERGENCY to listOf(
             "emergency" to 5, "911" to 5, "hotline" to 5, "hotlines" to 5, "rescue" to 5, "trapped" to 5,
             "drowning" to 5, "evacuate" to 4, "evacuation" to 4, "saklolo" to 5, "help me" to 5,
-            "tulong" to 4, "red cross" to 5, "stuck" to 3
+            "tulong" to 4, "red cross" to 5, "stuck" to 3, "bert" to 5, "southside" to 4, "rescue team" to 5
         ),
         Topic.GREETING to listOf(
             "hi" to 2, "hello" to 2, "hey" to 2, "good morning" to 2, "good afternoon" to 2,
@@ -441,7 +442,8 @@ class ChatBot(
     // ───────────────────────── App and help answers ─────────────────────────
 
     private fun emergency() = BotReply(
-        "If you or someone is in danger, call 911 now (national emergency hotline).\n\n" +
+        "If you or someone is in danger, call the ${EmergencyContact.NAME} now: ${EmergencyContact.NUMBER_DISPLAY}.\n\n" +
+                "• National emergency hotline: 911\n" +
                 "• Philippine Red Cross: 143\n" +
                 "• Your barangay hall and the Taguig City rescue office can also help.\n\n" +
                 "While waiting: move to higher ground, stay away from flood water and electrical wires, and don't try to cross moving water.",

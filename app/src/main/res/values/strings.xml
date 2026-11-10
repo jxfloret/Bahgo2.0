@@ -564,8 +564,8 @@
     <string name="route_advice_car_caution">Drive slowly and steadily and don\'t stop in the water. Small cars can stall in knee-deep water, so turn back if it looks deeper.</string>
     <string name="route_advice_car_avoid">Don\'t drive here: too deep for most cars. Take another route.</string>
     <string name="route_none_safe_title">No safe route right now</string>
-    <string name="route_none_safe_text">Every route we found passes a flooded street. Stay where you are if you can, and move to higher ground if the water reaches you. In an emergency, call 911.</string>
-    <string name="route_call_911">Call 911</string>
+    <string name="route_none_safe_text">Every route we found passes a flooded street. Stay where you are if you can, and move to higher ground if the water reaches you. In an emergency, call the Southside BERT Rescue Team at 0998 975 0368.</string>
+    <string name="route_call_rescue">Call Southside BERT (0998 975 0368)</string>
     <string name="route_sensor_area">Sensor %1$d · Palar, Taguig</string>
     <string name="tour_route_title">Iwas-Baha Route</string>
     <string name="tour_route_text">Type where you\'re going and tap Find safe route. BahGo checks every road against the NOAH flood map and the live sensors, then draws the safest way in green and other passable options in orange.</string>

@@ -258,7 +258,7 @@ class ChatActivity : AppCompatActivity() {
             })
             BotAction.OpenSettings -> startActivity(Intent(this, SettingsActivity::class.java))
             BotAction.OpenAbout -> startActivity(Intent(this, AboutActivity::class.java))
-            BotAction.CallEmergency -> open(Intent(Intent.ACTION_DIAL, Uri.parse("tel:911")))
+            BotAction.CallEmergency -> open(com.example.bahgo20.utils.EmergencyContact.dialIntent())
             BotAction.Email -> open(Intent(Intent.ACTION_SENDTO, Uri.parse("mailto:${ChatBot.CONTACT_EMAIL}")).apply {
                 putExtra(Intent.EXTRA_SUBJECT, "BahGo question")
             })
